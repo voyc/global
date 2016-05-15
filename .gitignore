@@ -1,0 +1,5 @@
+# ignore build output
+html/vc.js
+html/vcl.js
+html/vc.css
+html/index.php

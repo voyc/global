@@ -1,0 +1,67 @@
+<!-- (c) Copyright 2006 voyc.com  -->
+<html>
+	<head>
+		<title>vote test</title>
+		
+		<script src="../jslib/debug.js" type="text/javascript"></script>
+		<script src="../jslib/xhr.js" type="text/javascript"></script>
+		
+		<script>
+			var g = {};
+			g.debug = new Debug(false);
+	
+			// one-time initialize static xhr base url		
+			//Xhr.base = "http://www.dev.mapteam.com/~jhagstrand/voyc/svc/";
+			Xhr.base = "";
+	
+			test1 = '<request>\n'+
+						'<action>vote</action>\n'+
+						'<token>1909aa7d02109a325acb5bbf68b5c2af</token>\n'+
+						'<vote>-1</vote>\n'+
+						'<storyid>31903</storyid>\n'+
+					'</request>\n';
+
+			// test object
+			function MyObj() {
+			}
+			
+			MyObj.prototype = {
+				callServer : function() {
+					var xhr = new Xhr();
+					var self = this;
+					xhr.callback = function(response) {self.onCallReturn(response);};
+					xhr.data = document.getElementById("xinput").value;
+					xhr.program = "vote";
+					xhr.callServer();
+				},
+			
+				onCallReturn : function(response) {
+					document.getElementById("xoutput").value = response;
+				}
+			}
+			
+			g.myObj = new MyObj();
+			
+			set = function(v) {
+				document.getElementById("xinput").value = v;
+			};
+			xclear = function() {
+				document.getElementById("xinput").value = '';
+				document.getElementById("xoutput").value = '';
+			};
+
+			//onload = set(test1);
+		</script>
+	</head>
+
+	<body>
+		<input type="button" value="test1" onclick="set(test1);"/>
+		<input type="button" value="clear" onclick="xclear();"/>
+		<br/>
+		<textarea id="xinput" cols="100" rows="7"></textarea><br/>
+		<input type="button" value="vote" onclick="g.myObj.callServer();"><br/>
+		<textarea id="xoutput" cols="100" rows="7"></textarea><br/>
+	</body>
+</html>
+<!-- (c) Copyright 2006 voyc.com  -->
+

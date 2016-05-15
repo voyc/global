@@ -1,0 +1,97 @@
+div#detail {
+	background-color:#dddddd;
+	overflow-x:hidden;
+	overflow-y:auto;
+	height:440;   /* for startup */
+	width:404;    /* for startup */
+}
+div#detail div.detailComponent{
+	padding:2%;
+	font-family:arial;
+	font-size:12pt;
+	display:none;
+}
+div#detail div#edit td {
+	font-size:10pt;
+}
+div.detailComponent h1 {
+	font-family:arial;
+	font-size:14pt;
+	font-weight:bold;
+	margin:0;
+	padding:0;
+}
+div.detailComponent h2 {
+	font-family:arial;
+	font-size:12pt;
+	font-weight:bold;
+	margin:3% 0 0 0;
+	padding:0;
+}
+div.detailComponent p {
+	margin:1% 0 2% 0;
+	padding:0;
+}
+div#detail img.photo {
+	width:100%;
+}
+div#detail div#vote {
+	float:right;
+	text-align:center;
+	margin-top:5px;
+	border:1px solid #D70238;
+}
+div#votescore {
+	color:#D70238;
+	font-family:arial;
+	font-size:14pt;
+	font-weight:bold;
+	margin:0px 3px;
+}
+div#detail div#voteup, div#votedown {
+	background-image: url(../images/vote.png);
+	background-repeat:norepeat;
+	margin-top:3px;
+	height:15px;
+	width:15px;
+	left:-7px;
+	margin-left:50%;
+	position:relative;
+	cursor:pointer;
+}
+div#detail div#voteup.out {
+	background-position:0px 0px;
+}
+div#detail div#voteup.over {
+	background-position:15px 0px;
+}
+div#detail div#votedown.out {
+	background-position:0px 15px;
+}
+div#detail div#votedown.over {
+	background-position:15px 15px;
+}
+a#author, span#colon {
+	color:blue;
+	font-weight:bold;
+}
+span.headline {
+	font-weight:bold;
+}
+div#detail div#tags,div#dateline {
+	margin-top:8px;
+	font-size:10pt;
+}
+span#recordid {
+	font-size:8pt;
+}
+.fine {
+	font-size:10pt;
+}
+div#editlink {
+	float:right;
+}
+div#comments {
+	margin-top:8px;
+	border-top:1px solid black;
+}

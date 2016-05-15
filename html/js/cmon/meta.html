@@ -1,0 +1,327 @@
+﻿					<div id="startup" class="detailComponent" style="display:block;">
+						<?php print(getStartupPanel($_REQUEST)); ?>
+					</div>
+					<div id="content" class="detailComponent">
+						<img id="photo" class="photo" src="images/no-photo.png"/>
+						<div id="vote">
+							<div id="voteup" class="out"></div>
+							<div id="votescore">1000</div>
+							<div id="votedown" class="out"></div>
+						</div>
+						<div id="tweet">
+							<a id="author" href="future"></a><span id="colon">:</span> 
+							<span id="headline" class="headline"></span> 
+							<span id="abstract"></span>
+							(<a id="fullstory" class="fine" target="new" href="future">full story</a>
+							<span class="fine" > source: </span>
+							<a id="source" class="fine" href="future"></a>)
+						</div>
+						<div id="tags">tags: </div>
+						<div id="dateline">
+							<div id="editlink">
+								<span id="recordid"></span>
+								<a href="javascript:g.detail.edit()">edit</a>
+							</div>
+							<span id="placename"></span>  - 
+							<span id="time"></span>
+						</div>
+						<div id="comments"></div>
+					</div>
+					<div id="settings" class="detailComponent">
+						<h1>Settings</h1>
+						Screen width: <span id="setting_wid"></span><br/>
+						Screen height: <span id="setting_ht"></span><br/>
+						Cookie: <span id="setting_cookie"></span><br/>
+					</div>
+					<div id="registerWelcome" class="detailComponent">
+						<h1>Registration complete</h1>
+						Thank you for registering.<br/>
+						You can now publish and vote.<br/>
+						You are logged in and good to go.<br/>
+					</div>
+					<div id="loginWelcome" class="detailComponent">
+						<h1>Login successful</h1>
+						Welcome.<br/>
+						You are logged in.<br/>
+					</div>
+					<div id="logoutWelcome" class="detailComponent">
+						<h1>Logout successful</h1>
+						Thank you<br/>
+						You are logged out.<br/><br/>
+						<a href="javascript:g.detail.switchPanel('login')">Login</a>
+					</div>
+					<div id="edit" class="detailComponent">
+						<h1>Post one story</h1>
+						<div id="edittableboundary">
+							<table id="edittable" cellspacing="2" cellpadding="0" border="0">
+								<tr><td width="93px">Headline:</td><td><input id="inheadline"/></td></tr>
+								<tr><td valign="top">Story:</td><td><textarea id="instory"/></textarea></td></tr>
+								<tr><td>Tags:</td><td><input id="intags"/></td></tr>
+								<tr><td>Story URL:</td><td><input id="instoryurl"/></td></tr>
+								<tr><td>Photo URL:</td><td><input id="inphotourl"/></td></tr>
+								<tr><td>Thumbnail&nbsp;URL:</td><td><input id="inthumburl"/></td></tr>
+
+								<tr id="editadv1"><td>Place Name:</td><td><input id="inplace"
+										onkeyup="if (this.value.length > 0) {g.detail.placeHasContent=true;$('hookdown').src='images/hookdown_normal.gif';} else {g.detail.placeHasContent=false;$('hookdown').src='images/hookdown_disabled.gif';}"
+										/></td></tr>
+								<tr id="editadv2"><td><table cellspacing="0" cellpadding="0" width="100%"><tr><td>Lat, Long:</td><td align="right"><img id="hookdown" 
+										src='images/hookdown_disabled.gif'
+										onmouseover="if (g.detail.placeHasContent) this.src='images/hookdown_over.gif'"
+										onmouseout="if (g.detail.placeHasContent) this.src='images/hookdown_normal.gif'"
+										onclick="if (g.detail.placeHasContent) g.detail.lookupPlace()"
+										/></td></tr></table></td><td><input id="inlat"/><input id="inlon"/></td></tr>
+								<tr id="editadv3"><td>Time:</td><td><input id="intime"/></td></tr>
+								<tr><td colspan="2" align="center">
+									<div id="updateBtns">
+										<button id="inupload" onclick="g.detail.editSave()">Save</button>
+										<button id="indelete" onclick="g.detail.editDelete()">Delete</button>
+										<button id="incancel" onclick="g.detail.editCancel()">Cancel</button>
+									</div>
+									<div id="insertBtns">
+										<button id="inupload" onclick="g.detail.editSave()">Insert</button>
+										<button id="incancel" onclick="g.detail.editCancel()">Cancel</button>
+									</div></td></tr>
+								<tr><td colspan="2"><span id="outmsg"></span></td></tr>
+							</table>
+						</div>
+					</div>
+					<div id="myaccount" class="detailComponent">
+						<h1>My Account</h1>
+						<div>
+							<table cellspacing="8">
+								<tbody>
+									<tr>
+										<td class="fb_label">
+											<label for="username">Username:</label>
+										</td>
+										<td class="fb_field">
+											<input type="text" value="" id="inmyaccountusername"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="password">Password:</label>
+										</td>
+										<td class="fb_field">
+											<input type="password" value="" id="inmyaccountpassword"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="confirmPassword">Confirm password:</label>
+										</td>
+										<td class="fb_field">
+											<input type="password" value="" id="inmyaccountconfirmpassword"/>
+										</td>
+									</tr>
+									<tr>
+										<td valign="top" class="fb_label">
+											<label for="email">Email:</label>
+										</td>
+										<td valign="top" class="fb_field">
+											<input type="text" value="" id="inmyaccountemail" />
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" align="center">
+											<input type="button" value="Save" id="saveBtn" onclick="g.user.saveMyAccount()"/>
+										</td>
+									</tr>
+									<tr><td colspan="2"><span id="outregistermsg"></span></td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="register" class="detailComponent">
+						<h1>Register</h1>
+						<div>
+							<table cellspacing="8">
+								<tbody>
+									<tr>
+										<td class="fb_label">
+											<label for="username">Username:</label>
+										</td>
+										<td class="fb_field">
+											<input type="text" value="" id="inusername"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="password">Password:</label>
+										</td>
+										<td class="fb_field">
+											<input type="password" value="" id="inpassword"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="confirmPassword">Confirm password:</label>
+										</td>
+										<td class="fb_field">
+											<input type="password" value="" id="inconfirmpassword"/>
+										</td>
+									</tr>
+									<tr>
+										<td valign="top" class="fb_label">
+											<label for="email">Email:</label>
+										</td>
+										<td valign="top" class="fb_field">
+											<input type="text" value="" id="inemail" />
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" align="center">
+											<input type="button" value="Register" id="registerBtn" onclick="g.user.register()"/>
+										</td>
+									</tr>
+									<tr><td colspan="2"><span id="outregistermsg"></span></td></tr>
+									<tr><td colspan="2"><br/>Already have an account? <br/>
+										<a href="javascript:g.detail.switchPanel('login')">Login</a> now.</td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="login" class="detailComponent">
+						<h1>Login</h1>
+						<div>
+							<table cellspacing="8">
+								<tbody>
+									<tr>
+										<td class="fb_label">
+											<label for="username">Username:</label>
+										</td>
+										<td class="fb_field">
+											<input type="text" value="" id="inloginusername"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="password">Password:</label>
+										</td>
+										<td class="fb_field">
+											<input type="password" value="" id="inloginpassword"/>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" align="center">
+											<input type="button" value="Login" id="loginBtn"  onclick="g.user.login()"/>
+										</td>
+									</tr>
+									<tr><td colspan="2"><span id="outloginmsg"></span></td></tr>
+									<tr><td colspan="2"><br/>Need an account? <br/>
+										<a href="javascript:g.detail.switchPanel('register')">Register</a> now.  It's free.</td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="publish" class="detailComponent">
+						<h1>Publish</h1>
+						<a href="javascript:g.detail.insert()">Post one story</a><br/>
+						<a href="javascript:g.detail.switchPanel('publishFeed')">Publish a feed</a><br/>
+						<a href="javascript:g.detail.switchPanel('uploadFile')">Upload a file</a><br/><br/>
+						Email a gps cellphone photo to:<br/>
+						post@voyc.com
+					</div>
+					<div id="publishFeed" class="detailComponent">
+						<h1>Publish a feed</h1>
+						<div>
+							<table cellspacing="8">
+								<tbody>
+									<tr>
+										<td class="fb_label">
+											<label for="url">Service:</label>
+										</td>
+										<td class="fb_field">
+											<select id="service">
+												<option value="rss">RSS</option>
+												<option value="flickr">flickr</option>
+												<option value="moblog">moblog</option>
+												<option value="twitpic">twitpic</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="url">URL:</label>
+										</td>
+										<td class="fb_field">
+											<input type="text" value="" id="url" style="width:300px"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="url">Feed&nbsp;name:</label>
+										</td>
+										<td class="fb_field">
+											<input type="text" value="" id="feedname"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="fb_label">
+											<label for="url">Frequency:</label>
+										</td>
+										<td class="fb_field">
+											<select id="service">
+												<option value="0">never</option>
+												<option value="1">one time only</option>
+												<option value="2">every five minutes</option>
+												<option value="3">hourly</option>
+												<option value="4">daily</option>
+												<option value="5">weekly</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" align="center">
+											<input type="button" value="Publish" id="publishBtn" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div>
+							To manage all your current feeds, go to 
+							<a href="javascript:g.user.myAccount()">MyAccount</a>.
+						</div>
+					</div>
+					<div id="uploadFile" class="detailComponent">
+						<h1>Upload a file</h1>
+						<div>
+							<form action="svc/upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="g.voyc.startUpload();" >
+								<input id="uploadtoken" name="uploadtoken" type="hidden" value="" />
+								Source name: <input id="uploadsource" name="uploadsource" type="text" /><br/><br/>
+								File: <input id="uploadfile" name="uploadfile" type="file" /><br/><br/>
+								<input type="submit" name="submitBtn" value="Upload" />
+							</form>
+							<p id="result"></p>
+							<!-- I'm commenting this line because src="#" causes the onload to fire twice.
+							<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+							-->
+						</div>
+					</div>
+					<div id="menu" class="detailComponent">
+						<h1>Menu</h1>
+						<a href="javascript:g.detail.switchPanel('search')"	id="menuSearch"   >Search</a>
+						<a href="javascript:g.detail.switchPanel('publish')"   id="menuPublish"  >Publish</a>
+						<a href="javascript:g.detail.switchPanel('login')"	 id="menuLogin"	>Login</a>
+						<a href="javascript:g.detail.switchPanel('register')"  id="menuRegister" >Register</a>
+						<a href="javascript:g.user.logout()"				   id="menuLogout"   >Logout</a>
+						<a href="javascript:g.detail.switchPanel('myaccount')" id="menuMyAccount">My Account</a>
+						<a href="javascript:g.detail.switchPanel('settings')"  id="menuSettings" >Settings</a>
+						<a href="javascript:g.detail.switchPanel('welcome')"   id="menuAbout"	>About Us</a>
+						<a href="javascript:g.detail.switchPanel('feedback')"  id="menuFeedback" >Feedback</a>
+						<a href="javascript:g.coordinates.now()"			   id="menuNow"	  >Now</a>
+					</div>
+					<div id="feedback" class="detailComponent">
+						<h1>Feedback</h1>
+					</div>
+					<div id="search" class="detailComponent">
+						<h1>Search</h1>
+						<input id="searchbox2" style="width:100%;margin-bottom:2px;" value="Enter search keywords here"></input><br/>
+						<div style="text-align:right">
+							<input id="filterbtn2" type="button" value="Filter" title="Filter current stories by these keywords"></input>
+							<input id="searchbtn2" type="button" value="Search" title="Search all time and space for these keywords"></input>
+						</div>
+					</div>
+				</div>
+			</td>

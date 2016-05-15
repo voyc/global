@@ -1,0 +1,260 @@
+﻿<link rel="stylesheet" href="assets/objectmodel.css" type="text/css" />
+<style>
+#index { left:0em; top:0em;}
+#voycjs { left:0em; top:10em;}
+#voyc { left:20em; top:0em;}
+#coordinates { left:40em; top:0em;}
+#bounds { left:60em; top:0em;}
+#data { left:60em; top:20em;}
+#controller{ left:0em; top:60em;}
+#map{ left:20em; top:60em;}
+#detail{ left:40em; top:60em;}
+#timeline{ left:60em; top:60em;}
+</style>
+
+
+<div id='index'><b>index.html</b>
+<hr/>voyc <i>object</i>
+</div>
+
+<div id='voycjs'><b>Voyc</b>
+<hr/>map <i>object</i>
+controller <i>object</i>
+coordinates <i>object</i>
+timeline <i>object</i>
+detail <i>object</i>
+win <i>object</i>
+data <i>object</i>
+user <i>object</i>
+editor <i>object</i>
+updater <i>object</i>
+colors <i>struct</i>
+startupStoryId <i>id</i>
+startupq <i>boolean</i>
+<hr/>$()
+appendScript()
+cloneArray()
+subClass()
+</div>
+
+<div id='voyc'><b>class Voyc</b>
+<hr/>onLoad()
+onGMapAPILoaded()
+onGMapLoaded()
+onResize()
+onResizeEnd()
+layout()
+onMoveKnob()
+ondrop()
+saveKnobPct()		
+popup()
+popupEditList()
+populateEditList()
+readCookies(coordinates)
+bindCookieWriters()
+readParams()
+startUpload()
+stopUpload()
+showNoData()
+</div>
+
+<div id='coordinates'><b>class Coordinates</b>
+<hr/>timepoint <i>When</i>
+timebegin <i>When</i>
+timeend <i>When</i>
+n <i>float</i>
+s <i>float</i>
+e <i>float</i>
+w <i>float</i>
+mapcenter <i>LatLng</i>
+maplevel <i>int</i>
+maptype <i>string</i>
+timelevel <i>int</i>
+searchtext <i>string</i>
+querymode <i>string</i>
+maxTimePoints <i>int</i>
+magnitude <i>int</i>
+stage <i>int</i>
+changed <i>struct</i>
+selected <i>int</i>
+hovered <i>int</i>
+observer <i>object</i>
+stepFactor <i>float</i>
+numSteps <i>int</i>
+<hr/>now()
+setTime()
+getTime()
+setTimeLevel()
+getTimeLevel()
+getMap()
+setMap()
+getMapLevel()
+setMapLevel()
+getMapType()
+setMapType()
+codeToMapType()
+mapTypeToCode()
+setObserver()
+clearChangedFlags()
+hover()
+select()
+getBounds()
+doSearch()
+doCommand()
+scrollTime()
+stepTime()
+</div>
+
+<div id='bounds'><b>structure Bounds</b>
+<hr/>begin <i>When</i>
+end <i>When</i>
+n <i>float</i>
+s <i>float</i>
+e <i>float</i>
+w <i>float</i>
+q <i>string</i>
+qm <i>string</i>
+stage <i>int</i>
+cid <i>int</i>
+</div>
+
+<div id='data'><b>class VData</b>
+<hr/>data <i>object</i>
+bounds <i>struct</i>
+request.bounds <i>struct</i>
+response.bounds <i>struct</i>
+observer <i>object</i>
+timeCall <i>float</i>
+timeDownload <i>float</i>
+<hr/>base <i>string</i>
+spanMultiplier <i>float</i>
+threshholdMultiplier <i>float</i>
+<hr/>setObserver()
+read()
+ready()
+clear()
+readDetailById()
+onDetailLoaded()
+count()
+readUrl()
+readyUrl()
+</div>
+
+<div id='controller'><b>class Controller</b>
+<hr/>data <i>object</i>
+height <i>int</i>
+widthEnds <i>int</i>
+widthCenter <i>int</i>
+imgPath <i>string</i>
+lcdPattern <i>array</i>
+<hr/>create
+showLoader()
+setObserver()
+onRead()
+onData()
+onSearch()
+onTimeChange()
+setTime()
+onTimeZoom()
+resize()
+incrementTime()
+playPause()
+</div>
+
+<div id='detail'><b>class VDetail</b>
+<hr/>observer <i>object</i>
+id <i>int</i>
+version <i>int</i>
+score <i>int</i>
+marker <i>object</i>
+editing <i>boolean</i>
+patternStatus <i>string</i>
+patternMessage <i>string</i>
+patternId <i>id</i>
+<hr/>layout()
+voteup()
+votedown()
+voteover()
+voteout()
+voted()
+displayScore()
+setObserver()
+onDetail()
+loadDetailPanel()
+onData()
+onLogout()
+showMenuPanel()
+switchPanel()
+clearForm()
+insert()
+edit()
+populateEditPanel()
+lookupPlace()
+editSave()
+editCancel()
+editStop()
+</div>
+
+<div id='timeline'><b>class VTimeline</b>
+<hr/>e <i>div element</i>
+when <i>When</i>
+zoomLevel <i>When</i>
+zoomDiscreet <i>When</i>
+preZoomCenterTime <i>When</i>
+killOnScroll <i>When</i>
+zoomDiscreetMin <i>When</i>
+zoomDiscreetMax <i>When</i>
+zoomFactor <i>When</i>
+pixelsPerInch <i>When</i>
+tl <i>When</i>
+resizeTimerId <i>When</i>
+zoomer <i>When</i>
+radius_n <i>When</i>
+radius_h <i>When</i>
+radius_d <i>When</i>
+minStreams <i>When</i>
+streamHeight <i>When</i>
+<hr/>create()
+resize()
+resetCenterTime()
+positionCenterline()
+setWhen()
+getBegin()
+getEnd()
+onScroll()
+setObserver()
+onHover()
+onSelect()
+onData()
+redraw()
+setZoom()
+calcZoom()
+calcLevel()
+debugShowInternals()
+getStreamHeight()
+getMaxStreams()
+getMaxTimePoints()
+</div>
+
+<div id='map'><b>class Map</b>
+<hr/>e <i>div element</i>
+gmap <i>object</i>
+centerChanged <i>boolean</i>
+zoomChanged <i>boolean</i>
+boundsChanged <i>boolean</i>
+maptypeidChanged <i>boolean</i>
+<hr/>create()
+onData()
+onMapMove()
+onMapZoom()
+onMapChange()
+onTimeChange()
+onTimeZoom()
+onHover()
+onSelect()
+setObserver()
+openEditor()
+onmoveend()
+onzoomend()
+onidle()
+</div>

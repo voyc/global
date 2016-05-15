@@ -1,0 +1,2 @@
+wget -O /home/jhagstrand/work/gv.html http://globalvoicesonline.org/feed/
+/usr/local/bin/php /home/jhagstrand/webapps/voyc/cli/readFeedLoop.php 3

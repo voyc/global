@@ -1,0 +1,71 @@
+<!-- (c) Copyright 2005, 2006, 2008 MapTeam, Inc. -->
+<html>
+	<head>
+		<title>test Editor</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		
+		<style>
+			.winborder {background-color: #3369C1;}
+			.winmargin {background-color: #ffffff;}
+			.wintitlebar {background-color: #3369C1;}
+			.wincontent {background-color: #ffffff;}
+		</style>
+
+		<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAATYD-kkkOSI50UQgjtMIQ-xRgyleS7YN6prL5IOsYDnkJQYD5IhSevX_ntJNr0DpZjmHAdDA4-m93hA" type="text/javascript"></script>
+
+		<script src="../jslib/debug.js" language="javascript"></script>
+		<script src="../jslib/map.js" language="javascript"></script>
+
+		<!-- the following are for the Tree control -->
+		<link rel="stylesheet" href="../jslib/simpleTree/simpleTree.css" type="text/css" />
+		<script type="text/javascript" src="../jslib/jquery/jquery-1.2.6.js"></script>
+		<script type="text/javascript" src="../jslib/simpleTree/jquery.simple.tree.js"></script>
+		<script type="text/javascript" src="../jslib/simpleTree/tree.js"></script>
+
+		<!-- to support editing -->
+		<script src="../jslib/dragger.js" language="javascript"></script>
+		<script src="../jslib/win.js" language="javascript"></script>
+		<script src="../jslib/xhr.js" type="text/javascript"></script>
+		<script src="updater.js" type="text/javascript"></script>
+		<script src="editor.js" type="text/javascript"></script>
+
+		<script language="javascript">
+			var g = {};
+			g.debug = new Debug(true);
+			window.onload = onPageLoad;
+			g.map = null;
+			g.updater = null;
+			g.editor = null;
+			
+			function onPageLoad() {
+				g.map = new Map(document.getElementById("map"), {controls:"none"});
+				g.map.addControl(new GSmallMapControl());
+				g.map.addControl(new GMapTypeControl());
+				g.map.setCenter(new GLatLng(29.8006958941901, 100.309703801667), 4);
+
+				Xhr.base = "../svc/";
+				g.updater = new Updater();
+				g.win = new Win();
+				Win.imagebase = "../images/";
+				g.editor = new Editor( g.map, g.updater, g.win);
+			}
+			
+			function popup() {
+				//var opts = new GInfoWindowOptions( {
+				g.map.openInfoWindowHtml(new GLatLng(29.8006958941901, 100.309703801667), "hi <a href='javascript:void(0)' onclick='edit()'>edit</a>", { "maxContent":"this window is maximized"});
+			}
+			
+			function edit() {
+				var id = 3;
+				g.editor.open(id);
+			}
+		</script>
+	</head>
+	
+	<body>
+		hello
+		<input type="button" onclick="popup()" value="popup" />
+		<input type="button" onclick="edit()" value="edit" />
+		<div id="map" style="position:absolute; top:80px; left:480px; width:500px; height:427px;"></div>
+	</body>
+</html>

@@ -1,0 +1,132 @@
+﻿<!-- (c) Copyright 2014 Voyc.com -->
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta equiv="X-UA-Compatible" content="IE=8"> <!-- for ie8 drag-n-drop bug -->
+<title>Event Model Test</title>
+<script>var voyc = {};</script>
+<script src="jslib/debug.js"></script>
+<script src="jslib/win.js"></script>
+<script src="jslib/event.js"></script>
+<script src="jslib/when.js"></script>
+<script src="jslib/dragger.js"></script>
+<script src="jslib/animator.js"></script>
+<script src="jslib/xhr.js"></script>
+<script src="jslib/color.js"></script>
+<script src="jslib/cookie.js"></script>
+<script src="jslib/utils.js"></script>
+<script src="js/voyc.js" language="javascript"></script>
+<script src="js/map.js" language="javascript"></script>
+<script src="js/mapcard.js" language="javascript"></script>
+<script src="js/dots.js" language="javascript"></script>
+<script src="js/shapes.js" language="javascript"></script>
+<script src="js/timeline.js" language="javascript"></script>
+<script src="js/timelevel.js" language="javascript"></script>
+<script src="js/dispatch.js" language="javascript"></script>
+<script src="js/bounds.js" language="javascript"></script>
+<script src="js/dashboard.js" language="javascript"></script>
+<script src="js/detail.js" language="javascript"></script>
+<script src="js/maplevel.js" language="javascript"></script>
+<link rel="stylesheet" href="css/win.css" type="text/css" />
+<link rel="stylesheet" href="css/mapcard.css" type="text/css" />
+<link rel="stylesheet" href="css/timeline.css" type="text/css" />
+<link rel="stylesheet" href="css/dashboard.css" type="text/css" />
+
+<script language="javascript">
+	voyc.addEvent(window, 'load', function() {
+		voyc.debug = new voyc.Debug({div:voyc.$('output')});
+		voyc.debug.alert('window.onload');
+		voyc.voyc = new voyc.Voyc();
+		voyc.voyc.create();
+	});
+	voyc.addEvent(window, 'resize', function() {
+		voyc.debug.alert('window.onresize');
+		voyc.voyc.onResize();
+	});
+</script>
+<style>
+* {
+	resize:none;
+}
+#map {
+	position:absolute;
+	top:10px;
+	left:10px;
+	width:200px;
+	height:200px;
+}
+#gmap_container {
+	height:100%;
+	width:100%;
+	resize:none;
+}
+#detail {
+	top:10px;
+	left:300px;
+	width:200px;
+	height:200px;
+}
+#output {
+	top:10px;
+	left:600px;
+	height:600px;
+	width:300px;
+}
+#dashboard {
+	top:300px;
+	left:10px;
+	width:500px;
+	height:50px;
+}
+#timeline {
+	top:400px;
+	left:10px;
+	width:500px;
+	height:200px;
+}
+</style>
+</head>
+
+<body>
+	<div class='win' id="map"><div id='gmap_container'>this is gmap container</div></div>
+	<div class='win' id="detail"></div>
+	<div class='win' id='dashboard'>
+		<table id='bg'><tr>
+			<td class='end'><img src='images/bar_left_end.jpg'/></td>
+			<td class='vtext' ><img class='vimg' src='images/bar_left.jpg'/></td>
+			<td class='center'><img src='images/bar_center.jpg'/></td>
+			<td class='vtext'><img class='vimg' id='dboard_bar_right' src='images/bar_right.jpg'/></td>
+			<td class='end'><img src='images/bar_right_end.jpg'/></td>
+		</tr></table>
+		<table id='fg'><tr>
+			<td id='fg-left'>
+				<table id='left'><tr>
+					<td><img id='db-logo' src='images/voyclogo3.png'/></td>
+					<td><div id='db-loader'><img id='loader_image' src='images/ajaxloader.gif'/><span id='loader_text'>Loading...</span></div></td>
+					<td><div id='db-copyright'>&copy; voyc.com</div></td>
+					<td class='aright'><a id='db-menu' class='aboutlink' onclick='g.detail.showMenuPanel()' title='Show the menu'>Menu</a></td>
+				</table>
+			</td>
+			<td id='fg-center'>
+				<div id='db-lcd'>00 000 0000 00:00</div>
+			</td>
+			<td id='fg-right'>
+				<table id='right'>
+					<td id='fg-right-now'><span id='db-now' class='aboutlink' onclick='g.coordinates.now()' title='Jump to current time'>Now</span></td>
+					<td class='aright'>
+						<input id='db-searchbox' value=''></input>
+					</td>
+					<td id='fg-right-buttons' class='aright'>
+						<input id='db-filterbtn' type='button' value='Filter' title='Filter current stories by these keywords'></input>
+						<input id='db-searchbtn' type='button' value='Search' title='Search all time and space for these keywords'></input>
+					</td>
+				</tr></table>
+			</td>
+		</tr></table> 
+	</div>
+	<div class='win' id="timeline"></div>
+	<div class='win' id="output"></div>
+</body>
+</html>

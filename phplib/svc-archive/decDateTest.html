@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>decDateTest.html</title>
+		<script src="../jslib/xhr.js" type="text/javascript"></script>
+		<script src="../jslib/tester.js" type="text/javascript"></script>
+		<script src="decDateTest.js" type="text/javascript"></script>
+		<script>
+			function go() {
+				document.getElementById("output").innerHTML = "testing...";
+				var tester = new Tester();
+				decDateTest(tester);
+				document.getElementById("output").innerHTML = tester.display();
+			}
+			window.onload = go;
+		</script>
+	</head>
+	<body>
+		<div id="output"></div>
+	</body>
+</html>

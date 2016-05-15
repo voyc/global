@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="assets/objectmodel.css" type="text/css" />
+<style>
+#animator { left:0em; top:0em;}
+#cookie { left:20em; top:0em;}
+#debug { left:40em; top:0em;}
+#dragger { left:60em; top:0em;}
+#event { left:0em; top:15em;}
+#tester { left:20em; top:15em;}
+#utils{ left:40em; top:15em;}
+#when{ left:60em; top:15em;}
+#win{ left:0em; top:30em;}
+#xhr{ left:20em; top:30em;}
+</style>
+
+<div id='animator'><b>class Animator</b>
+<hr/>start()
+stop()
+setFps(n)
+</div>
+
+<div id='cookie'><b>class Cookie</b>
+<hr>Cookie.set(name, value, expires)
+Cookie.get(name)
+Cookie.delete(name)
+</div>
+
+<div id='debug'><b>class Debug</b>
+<hr>show(visible)
+alert(msg)
+dumpElement(e)
+dumpObject(obj,depth)
+</div>
+
+<div id='dragger'><b>class Dragger</b>
+<hr>enableDrag(e)
+addListener(e, eventName, callback)
+showInternals(e)
+</div>
+
+<div id='event'><b>class Event</b>
+<hr>subscribe(evt, subscriber, callBack)
+publish(evt, publisher, params)
+suspend(bool)
+</div>
+
+<div id='tester'><b>class Tester</b>
+<hr>assert(test,name)
+displayResults()
+</div>
+
+<div id='utils'><b>utils.js</b>
+<hr>cloneArray(a)
+mergeOptions(obj1, obj2)
+pad(s,n)
+getAbsolutePosition(e)
+getFileLine(numCallersBack)
+</div>
+
+<div id='when'><b>class When</b>
+<hr>setValue(decidate)
+setPrecision(precision)
+toString()
+serialize()
+deserialize(s)
+format(pattern)
+</div>
+
+<div id='win'><b>class Win</b>
+</div>
+
+<div id='xhr'><b>class Xhr</b>
+<hr>base <i>url</i>
+<hr>setValue(decidate)
+</div>

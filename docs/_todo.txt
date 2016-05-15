@@ -1,0 +1,619 @@
+﻿Your portal to all knowledge in the time-space continuum.
+
+Example starting places
+	current events
+	world history
+
+Tooltips
+	Zoom In (Use Ctrl or Shift to fine-tune)
+	Zoom In (Ctrl-click or Shift-click to fine-tune)
+
+Map-point over map-polygon, hover and click occurs on both.
+	Should stop after map-point.
+
+Remove old map-point records
+14909
+18860
+13576
+14645
+14699
+
+
+Add new persons and big events
+
+	
+--- 
+
+three styles, with hover style for each 
+	background bar (no background dots)
+	foreground dot
+	foreground bar
+	foreground bar+dot
+
+background bar
+normal                           hovered
+color pastel                     no change
+border none                      real color (not pastel) 
+text none                        headline
+height computed                  fixed to hold text
+top computed                     revise upward centered
+
+foreground bar
+normal                           hovered
+color pastel                     white
+border thin, shadow              increase shadow depth?
+text headline                    headline
+height fixed                     no change
+top computed                     revise upward same as shadow depth
+
+foreground dot
+normal                           hovered
+color none                       white
+border none                      thin, shadow
+text headline                    headline
+height fixed                     no change
+top computed                     revise upward
+
+foreground bar+dot
+normal                           hovered
+color real                       white
+border this, shadow              increase shadow depth
+text headline                    headline
+height fixed                     no change
+top computed                     revise upward
+
+
+set opaque is applying to texts
+
+disqualify overlaps of foreground
+
+Time level at years or greater, show background. Else, no background.
+
+mouseover of background not working
+design issue: background text bleeds through foreground text
+some name bars overlap each other
+name bars are red
+
+Trojan War
+	map dot is not dislayed
+	normal display should be with drop shadow
+		also give it rounded corners
+		and correct color, not default red
+		will have a dot to match the dot on the map
+	hover display should do something else: border? white? color brightener?
+
+rename row and stream to fgd, bkd
+
+isolate and document which attributes are in class, and which are in javascript
+
+when creating foreground timebar
+	set top, height, zindex
+
+on hover
+	set zindex to a fixed value, always used for the hovered timebar
+
+on hover off
+	reset zindex to its original value
+
+vertical rules are embarassing, put them in separate div, experiment with putting them on top or in back or inbetween 
+
+is it possible to test and develop in the testTimeline file?
+	is that really any easier at this point?
+	or is it good just to isolate code?
+
+---
+
+why do we have a record with id=0, forebear=0?  does it have something to do with user table?
+
+Handle forebear.
+
+counts by datatype where forebear <> 0
+2	466
+3	99
+6	7
+7	37
+
+counts by datatype where forebear = 0
+2	56
+3	117
+6	20
+8	22
+10	2
+11	279363
+
+row drawing algorithm	
+	draw forebears
+	draw all rows that use a forebear
+	call out overlaps
+	these are finite, do them all now
+	one fix for overlaps may be to collect geoms
+	
+	draw non-forebears
+	
+	collapse
+	check begin and end of each row
+	if not on screen, move the row, hide the row, make it not display
+	
+	interleave
+	combine rows when doing so would not cause an overlap
+	each row still retains its identity
+	? on future dataready, a forebear row may be extended
+		? in which case it would no longer be interleavable in the same way
+	
+	combine by headline
+	combine adjacent bars with identical headline into a single bar
+	test case: Assyria, 13567
+	13576
+	
+select headline, editstatus, id, forebear, datatype, maptype, timetype, timebegin, timeend, color, maplvllo, maplvlhi, timelvllo, timelvlhi 
+from fpd.fpd 
+where headline = 'Etruscans'
+order by timebegin, timeend
+
+
+
+
+
+update fpd.fpd set color=5, timebegin=-520 where id=14481;
+delete from fpd.fpd where id = 14479;
+
+X7 = Phrygia
+
+--------------
+Handle editstatus 3,4,5. Includes Huns, Fatimids, Mamelukes aka Marmelukes.
+select id, headline, forebear, editstatus, datatype, timebegin, timeend, maplvllo, maplvlhi, timelvllo, timelvlhi, timetype , maptype, geometrytype(the_geom), st_npoints(the_geom)
+from fpd.fpd 
+where editstatus in (3,4,5)
+order by headline, editstatus, datatype, timebegin, timeend
+----------------
+
+in timeline drawing
+	first, select and sort by forebear, and put all on the same row/stream
+
+options:
+	Use merge algorithms during dispatch
+	Show developer info in detail window
+
+option:
+	time panned - incremental read, plus merge
+	time zoomed - replace
+	map panned - merge
+	map zoomed - merge
+	on search - replace
+
+detail window
+	show begin-end pair, depending on timetype
+	when development option on, show types and levels
+internals
+	display of id numbers
+		bind hover and select handlers
+-------------
+
+Offline
+	update programmer's guide 
+	add design guidelines from below in this doc
+
+Remove direct access to voyc.voyc.* variables
+	Now and World commands
+		Event: location_loaded, passing bounds object, named location
+		pub: Dashboard
+		sub: Map, Timeline
+
+	layout.switchPanel: remove this capability, build new window for meta screens
+		Layout, Detail, Dashboard
+
+Separate window for options vs internals, 
+	after we have determined need for public options.
+
+Add accordian dropdown for the multiple divs in the Internals Window
+
+next goal: a nice greek provincial map
+	map: remove Carthaginians 14777, check the maplevel
+	timeline:
+		background of political boundaries
+			see how many rows we have
+			set height of row so all will fit
+			eliminate title when less than n pixels in height
+			on hover, show the timebar at normal height
+		foreground of persons, events, works
+
+what about Persian War, and by extension, WW1?
+	what if we use polygon with dashed outline and no fill?
+	require click exactly on the border, not the fill (possible?)
+		use polyline, with Icon Sequence
+
+options
+	timeline
+		1. use fixup only for points
+		2. assign timebars in a way that they do not overlap
+		3. after a user option, do a complete redraw with server call, like scroll
+		3A. Add options button to redraw as if scroll happened
+		mark and count while drawing
+			qualified
+			offscreen because of time range
+			offscreen because of fixup
+			offscreen because of user request
+			offscreen because there is no vertical space left on the timeline
+		when a map polygon is not on the timeline centerline
+			when the timebar is hovered: show the outline 
+		when a map polygon is not on the timeline due to inadequate vertical space
+			when the polygon is hovered: show a phantom timebar somewhere on the timeline 
+	timeline + data
+		Carthaginians 14777 map polygon overlaps other polygons 
+			so we cannot click on any underneath
+		datatype: separate persons and works, combine persons and greek persons
+
+what to display: maplevel, timelevel, magnitude
+	server-side selection: rough approximation
+	client-side drawing: based on available timeline space
+		would be nice if we could get everything to display?
+		or to give an icon that indicates zoom here for more
+
+How to display timeshape
+	shape and color: determined by timetype, color
+	which row to put it on: determined by forebear, begin, end, magnitude
+	whether to show it: magnitude
+	combining bars: headline
+	note: reference concept is obsolete
+
+How to display mapshape
+	shape and color: maptype, color
+	note: reference concept is obsolete
+
+1. Clearup datatype, maptype, timetype, editstatus
+	
+diagnostics
+	optional show complete record in detail window
+		include ms, ts, q, disqualified by timeline
+	show array of counts by datatype, before and after timeline disqualification
+	allow story select without error for missing ms or ts object
+
+ancient greece
+	provincial political boundaries
+		all on map, none on timeline ?
+	persons
+		on map and timeline
+	works
+		on map and timeline
+		
+
+2. Clearup leveling criteria
+		maplevel, timelevel, magnitude
+
+	select datatype,timelvllo,timelvlhi,maplvllo,maplvlhi,min(magnitude), max(magnitude), count(*)
+	from fpd.fpd
+	group by datatype,timelvllo,timelvlhi,maplvllo,maplvlhi
+	order by datatype,timelvllo,timelvlhi,maplvllo,maplvlhi
+	
+	datatype	timelvllo	timelvlhi	maplvllo	maplvlhi	min	max	count
+	2	5	6	10	13	1000	1000	10 - polys classical greek provences
+	2	5	6	14	18	1000	1000	505
+	2	5	7	14	18	1000	1000	10
+	2	7	7	14	18	1000	1000	4
+	3	5	6	10	13	1000	1000	31
+	3	5	6	14	18	1000	1000	185  - polys current countries
+	6	4	5	12	18	1000	1000	1
+	6	6	6	1	14	1000	1000	26 - dots 6 classical greek art pieces
+	7	5	5	1	18	1000	1000	37
+	8	4	5	12	18	1000	2000	22 - polys rome?
+	10	4	7	1	18	1000	1000	2
+	11	0	0	1	18	1301	1400	60 - dots democracy now classics, some with bogus geo coordinates
+	11	1	3	0	10000	707	1158	51 - - john's moblog photos, incl error 34238
+	11	1	3	1	18	700	1399	263369
+	11	1	5	1	18	800	800	71 - dots, jazz, incl error 35654
+	11	4	4	1	18	1001	1099	36 - dots democracy now classics, some with bogus geo coordinates
+
+
+Timeline zoom out
+	default dot color to red
+	set color for other bibids
+	assign to rows, do not overlap spans
+	handle forebear
+	handle identical headlines
+	handle maptype ?: 
+		Alexander the Great appears on Timeline with red font, 
+		detail popup appears on map, but shape does not
+		select *
+			from fpd.fpd
+			where id in (13885,14680)
+
+	leveling criteria
+		add back map and timeline levels
+		add new logic for displaying sets of map polygons?
+		
+Map
+	on hover
+		show the mapshape even if not on timeline centerline
+	greek personages are maptype 6, no points, error on hover
+		what mt is Alexander the Great? (see above)
+
+Detail
+	remove nophoto image
+	replace with a single pixel dot image (so I always know)
+
+Dispatch: algorithms
+	test replace vs incremental reads
+	handle skipped block
+		implement xhr, origin
+		timeout, retry 
+		issues
+			dashboard notification
+			remove and re-add request array
+	handle readData-dataReady overlap
+	late packet discarded, followed by "ran out of bars"
+	panning algorithm leaves holes when zoombar is used
+		consider dragging of both scroller and zoombar
+		read data on first drag
+		readdata on drop has too wide range, too low max
+	first readdata has too high maxrows, because data found covers only half the span
+
+Dispatch: data issues
+	many records with null the_geom
+	DemocracyNow data has points in bogus positions
+	would be excellent if we could remove map and timeline levels from qualify criteria
+		try removing it for awhile and see what happens
+	what are the datatypes?
+		see notes in dispatch.js
+
+Authentication
+	authentication
+		https://www.owasp.org/index.php/Authentication_Cheat_Sheet
+	
+	session management
+		https://www.owasp.org/index.php/Session_Management_Cheat_Sheet
+		sessionid == token
+		session hijacking or sidejacking
+			disclosure
+			capture
+			prediction
+			brute force
+			fixation
+				of the session id
+	
+	transport layer
+		https://www.owasp.org/index.php/Transport_Layer_Protection_Cheat_Sheet
+
+Authentication
+
+	Google+ SignIn
+		Google+ Platform
+		https://developers.google.com/+/web/signin/
+		"Sign In with Google+"
+		Web, Android, iOS
+		Google Developers Console
+	
+	two-factor: 
+		email (or cellphone) verification
+	SSL
+		for post of username/password
+		certificate
+			webfaction certificate does not match voyc.com domain
+		HTTP vs HTTPS
+	rate limiting
+		number of requests per hour
+	tables
+		members
+		login attempts
+	cookie token
+		how do you make this secure?
+		how do you know the token has not been stolen by a sniffer
+		token expires
+		username/password required to re-acquire token
+	oauth 1 is deprecated
+	oauth 2
+		login with google plus
+		get user's photo
+	password reset security questions
+		In what bank is your largest savings account located?
+		What is your bank account number?
+		What is your credit card security code?
+	google: username password token
+
+	how to store a password
+		http://codahale.com/how-to-safely-store-a-password/
+
+Event
+	remove from log
+		story_disqualified
+		time_animated
+
+Tags
+	make tags comma-separated
+		which feeds have tags: comma vs space separated?
+		select where tag is not null
+			select where tag contains comma
+			select where tag does not contain comma
+	build tag table
+	tag search autocomplete, see below
+
+Search
+	searchclear button
+		dispatch:readdata is going forward or backward, but not refreshing current area
+	activate q string from cookie at startup
+	switch to default filter mode after the search
+	auto-complete on searchbox
+	auto-complete on tags, source, etc
+
+SearchOpt Dialog
+	implement search, filter, close buttons
+	implement tags, etc
+
+Layout
+	handle searchopt dialog onresize, resizing
+
+Bug: set time to 2014 Apr 03, 00:35, place world
+	wrong ruler format, no data displayed
+
+Now is special value of When object
+	when when==NOW, time scrolls forward in real-time
+	by second, by minute, by hour, depending on the level
+	this value can be saved in cookies
+
+add menu items
+	Settings
+	Login
+	Register
+	My Account
+	Edit
+	Publish
+	Favorites: time, map, cid, query
+	World, zooms map out to max level, companion to Now
+	Here and Now, zooms map to current location 
+
+user
+	login, logout
+	manage feeds
+
+Detail
+	add voting and favorites ala StackOverflow
+	layout the voting buttons
+	distinguish state when user has already voted
+
+edit
+	insert,update,delete
+	merge
+	split
+
+publisher
+	file upload
+	publish feeds
+
+When.html
+	add test cases for new abstract methods
+	test conversions
+	write new automated tests
+	remove concepts
+	put all notes in programmers guide, delete when folder
+
+Timeline
+	add level menu, with dropdown symbol
+		minute, hour, day, month, year, decade, millenium
+		display current level over the dropdown symbol while zooming
+	Let pan snap to tick mark
+	user options:
+ 		zoom factor		
+		Enforce pan and zoom limits yes/no
+
+---------------------------
+Personnel
+	Software
+		SEO
+		SVN
+		Authentication
+		Big Data
+		Geo Services
+		Community
+	Content
+		News Editors
+		History Curators
+		MapDrawers
+		Tag editors and classification
+
+SEO
+	develop URL strategy
+		querystring or hash, hashtag, hashbang, fragment
+		support google crawling
+		support bookmarks, share links, back button
+		https://developers.google.com/webmasters/ajax-crawling/docs/getting-started
+	find subject hierarchy that matches our tags
+		implement alpha tree
+	implement logs to let us perceive robot activity
+	previous implementation used
+		tags.php, sources.php, contributors.php
+		startupPanel.php
+		querystring q=keyword
+
+Web crawling
+	Pull precise lat-lng out of feeds
+
+Daily editing
+	Precise lat-lng assignment of editstatus 10 
+	
+Community
+	Offline
+		Newsletters
+		Email lists
+	Online
+		Tags	
+		Friends, common interests
+		Editors, curators
+
+-----------------
+Developer Notes
+
+Production 
+	www.voyc.com (uses index.php)
+
+Debugging
+	www.voyc.com/index.html
+
+Querystring parameters
+	?debug=1 (allow popups)  (popup from file: is evidently disallowed in chrome)
+	?history=1
+
+database has two addins:
+	postGIS
+	Tsearch2 - full-text search
+
+---------------------------------
+
+feature requests
+	new graphics for vote up and down, like facebook like
+	remove vote down, and do likes only
+	show a spinning wheel when detail photo is loading, instead of previous story's photo
+	support touch screen 
+	forward/back on menu items
+
+design guidelines
+	horizontal timeline.  can be resized vertically but does not scroll vertically.
+	avoid calls to voyc.voyc.* variables, use event instead 
+
+unique features to show off:
+	scalable display, fits all window sizes
+	drag the one button to change 3 window sizes all at once
+	only one page, all ajax
+	ongoing updates for four years
+	zoomable timeline
+	login, register
+	voting
+	algorithms for determining which items to show based on importance or relevance, and depending on available space 
+	dot intensity shows location in time: current, past, future
+	filter vs search
+	edit
+	post
+	publish feed
+	upload file
+	email 
+
+----------------------------------
+
+tasks to assign to new team, to bring them up to speed:
+
+build retries and on-failure messaging into appendScript
+	- appendScript is required for loading GMapApi asynchronously
+	- is it possible to catch an error
+		the console shows these errorswith the filename I tried to append
+			net::ERR_CONNECTION_TIMED_OUT
+			net::ERR_NAME_NOT_RESOLVED  
+
+build local testing into Xhr, using "origin" specification
+	- after this is done, consider using xhr for Dispatch.read()
+
+Fix iframe upload_target.  Currently it causes onload to fire twice.
+	(If we re-implement file upload.)	
+
+
+-----------------
+Editing
+1 let user drag dot and save
+2 let user query editstatus 10 records
+3 let user query editstatus "new" records
+
+-----------------
+
+Search by author
+	select author, count(*) from fpd.fpd group by author having count(*) > 10
+	null 55045
+	2444 rows
+
+		

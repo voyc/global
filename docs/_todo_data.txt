@@ -1,0 +1,429 @@
+﻿/* insert a modern nation */
+/* notes: set maptype polygon vs multipolygon */
+/* set datatype current or historical */
+/* set timebegin, headline, abstract */
+/* KLM and WKT are both x,y (lon/lat) but have commas and spaces reversed */
+/* WKT requires closed polygon, KLM does not */
+insert into fpd.fpd (
+headline,author,bibid,abstract,
+datatype,color,magnitude,
+timetype,timelvllo,timelvlhi,timebegin,timeend,
+maptype,maplvllo,maplvlhi,the_geom,
+timeprecision,version,editstatus,feeling,userid,forebear,parent
+)
+values (
+'Spain','JGHAGSTR','NED','The unification of the crowns of Aragon and Castile by the marriage of their sovereigns laid the basis for modern Spain and the Spanish Empire, although each kingdom of Spain remained a separate country, in social, political, laws, currency and language.',
+3,6,1000,
+3,5,6,1469,7777,
+3,14,18,GeomFromText('POLYGON((-9.03481767418025 41.8805705836597,-8.98443315269567 42.5927751735063,-9.39288367353065 43.0266246608127,-7.97818966310831 43.748337714201,-6.75449174643676 43.5679094508539,-5.4118863590616 43.5742398138097,-4.34784277995578 43.403449205085,-3.51753170410609 43.4559007838613,-1.90135128417776 43.4228020289783,-1.50277096191053 43.0340143906304,0.338046909190581 42.5795460068395,0.701590610363894 42.7957343613326,1.82679324708715 42.3433847112657,2.98599897625846 42.4730150416699,3.03948408368055 41.8921202662769,2.09184166831218 41.2260885686831,0.810524529635188 41.0147319606093,0.721331007499401 40.6783183863892,0.106691521819869 40.123933620762,-0.278711310212941 39.3099781357327,0.111290724293838 38.738514309233,-0.467123582349103 38.2923658310412,-0.683389451490598 37.6423538274578,-1.43838212727485 37.4430636663242,-2.14645260253812 36.6741441920373,-3.41578080892339 36.6588996445112,-4.36890092611472 36.6778390569462,-4.99521928549221 36.3247081568796,-5.37715979656146 35.9468500839615,-5.8664322575009 36.0298165960061,-6.23669389487218 36.3676771103303,-6.5201908024254 36.9429133163873,-7.45372555177809 37.0977875839661,-7.53710547528102 37.4289043238762,-7.16650794109986 37.8038943548022,-7.0292811751488 38.0757640650898,-7.37409216961632 38.3730585800649,-7.09803666831313 39.0300727402238,-7.49863237143973 39.6295710312418,-7.06659155926353 39.7118915878828,-7.02641313315659 40.1845242376242,-6.86401994467939 40.3308718938748,-6.85112667482255 41.1110826686175,-6.38908769370092 41.3818154973947,-6.66860551596766 41.8833869492196,-7.25130896649082 41.918346055665,-7.4225129866738 41.7920746933598,-8.01317460776991 41.7908861354171,-8.26385698081779 42.2804686549503,-8.67194576662672 42.134689439455,-9.03481767418025 41.8805705836597))'),
+0,0,0,0,0,0,0
+);
+
+---------------
+
+select id,headline,datatype,forebear,parent,color,editstatus,magnitude,
+maptype,maplvllo,maplvlhi,placename,
+timetype,timebegin,timeend,timelvllo,timelvlhi,
+storyurl,imageurl,thumburl,
+timeprecision,version,service,guid,feeling,userid,author,bibid,
+tags,abstract,
+the_geom,
+tm,
+permalink,fulltext,tsfulltext
+from fpd.fpd
+where id in 
+
+
+http://postgis.net/docs/ST_GeomFromText.html
+http://postgis.net/docs/manual-1.4/ST_Collect.html
+https://developers.google.com/maps/documentation/javascript/examples/polygon-simple
+
+
+Add a new maptype for multi-geometry.  Any combination of points, lines, and polygons.  A new object that draws all component parts.
+For the Peloponnesian war, two points with a line in-between.
+Athens POINT(37.983917000 23.729359900)
+Sparta POINT(37.074461000 22.430264000)
+For Xenophon and Anabasis, one long dotted line with three points.
+
+
+SELECT ST_GeomFromText('LINESTRING(-71.160281 42.258729,-71.160837 42.259113,-71.161144 42.25932)');
+SELECT ST_GeomFromText('LINESTRING(-71.160281 42.258729,-71.160837 42.259113,-71.161144 42.25932)',4269);
+
+SELECT ST_GeomFromText('MULTILINESTRING((-71.160281 42.258729,-71.160837 42.259113,-71.161144 42.25932))');
+
+SELECT ST_GeomFromText('POINT(-71.064544 42.28787)');
+
+SELECT ST_GeomFromText('POLYGON((-71.1776585052917 42.3902909739571,-71.1776820268866 42.3903701743239,
+-71.1776063012595 42.3903825660754,-71.1775826583081 42.3903033653531,-71.1776585052917 42.3902909739571))');
+
+SELECT ST_GeomFromText('MULTIPOLYGON(((-71.1031880899493 42.3152774590236,
+-71.1031627617667 42.3152960829043,-71.102923838298 42.3149156848307,
+-71.1023097974109 42.3151969047397,-71.1019285062273 42.3147384934248,
+-71.102505233663 42.3144722937587,-71.10277487471 42.3141658254797,
+-71.103113945163 42.3142739188902,-71.10324876416 42.31402489987,
+-71.1033002961013 42.3140393340215,-71.1033488797549 42.3139495090772,
+-71.103396240451 42.3138632439557,-71.1041521907712 42.3141153348029,
+-71.1041411411543 42.3141545014533,-71.1041287795912 42.3142114839058,
+-71.1041188134329 42.3142693656241,-71.1041112482575 42.3143272556118,
+-71.1041072845732 42.3143851580048,-71.1041057218871 42.3144430686681,
+-71.1041065602059 42.3145009876017,-71.1041097995362 42.3145589148055,
+-71.1041166403905 42.3146168544148,-71.1041258822717 42.3146748022936,
+-71.1041375307579 42.3147318674446,-71.1041492906949 42.3147711126569,
+-71.1041598612795 42.314808571739,-71.1042515013869 42.3151287620809,
+-71.1041173835118 42.3150739481917,-71.1040809891419 42.3151344119048,
+-71.1040438678912 42.3151191367447,-71.1040194562988 42.3151832057859,
+-71.1038734225584 42.3151140942995,-71.1038446938243 42.3151006300338,
+-71.1038315271889 42.315094347535,-71.1037393329282 42.315054824985,
+-71.1035447555574 42.3152608696313,-71.1033436658644 42.3151648370544,
+-71.1032580383161 42.3152269126061,-71.103223066939 42.3152517403219,
+-71.1031880899493 42.3152774590236)),
+((-71.1043632495873 42.315113108546,-71.1043583974082 42.3151211109857,
+-71.1043443253471 42.3150676015829,-71.1043850704575 42.3150793250568,-71.1043632495873 42.315113108546)))',4326);
+
+SELECT ST_GeomFromText('CIRCULARSTRING(220268 150415,220227 150505,220227 150406)');
+
+----------------------
+http://amercader.net/blog/2011/04/exploding-multigeometries-with-postgis
+I had imported the countries dataset from Natural Earth to PostGIS (piece of cake with ogr2ogr), and...
+http://www.naturalearthdata.com/
+
+----------------------
+
+update fpd.fpd set
+begintime=-1260, endtime=-1280, timetype=3,
+headline='The Odessey', 
+placename='Ithaka', maptype=2,
+the_geom=ST_GeomFromText('POINT(38.428460300 20.676487700)'),
+abstract='Ulysses, also known as Odysseus, returns by sea from the Trojan War to his hometown of Ithaka.  The trip takes him 20 years and many fantastical adventures and he finally arrives alone with his entire crew perished along the way.  He finds his home overrun by local rowdies who are pressuring his wife Penelope to remarry.  In the climactic scene, Ulysses reveals himself, removes the interlopers and reclaims his home and lands.  Written by Homer 400 years after the fact.',
+keywords:'Homer,Ulysses,Odysseus,Odyssey,Penelope,Mentor,Ithaka'
+where id = ?;
+
+Plato, classical
+other names
+
+-850 Homer, Mycennae, born on Chios
+
+Xenophon, Anabasis, March of the Ten Thousand
+http://en.wikipedia.org/wiki/Anabasis_(Xenophon)#mediaviewer/File:Persian_Empire,_490_BC.png
+
+
+Notes on ancient greece fixup.
+
+1. A bullet-list version of Alexandria.  Requires wiki formatting.
+Born in Pella in Macedon.
+Son of Phillip, King of Macedon.
+Tutored by the philosopher Aristotle until the age of 16. 
+Took the throne at age 20 when his father was assassinated.
+Within 10 years, conquered all of Greece, Egypt and the entire Persion Empire.
+Stopped at the Indus River by Hannibal's elephant cavalry.
+Spread the Hellenic (Greek) culture throughout the conquered areas.
+Adopted Persion dress and manners and moved into Nebuchadnezzar's palace in Babylon.
+Poisoned to death at age 33.
+
+2. Scholars refer to he period before Alexander as Hellenic, and after as Hellenistic, because the Hellenic (Greek) culture was spread to all the areas of his conquests.
+Before Alexander: Hellenic Era
+After Alexander: Hellenistic Era
+
+3. Names
+The proper name for Greece is Hellas.
+The people are Hellenes.
+The adjective describing the culture is Hellenic.
+Hellen (with double L) was the mythical son of Zeus from whom all Hellenes descended.
+Helen (with one L) was a woman's name, like Helen of Troy. 
+The modern nation of Greece is officially known as the Hellenic Republic.
+
+4. Populations in the time of Alexander.
+Pella
+Macedon
+Hellas (Greece)
+Babyon
+Persian Empire
+
+
+Anabasis, Xenophon
+Odessey, sequel to The Illiad
+Oracle at Delphi
+Greek Mysteries at Elysius
+
+Confucious
+I Ching
+
+Buddha, Jesus, Mohamed
+
+Portugal, Holland and Britain established colonies in Sri Lanka one after another from 1505 to 1948.
+
+Thailand: The monks leading Bodu Bala Sena have amassed a significant following in recent years, drawing thousands of followers.
+
+Maps of Mongols, Chin, Xi Xia (Hsi Hsia), Northern Song, Southern Song, Gobi Desert
+https://www.google.com/search?q=chin+northern+sung+southern+sung&tbm=isch&tbo=u&source=univ&sa=X&ei=ZAO8U-G_IIWNuASmqYLgCg&ved=0CCwQsAQ&biw=1366&bih=705#facrc=_&imgdii=_&imgrc=S-1VdEDgxc-atM%253A%3Bl_Vu_wVvCiX3QM%3Bhttp%253A%252F%252Facc6.its.brooklyn.cuny.edu%252F~phalsall%252Fimages%252Fsthsung.gif%3Bhttp%253A%252F%252Fwww.tuttocina.it%252Ftuttocina%252Flinks%252Flinks.htm%3B308%3B253
+
+add Minoan Civilization, on Crete, -2700 to -1500, related to Greece
+-------------------------------------
+1969
+	beatles break up
+	man on the moon
+
+rome republic vs empire
+	http://historum.com/ancient-history/4266-roman-republic-vs-roman-empire.html
+
+agnihotra
+	Nambudiri Brahmins of Kerala
+	Atharvaveda 11:7:9
+	Yajurveda Samhita
+	Shatapatha Brahmana 12:4:1
+
+
+---------------------------
+John Lennon movie
+
+20 minutes John Lennon on non-violence
+22 minutes Beatles: Revolution
+41 minutes War is Over: If you want it
+1970 Nixon invades Cambodia
+4 May Kent State 4 students killed
+Hoover FBI Director 24-72
+Fred Hampton assassinated
+1972 won immigration case
+1980 Lennon killed
+
+http://globalvoicesonline.org/2014/05/01/cooking-under-siege-in-homs/
+
+http://globalvoicesonline.org/2014/04/23/win-tin-myanmars-longest-held-political-prisoner-dies-at-85/
+
+sacred texts
+
+christian mysticism
+	Course in Miracles
+	Aquarian gospel of Jesus Christ
+	St Germain
+
+Bankster
+	Chennai, Mumbai, Kochi, 2008
+
+timemap, timemaps
+http://www.timemaps.com/history/
+
+Agra, Delhi
+Huffpost feed
+Kumbh Mela, Brazil carnival, 
+other world festivals
+Valparaiso, Chile, port city near Santiago
+
+How to Build a Food Forest (1:21 hour video)
+http://www.nextworldtv.com/page/26362.html
+
+Carnival in Brazil
+Festivals in India
+
+The Root and the Flower
+trilogy, 16th Century, Akhbar	
+L.H. Myers, British, 1930's
+Kindle $10 
+
+Lawrence of Arabia
+science curator
+
+Ashoka
+Vedas:  the Asokavadana, Divyavandana and Mahvamsa
+
+http://asianhistory.about.com/od/india/p/Biography-of-Chandragupta-Maurya.htm
+Chandragupta Maurya
+united all of India, 326 BC
+Alexander the Great of Macedonia
+Hindu-Kush mountains in Pakistan
+Kyber Pass
+Raja Puru's army with 30 elephants, defeated by Alexander
+Nanda empire
+
+Akbar
+http://www.cengage.com/history/discipline_content/rc_demo/history_rc_demo/history_resource_center_demo.html
+http://dsal.uchicago.edu/reference/schwartzberg/fullscreen.html?object=186
+Akbar and Birbal, his most trusted advisor
+1600, Mughal
+Jodhaa Akbar (2008), Aishwarya Rai plays Rajput bride to Akbar
+Akbar's grandson built the Taj Mahal
+
+Geologic Timescale
+4.5 mya
+
+Astronomic 
+http://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System
+Birth of Solar System, Sun EArth
+Death of Sun
+4.5 bya planets form
+3.8 bya first life on earth
+
+Universe - big bang to heat death 
+http://en.wikipedia.org/wiki/Chronology_of_the_universe
+13.7 bya Big Bang
+400 mya first stars
+
+10E+150 yfn Heat Death
+Heat Death
+
+----------------
+Yoga
+http://www.swamij.com/history-yoga.htm
+
+Indus-Sarasvati Civilization
+	two rivers, only the Indus remains, and it flows through Pakistan
+	maritime civilization, exported to Mesopotamia, Africa
+	cities: Mohenjo Daro, Harappa
+
+Sarasvati River dried up around or before 1900 BC
+
+Indus-Sarasvati Civilization: 3000 BC - 1900 BC
+	Rig Veda
+
+
+"classical" = (typically of a form of art) regarded as 
+representing an exemplary standard; 
+traditional and long-established in form or style.
+
+
+Vedic Yoga
+Preclassical Yoga
+Classical Yoga
+Postclassical Yoga
+
+Vedic Yoga
+
+It is clear from what has been said thus far that Vedic Yoga—which could also be called Archaic Yoga—was intimately connected with the ritual life of the ancient Indians. It revolved around the idea of sacrifice as a means of joining the material world with the invisible world of the spirit. In order to perform the exacting rituals successfully, the sacrificers had to be able to focus their mind for a prolonged period of time. Such inner focusing for the sake of transcending the limitations of the ordinary mind is the root of Yoga.
+
+When successful, the Vedic yogi was graced with a “vision” or experience of the transcendental reality. A great master of Vedic Yoga was called a “seer”—in Sanskrit rishi. The Vedic seers were able to see the very fabric of existence, and their hymns speak of their marvelous intuitions, which can still inspire us today.
+
+
+greenpeace begin 1971
+http://www.businessinsider.in/How-A-Bunch-Of-Commies-Are-Forcing-the-Fortune-500-To-Stop-Destroying-Rainforests-Overfishing-And-Burning-Fossil-Fuels/articleshow/36068472.cms
+
+------------------------
+Thailand
+http://www.reuters.com/article/2014/06/08/us-thailand-politics-idUSKBN0EJ05020140608?feedType=RSS&feedName=worldNews
+
+8 jun 2014 Deployment of 6000 troops to smother protests.
+
+COUP LEADER HEADS INVESTMENT BOARD
+
+The military has moved swiftly to revive the economy, and has given itself two months to clear a backlog of applications from local and foreign investors to spend more than $21 billion on projects in Thailand. [ID:nL3N0OJ1PI]
+
+The backlog arose because Yingluck's caretaker government lacked the power to appoint a new team to run the Board of Investment to replace executives whose term ended in October.
+
+7 Jun 2014 General Prayuth declared himself the head of the Board of Investment, a position typically held by the prime minister, and plans quick approval of 21 Billion backlog in investment projects from local and foreign investors. 
+
+Payment of billions of dollars in subsidy arrears to rice farmers.
+
+22 May 2014 Army coup. 
+Army chief and coup leader General Prayuth Chan-ocha.
+Ousting remains of Yingluck Shinawatra's goverenemnt.
+
+Protests begin?
+  
+7 May 2014 A court finds Yingluck guilty of abuse of power and steps down as prime meinister.
+
+Feb 2014 Protesters disrupted the vote, the election was annulled, and Yingluck's crippled caretaker government was forced to limp on.
+
+Dec 2014 Yingluck dissolved parliament and called a February election in a bid to end anti-government protests. 
+
+Decade-long conflict
+Bangkok-based royalist establishment
+vs 
+rural-based supporters of Yingluck and her brother, former prime minister Thaksin Shinawatra.
+
+2008 Thaksin Shinawatra convicted of corruption, went into exile.
+
+2006 Thaksin Shinawatra ousted in coup.
+
+Thaksin Shinawatra won the loyalty of the rural poor with populist policies.
+
+----------------------
+20 June 2014 opinion
+http://www.japantimes.co.jp/opinion/2014/06/20/commentary/world-commentary/a-climate-of-fear-in-thailand/#.U6QaVvnio8E
+
+royalists vs "red shirts"
+royalists:
+	King Bhumibol Adulyadej
+	army, General General Prayuth Chan-ocha
+	army fears losing power if royalists do not stay in power
+red shirts:
+	UDD
+	populists
+	rural farming communities, north and northeast
+	Thaksin Shinawatra (brother) PM overthrown in 2006 coup
+	Yingluck Shinawatra (sister) PM overthrown in 2014 coup
+
+The south Thailand insurgency:
+	muslim separatists
+	4 southernmost states, bordering Malaysia
+
+http://m.india.wsj.com/articles/thailands-divided-military-1404148174?mobile=y
+http://asiancorrespondent.com/124297/why-the-latest-coup-may-no-longer-be-business-as-usual-for-thailand/
+
+
+a in 1997. China has promised Hong Kong a direct vote for the next chief executive in 2017, but insists that a committee approve the candidates
+
+-------------------
+
+House of Plantagenet
+royal family
+1189 to 1485
+ended in 1485 with death of Richard III, "My Kingdom for a Horse"
+
+image, coat of arms
+http://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Royal_Arms_of_England_%281198-1340%29.svg/140px-Royal_Arms_of_England_%281198-1340%29.svg.png
+
+Middle Ages, High to Late,
+ended the Middle Ages
+giving way to House of Tudor
+stability, Renaissance
+
+Richard
+John
+Henry
+
+John, Magna Carta
+
+sub-families
+beginning with 
+Angevin, from Anjou, Henry II, Richard I, John
+ending with 
+Lancaster
+York
+Wars of the Roses
+
+the name Plantagenet was created after the fact, to distinguish them from the Tudors
+
+Middle Ages: Plantaget family, King John, Magna Carta
+Renaissance: Tudor family
+
+-------------------
+
+1991 fill in the blanks
+Start with 1990 and work backward
+
+--------------------
+
+Neem Karoli Baba Maharajji, evidently Ram Das's guru
+Bhagavan Das, Californian lived in India, Nepal for six years, introduced Ram Das to Maharajji
+Thicht Nhat Hanh, forced to leave Viet Nam, met Martin Luther King
+
+
+
+set timebegin:
+Laos 
+Cambodia
+Vietnam
+
+change color to red
+China and all forebears
+
+Indonesia
+	combine two indonesia polygons to multi
+	add Sulawesi
+	improve drawing around Singapore
+
+Singapore
+
+Malaysia, insert
+
+history of Denmark, Norway, Sweden
+

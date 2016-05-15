@@ -1,0 +1,54 @@
+forebear,headline,,,id,editstatus,datatype,maptype,timetype,timebegin,timeend,color,maplvllo,maplvlhi,timelvllo,timelvlhi
+6,Greece,check,delete,21337,0,2,2,3,-2000,-100,5,14,18,7,7
+6,Greece,check,"c4, timlvl",6,0,2,2,3,-2000,-100,5,14,18,5,6
+6,Mycenea,check,k,13426,0,2,2,3,-1870,-1850,4,14,18,5,6
+6,Mycenea,check,delete,14424,0,2,2,3,-1870,-1470,5,14,18,5,6
+6,Mycenea,check,k,13432,0,2,2,3,-1850,-1830,4,14,18,5,6
+6,Mycenea,check,k,18908,4,2,2,3,-1830,-1810,4,14,18,5,6
+6,Mycenea,check,delete,19029,4,2,2,3,-1830,-1810,4,14,18,5,6
+6,Mycenea,check,delete,19030,4,2,2,3,-1810,-1470,4,14,18,5,6
+6,Mycenea,check,k,18909,4,2,2,3,-1810,-1470,4,14,18,5,6
+6,Minoan Civilization,check,delete,19017,4,2,2,3,-1700,-1450,4,14,18,5,6
+6,Minoan Civilization,check,delete,14789,5,2,5,3,-1700,-1450,4,14,18,5,6
+6,Minoan Civilization,check,delete,18896,4,2,2,3,-1700,-1450,4,14,18,5,6
+6,Acheans,check,k,13559,0,2,2,3,-1510,-1490,4,14,18,5,6
+6,Acheans,check,k,13569,0,2,2,3,-1490,-1470,4,14,18,5,6
+6,Acheans,check,k,13583,0,2,2,3,-1470,-1450,4,14,18,5,6
+6,Acheans,check,k,13595,0,2,2,3,-1450,-1430,4,14,18,5,6
+6,Acheans,check,delete,19028,4,2,2,3,-1430,-1190,4,14,18,5,6
+6,Acheans,check,k,18907,4,2,2,3,-1430,-1190,4,14,18,5,6
+6,Acheans,check,delete,19080,4,2,2,3,-1430,-1190,4,14,18,5,6
+6,Mycenaen Empire,check,delete,19018,4,2,2,3,-1300,-1000,4,14,18,5,6
+6,Mycenaen Empire,check,delete,18897,4,2,2,3,-1300,-1000,4,14,18,5,6
+6,Mycenaen Empire,check,delete,14790,5,2,5,3,-1300,-1000,4,14,18,5,6
+6,Dorians,check,k,13639,0,2,2,3,-1230,-1210,4,14,18,5,6
+6,Dorians,check,b-1210,13645,0,2,2,3,-1230,-1190,4,14,18,5,6
+6,Dorians,check,k,13651,0,2,2,3,-1190,-1170,4,14,18,5,6
+6,Dorians,check,k,18910,4,2,2,3,-1170,-1000,4,14,18,5,6
+6,Dorians,check,delete,19031,4,2,2,3,-1170,-1000,4,14,18,5,6
+6,Greece,check,delete,18906,4,2,2,3,-1000,-140,4,14,18,5,6
+6,Greece,check,delete,13911,5,2,5,3,-1000,-140,4,14,18,5,6
+6,Greece,check,delete,19079,4,2,2,3,-1000,-140,4,14,18,5,6
+6,Greece,check,delete,19027,4,2,2,3,-1000,-140,4,14,18,5,6
+6,Hellenic Age,check,g3 update,18899,4,2,2,3,-800,-450,4,14,18,5,6
+6,Hellenic Age,check,g3 delete,19020,4,2,2,3,-800,-450,4,14,18,5,6
+6,Hellenic Age,check,delete,14792,5,2,5,3,-800,-450,4,14,18,5,6
+6,Classical,check,delete,14791,5,2,5,3,-400,-320,4,14,18,5,6
+6,Classical,check,g4 update,18898,4,2,2,3,-400,-320,4,14,18,5,6
+6,Classical,check,g4 delete,19019,4,2,2,3,-400,-320,4,14,18,5,6
+6,Alexander the Great,check,k,13885,0,2,2,3,-336,-334,4,14,18,5,6
+6,Alexander the Great,check,update,13880,5,2,5,3,-336,-323,3,14,18,5,6
+6,Alexander the Great,check,delete,19022,4,2,2,3,-336,-323,3,14,18,5,6
+6,Alexander the Great,check,delete,18901,4,2,2,3,-336,-323,3,14,18,5,6
+6,Alexander the Great,check,g1-persia update,18836,4,2,2,3,-333,-326,4,14,18,5,6
+6,Alexander the Great,check,g1-hellas delete,19055,4,2,2,3,-333,-326,4,14,18,5,6
+6,Alexander the Great,check,g1-egypt delete,18957,4,2,2,3,-333,-326,4,14,18,5,6
+6,Alexander the Great,check,g2-hellas update,19051,4,2,2,3,-325,-323,4,14,18,5,6
+6,Alexander the Great,check,g2-egypt delete,18943,4,2,2,3,-325,-323,4,14,18,5,6
+6,Alexander the Great,check,g2-persia delete,18822,4,2,2,3,-325,-323,4,14,18,5,6
+6,Hellenistic Age,check,delete,14786,5,2,5,3,-300,-100,4,14,18,5,6
+6,Hellenistic Age,check,"g3-hellas, b-323, e-31 update",18895,4,2,2,3,-300,-100,4,14,18,5,6
+6,Hellenistic Age,check,g3-turkey delete,19016,4,2,2,3,-300,-100,4,14,18,5,6
+6,Greece,check,b1828,18835,4,3,2,3,1991,7777,4,14,18,5,6
+6,Greece,check,delete,18956,4,3,2,3,1991,7777,4,14,18,5,6
+6,Greece,check,delete,19054,4,3,2,3,1991,7777,4,14,18,5,6

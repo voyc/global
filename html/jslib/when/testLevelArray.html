@@ -1,0 +1,82 @@
+<!doctype html>
+<hmtl>
+<head>
+<title>LevelArray Test</title>
+<script>
+var jday = 1/365.25;
+var jsec = jday/(24*60*60);
+var alevels = {
+'30': {even:1, jyear:1.00E+019, unit:'1.00E+019', divisor:10 },
+'29': {even:1, jyear:1.00E+018, unit:'1.00E+018', divisor:10 },
+'28': {even:1, jyear:1.00E+017, unit:'1.00E+017', divisor:10 },
+'27': {even:1, jyear:1.00E+016, unit:'1.00E+016', divisor:10 },
+'26': {even:1, jyear:1.00E+015, unit:'Quadrillion', divisor:10 },
+'25': {even:0, jyear:100000000000000, unit:'Hundred-trillion', divisor:10 },
+'24': {even:0, jyear:10000000000000, unit:'Ten-trillion', divisor:10 },
+'23': {even:1, jyear:1000000000000, unit:'Trillion', divisor:10 },
+'22': {even:0, jyear:100000000000, unit:'Hundred-billion', divisor:10 },
+'21': {even:0, jyear:10000000000, unit:'Ten-billion', divisor:10 },
+'20': {even:1, jyear:1000000000, unit:'Billion', divisor:10 },
+'19': {even:0, jyear:100000000, unit:'Hundred-million', divisor:10 },
+'18': {even:0, jyear:10000000, unit:'Ten-million', divisor:10 },
+'17': {even:1, jyear:1000000, unit:'Million', divisor:10 },
+'16': {even:0, jyear:100000, unit:'Hundred-thousand', divisor:10 },
+'15': {even:0, jyear:10000, unit:'Ten-thousand', divisor:10 },
+'14': {even:1, jyear:1000, unit:'Millenium', divisor:2 },
+'13': {even:0, jyear:500, unit:'Half-millenium', divisor:5 },
+'12': {even:1, jyear:100, unit:'Century', divisor:2 },
+'11': {even:0, jyear:50, unit:'Half-century', divisor:5 },
+'10': {even:1, jyear:10, unit:'Decade', divisor:2 },
+'9': {even:0, jyear:5, unit:'Half-decade', divisor:5 },
+'8': {even:1, jyear:1, unit:'Year', divisor:2 },
+'7': {even:0, jyear:0.5, unit:'Half-year', divisor:2 },
+'6': {even:0, jyear:0.25, unit:'Quarter-year', divisor:3 },
+'5': {even:1, jyear:1/12, unit:'Month', divisor:2 },
+'4': {even:0, jyear:(1/12)/2, unit:'Half-month', divisor:2 },
+'3': {even:0, jyear:(1/12)/4, unit:'Quarter-month', divisor:2 },
+'2': {even:0, jyear:(1/12)/8, unit:'Eighth-month', divisor:2 },
+'1': {even:0, jyear:(1/12)/16, unit:'Sixteenth-month', divisor:2 },
+'0': {even:1, jyear:jday, unit:'Day', divisor:2 },
+'-1': {even:0, jyear:jday/2, unit:'Half-day', divisor:2 },
+'-2': {even:0, jyear:jday/4, unit:'Quarter-day', divisor:2 },
+'-3': {even:0, jyear:jday/8, unit:'Eighth-day', divisor:3 },
+'-4': {even:1, jyear:jday/24, unit:'Hour', divisor:2 },
+'-5': {even:0, jyear:(jsec*60)*30, unit:'Half-hour', divisor:2 },
+'-6': {even:0, jyear:(jsec*60)*15, unit:'Quarter-hour', divisor:3 },
+'-7': {even:0, jyear:(jsec*60)*5, unit:'Twelfth-hour', divisor:5 },
+'-8': {even:1, jyear:jsec*60, unit:'Minute', divisor:2 },
+'-9': {even:0, jyear:jsec*30, unit:'Half-minute', divisor:2 },
+'-10': {even:0, jyear:jsec*15, unit:'Quarter-minute', divisor:3 },
+'-11': {even:0, jyear:jsec*5, unit:'Twelfth-minute', divisor:5 },
+'-12': {even:1, jyear:jsec, unit:'Second', divisor:10 },
+'-13': {even:1, jyear:jsec/10, unit:'Decisecond', divisor:10 },
+'-14': {even:1, jyear:jsec/100, unit:'Centisecond', divisor:10 },
+'-15': {even:1, jyear:jsec/1000, unit:'Millesecond', divisor:10 },
+'-16': {even:1, jyear:jsec/10000, unit:'Nanosecond', divisor:10 },
+'-17': {even:1, jyear:jsec/100000, unit:'1E-5 second', divisor:10 },
+'-18': {even:1, jyear:jsec/1000000, unit:'1E-6 second', divisor:10 },
+'-19': {even:1, jyear:jsec/10000000, unit:'1E-7 second', divisor:10 },
+'-20': {even:1, jyear:jsec/100000000, unit:'1E-8 second', divisor:10 },
+'-21': {even:1, jyear:jsec/1000000000, unit:'1E-9 second', divisor:10 }
+}
+var maxlevel = 30;
+var minlevel = -21;
+draw = function(s) {
+	document.getElementById('out').innerHTML += s + '<br/>';
+}
+onload = function() {
+	var x, px, diff, err;
+	for (var i=minlevel+1; i<=maxlevel; i++) {
+		x = alevels[String(i)];
+		px = alevels[String(i-1)];
+		diff = x.jyear - (x.divisor * px.jyear);
+		err = (Math.abs(diff) > 0) ? 'booboo'+diff : 'ok';
+		draw([x.jyear, x.unit, x.divisor, x.even, err]);
+	}
+}
+</script>
+</head>
+<body>
+<div id='out'></div>
+</body>
+</html>

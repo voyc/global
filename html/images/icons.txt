@@ -1,0 +1,4 @@
+05,04  24,22  white magnifying glass
+44,04  63,23  black magnifying glass
+08,32  20,40  gray down arrow
+06,48  24,65  menu

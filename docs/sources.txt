@@ -1,0 +1,14 @@
+﻿
+cartotalk.com
+Forgive me if this has been done already. I found a bunch of shapefiles for historical political boundaries on Cartotalk.com and exported them all to KML with TimeSpans. 
+https://productforums.google.com/forum/#!topic/gec-dynamic-data-layers/IR-xFFGsYxo
+http://mdge.blogspot.in/2008/10/animated-historical-political.html
+
+
+
+
+old maps georeferenced and indexed in KML
+http://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~243023~5513279:-Composite-of--B-F--Steven-s-Facsim;JSESSIONID=8497b6ed-1db5-4653-b186-e2066e40f7ef?trs=4&qvq=q%3A6403.000%3Bsort%3APub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No%3Blc%3ARUMSEY~8~1&mi=3&sort=Pub_List_No_InitialSort%2CPub_Date%2CPub_List_No%2CSeries_No
+
+
+

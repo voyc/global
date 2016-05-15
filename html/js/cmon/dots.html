@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+
+<!-- (c) Copyright 2005,2006 MapTeam, Inc.  -->
+	<head>
+		<title>test Dots</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		
+		
+		<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAATYD-kkkOSI50UQgjtMIQ-xRgyleS7YN6prL5IOsYDnkJQYD5IhSevX_ntJNr0DpZjmHAdDA4-m93hA" type="text/javascript"></script>
+		<script src="../jslib/debug.js" language="javascript"></script>
+		<script src="../jslib/map.js" language="javascript"></script>
+		<script src="vmap.js" language="javascript"></script>
+		<script src="dots.js" language="javascript"></script>
+		
+		<script language="javascript">
+			var g = {};
+			g.debug = new Debug(true);
+			window.onload = onPageLoad;
+			
+			var map1 = null;
+			
+			function onPageLoad() {
+				map1 = new Map(document.getElementById("map1"), {controls:"none"});
+				map1.addControl(new GSmallMapControl());
+				map1.addControl(new GMapTypeControl());
+				map1.setCenter(new GLatLng(41.8245, -87.6544), 2);
+			}
+
+			g.data = {};
+			g.data.data = {
+				14943:{
+					b:2008.115,	e:2008.115,
+				    iurl:"http://i3.democracynow.org/images/story/26/16426/evohugoweb.jpg",
+					h:"US Embassy in Bolivia Tells Fulbright Scholar and Peace Corps Volunteers to Spy on Venezuelans and Cubans in Bolivia",
+					c:3,
+					gn:-64.6435,gs:-64.6435,ge:-16.5519,gw:-16.5519,
+					mlh:3000,mll:0,
+					tlh:3,tll:1,
+					mt:5,
+					tt:1,
+					p:[[-64.6435,-16.5519],[-64.6435,-16.5519],]
+				},
+				14944:{b:2008.115,e:2008.115,iurl:"http://i4.democracynow.org/images/story/27/16427/Correa2Web.jpg",      h:"EXCLUSIVE: Ecuadorian President Rafael Correa on the Lawsuit Against Chevron, Eradicating Foreign Debt and Why He Says \"Ecuador is No Longer for Sale\"",c:4,gn:-78.2226,gs:-78.2226,ge:-1.4939,gw:-1.4939,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[-78.2226,-1.4939],[-78.2226,-1.4939],]},
+				14981:{b:2007.789,e:2007.789,iurl:"http://i3.democracynow.org/images/story/55/3355/JamailWeb.jpg",        h:"Dahr Jamail: \"Beyond the Green Zone: Dispatches from an Unembedded Journalist in Occupied Iraq\"",c:5,gn:44.2089,gs:44.2089,ge:33.4314,gw:33.4314,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[44.2089,33.4314],[44.2089,33.4314],]},
+				14959:{b:2007.928,e:2007.928,iurl:"http://i1.democracynow.org/images/story/54/16254/tehelkaborderWeb.jpg",h:"Explosive Report by Indian Magazine Exposes Those Responsible for 2002 Gujarat Massacre",c:1,gn:77.6074,gs:77.6074,ge:29.0753,gw:29.0753,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[77.6074,29.0753],[77.6074,29.0753],]},
+				14965:{b:2007.871,e:2007.871,iurl:"http://i4.democracynow.org/images/story/10/3410/JahangirWeb.jpg",      h:"Under House Arrest, Pakistani Human Rights Leader Asma Jahangir Speaks Out on Musharraf’s Crackdown",c:2,gn:73.0151,gs:73.0151,ge:33.6694,gw:33.6694,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[73.0151,33.6694],[73.0151,33.6694],]},
+				14966:{b:2007.871,e:2007.871,iurl:"http://i4.democracynow.org/images/story/11/3411/SomaliaWeb1.jpg",      h:"Former UN Spokesperson Salim Lone: International Community Turning Blind Eye to Worsening Somalia Crisis",c:3,gn:-136.582,gs:-136.582,ge:65.9464,gw:65.9464,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[-136.582,65.9464],[-136.582,65.9464],]},
+				14929:{b:2008.112,e:2008.112,iurl:"http://i4.democracynow.org/images/story/27/16427/Correa2Web.jpg",      h:"Ecuador president Rafael Correa sues Chevron",c:4,gn:-78.4986877441406,gs:-78.4986877441406,ge:-0.20530656748313,gw:-0.20530656748313,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[-78.498688,-0.205307],[-78.498688,-0.205307],]},
+				14932:{b:2008.030,e:2008.030,iurl:"http://i2.democracynow.org/images/story/51/16351/IranSpeedboatWeb.jpg",h:"US tries to fake an Iranian naval provocation. Compared to Gulf of Tonkin.",c:5,gn:56.3699054718018,gs:56.3699054718018,ge:26.6452339745739,gw:26.6452339745739,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[56.369905,26.645234],[56.369905,26.645234],]},
+				14933:{b:2008.087,e:2008.087,iurl:"http://i3.democracynow.org/images/story/04/16404/Khan2Web.jpg",        h:"American policy undermines democracy and strengthens terrorists in Pakistan.",c:1,gn:73.1240558624268,gs:73.1240558624268,ge:33.7109892625331,gw:33.7109892625331,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[73.124056,33.710989],[73.124056,33.710989],]},
+				14934:{b:2008.145,e:2008.145,iurl:"http://i4.democracynow.org/images/story/69/16469/belgradeweb.jpg",     h:"Serbian Protesters Set U.S. Embassy on Fire to Protest Independence of Kosovo",c:2,gn:20.465601,gs:20.465601,ge:44.802416,gw:44.802416,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[20.465601,44.802416],[20.465601,44.802416],]},
+				14939:{b:2008.136,e:2008.136, iurl:"http://i2.democracynow.org/images/story/55/16455/BhuttoFatima-web.jpg",h:"Outspoken Niece of Benazir Bhutto Accuses Aunt’s Party of Fraud in Pakistani Elections",c:3,gn:73.0151,gs:73.0151,ge:33.6694,gw:33.6694,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[73.0151,33.6694],[73.0151,33.6694],]},
+				14947:{b:2008.065,e:2008.065,iurl:"http://i1.democracynow.org/images/story/91/16391/Rafah3.jpg",          h:"Tens of Thousands of Palestinians Seeking Basic Supplies Flood Egypt for Second Day",c:4,gn:-95.6383,gs:-95.6383,ge:31.7789,gw:31.7789,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[-95.6383,31.7789],[-95.6383,31.7789],]},
+				14991:{b:2007.854,e:2007.854,iurl:"http://i1.democracynow.org/images/story/03/3403/GloverWeb.jpg",        h:"Actor and Activist Danny Glover and TransAfrica Forum’s Nicole Lee on the U.S. Militarization of Africa and Africom",c:4,gn:-77.032,gs:-77.032,ge:38.938,gw:38.938,mlh:3000,mll:0,tlh:3,tll:1,mt:5,tt:1,p:[[-77.032,38.938],[-77.032,38.938],]},
+			};
+
+			function addDots() {			
+				gmarker = new GMarker(new GLatLng(36.5245, -90.6544));
+				map1.addOverlay(gmarker);
+
+				gmarker2 = new GMarker(new GLatLng(41.9345, -87.7644));
+				map1.addOverlay(gmarker2);
+
+				map1.setPanes(map1);
+//				dots = new Dots(map1);
+//				map1.addOverlay(dots);
+
+				for (id in g.data.data) {
+					dots.addDot(id);
+				}
+			}
+				
+			function setTime(n) {
+				b = 2007.789;
+				e = 2008.145;
+				dots.onTimeChange("OnTimeChange", null, n,b,e);
+			}
+		</script>
+	</head>
+	
+	<body>
+		hello
+		<input type="button" onclick="setTime(2007.928)" value="set time 1" />
+		<input type="button" onclick="setTime(2008.136)" value="set time 2" />
+		<input type="button" onclick="addDots()" value="add dots" />
+		
+		<div id="map1" style="position:absolute; top:50px; left:60px; width:500px; height:400px;"></div>
+	</body>
+</html>

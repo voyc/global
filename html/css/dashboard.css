@@ -1,0 +1,241 @@
+#dashboard table {
+	border-spacing:0px;
+	border-collapse:collapse;
+	width:100%;
+}
+#dashboard table#bg {
+}
+#dashboard table#bg img {
+	display:block;
+}
+#dashboard td {
+	padding:0;
+	vertical-align:center;
+}
+#dashboard table#bg img.vimg {
+	width:100%;
+	height:50px;
+}
+#dashboard table#bg td.end {
+	width:8px;
+}
+#dashboard table#bg td.center {
+	width:240px;
+}
+#dashboard table#bg td.vtext {
+	width:50%;
+}
+#dashboard table#fg {
+	table-layout:fixed;
+	position:relative;
+	top:-50px;
+}
+#dashboard table#fg td {
+	white-space:nowrap;
+	font-family:arial;
+	color:#fff;
+}
+#dashboard #fg-left {
+	width:50%;
+	height:50px;
+}
+#dashboard td#fg-center {
+	width:256px;
+	height:50px;
+}
+#dashboard td#fg-right {
+	width:50%;
+	height:50px;
+	padding-right:14px;
+}
+#dashboard td.aright {
+	text-align:right;
+}
+#dashboard td.tdbtn {
+	width:1px;
+}
+#db-lcd {
+	width:260px;
+	font-family: arial;
+	font-size: 12pt;
+	font-weight: bold;
+	color:black;
+	text-align: center;
+	cursor:default;
+	margin-top:4px;
+}
+#db-logo {
+	margin-left:10px;
+	margin-top:3px;
+}
+#db-loader {
+	position:absolute;
+	top:12px;
+	left:15%;
+	cursor:default;
+	background-color:#eee;
+	color:#000;
+	padding:2px;
+	border:2px ridge #fff;
+}
+#loader_text {
+	margin-left:5px;
+}
+#db-copyright {
+	cursor:default;
+}
+#db-menu {
+	background-image:url(../images/icons.png);
+	background-position:-3px -44px;
+	width:24px;
+	height:24px;
+}
+.btn {
+	margin-top:1px;
+	border-width:2px;
+	border-color:#ccc;
+	border-style:groove;
+}
+.btnover {
+	background-color:#aaa;
+}
+.btndown {
+	border-style:inset;
+}
+#db-searchbox {
+	height:24px;
+	width:100%;
+	border:2px inset #ccc;
+	background-color:transparent;
+	color:#000;
+	margin-top:1px;
+	border-right:none;
+}
+#db-searchbox.enabled {
+	background-color:#fff;
+}
+#db-searchinput {
+	width:calc(100% - 8px);
+	border:none;
+	outline:none;
+	margin:3px 0 0 6px;
+	background-color:transparent;
+	font-style:italic;
+}
+#db-searchinput.enabled {
+	font-style:normal;
+}
+#db-searchcancel {
+	background-image:url(../images/btn_icon_x_black.png);
+	background-repeat:no-repeat;
+	background-position:center center;
+	width:0px;
+	height:24px;
+	margin-top:1px;
+	border:2px inset #ccc;
+	background-color:transparent;
+	border-left:none;
+}
+#db-searchcancel.enabled {
+	width:22px;
+	background-color:#fff;
+}
+#db-searchoptbtn {
+	background-image:url(../images/icons.png);
+	background-position:-7px -22px;
+	width:14px;
+	height:24px;
+	border-left:none;
+}
+#db-searchbtn {
+	background-image:url(../images/icons.png);
+	background-position:4px -1px;
+	width:34px;
+	height:24px;
+	border-left:none;
+}
+.aboutlink {
+	cursor:pointer;
+	text-decoration:underline;
+}
+#db-loader,#db-menu,#db-searchbox,#db-searchcancel,#db-searchoptbtn,#db-searchbtn {
+	display:none;  /* hidden on startup */
+}
+.internals-component {
+	float:left;
+	border:thin solid black;
+	margin:3px;
+}
+
+/* menu, additional classes to override 'voyc-card' */
+.menu {
+	width:110px; 
+	height:40px; 
+	resize:none;
+}
+.menu-content {
+	top:0px;
+	width:100%; 
+	height:100%;
+} 
+.menuitem {
+	cursor:pointer;
+	line-height:1.5em;
+}
+.menuitem:hover {
+	background-color:#eee;
+}
+
+/* searchopt modal dialog */
+
+#searchopt {
+	position:absolute; 
+	border:1px solid #042;
+	padding:10px;
+	background-color:white;
+	border-style:solid;
+	border-color:#ccc;
+	border-width:1px 1px 1px 1px;
+	resize:none;
+	overflow-x:hidden;
+	overflow-y:auto;
+	box-shadow:3px 3px 3px 0px rgba(0,0,0,0.50);
+}
+
+#searchopt fieldset label {
+}
+#searchopt fieldset label:hover {
+	cursor:pointer;
+}
+
+#searchopt #fields label {
+	float: left;
+	font-size: 13px;
+	width: 100px;
+	color: #044;
+	margin-top:10px;
+}
+
+#searchopt fieldset {
+	border:none;
+}
+#searchopt ol {
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+
+#searchopt input[type=text] {
+	width:98%;
+}
+#searchoptclose {
+	width:20px;
+	height:20px;
+	background-image:url(../images/btn_icon_x_black.png);
+	background-repeat:no-repeat;
+	background-position:center center;
+	float:right;
+}
+#searchoptclose:hover {
+	border:thin solid black;
+}

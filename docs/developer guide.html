@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<TITLE>Voyc Developer Guide</TITLE>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="assets/voyc-docs.css" type="text/css" />
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H1>Voyc Developer Guide</H1>
+
+<H2>Client-Side Object Model</H2>
+
+<h3>Four UI Objects</h3>
+<img src='assets/UIComponents.png'/>
+<p>"Controller" has been renamed to "Dashboard".
+<p>Each of the four main UI elements on the screen are represented by a div in the html, and by an object in the javascript.</p>
+<table>
+<tr><td>Map</td><td>The map.  An instance of Google Maps.</td></tr>
+<tr><td>Detail</td><td>The Detail display window.  Contains full story narratives and photos.</td></tr>
+<tr><td>Timeline</td><td>The Timeline.</td></tr>
+<tr><td>Dashboard</td><td>The grey dashboard running horizontally across the middle of the display. 
+	Contains logo, LCD time readout, search box, and other controls.</td></tr>
+</table>
+
+
+<h3>Memory Map</h3>
+
+<h4>Namespace</h4>
+<p><b>var voyc = {};</b>
+<p>All global variables, functions, and classnames are defined under the single global variable: voyc.
+
+<h4>Global Utility Singletons</h4>
+<table>
+<tr><th>Variable</th><th>Class</th><th>Description</th></tr>
+<tr><td>voyc.animator</td><td>voyc.Animator</td><td>Animates a specified div.  Used to pan and zoom the timeline.</td></tr>
+<tr><td>voyc.card</td><td>voyc.Card</td><td>Factory to create a popup window-like div.</td></tr>
+<tr><td>voyc.color</td><td>voyc.Color</td><td>Maintains a stack of colors used in map and timeline.</td></tr>
+<tr><td>voyc.debug</td><td>voyc.Debug</td><td>Contains global debugging methods including alert() to write to the log.</td></tr>
+<tr><td>voyc.dragger</td><td>voyc.Dragger</td><td>Installs drag-and-drop on any div.  Used to drag timeline and the card popup windows.</td></tr>
+<tr><td>voyc.event</td><td>voyc.Event</td><td>Implements publish and subscribe event model.</td></tr>
+<tr><td>voyc.xhr</td><td>voyc.Xhr</td><td>Implements ajax server calls.</td></tr>
+</table>
+
+<h4>Global Voyc Singletons</h4>
+<table>
+<tr><th>Variable</th><th>Class</th><th>Description</th></tr>
+<tr><td>voyc.voyc</td><td>voyc.Voyc</td><td>The main object that receives control from window.onload() and creates all the other objects.</td></tr>
+<tr><td>voyc.options</td><td>voyc.Options</td><td>Defines the user options or preferences.</td></tr>
+<tr><td>voyc.dashboard</td><td>voyc.voyc.Dashboard</td><td>Implements the Dashboard UI object.</td></tr>
+<tr><td>voyc.detail</td><td>voyc.voyc.Detail</td><td>Implements the Detail UI object.</td></tr>
+<tr><td>voyc.map</td><td>voyc.voyc.Map</td><td>Implements the Map UI object.</td></tr>
+<tr><td>voyc.timeline</td><td>voyc.voyc.Timeline</td><td>Implements the Timeline UI object.</td></tr>
+<tr><td>voyc.dispatch</td><td>voyc.voyc.Dispatch</td><td>Manages all requests to the server for data.</td></tr>
+</table>
+
+<h4>Helper Singletons</h4>
+<table>
+<tr><th>Variable</th><th>Class</th><th>Description</th></tr>
+<tr><td>voyc.voyc.layout</td><td>voyc.Layout</td><td>Composes spatial layout of the four UI objects on the screen.</td></tr>
+<tr><td>voyc.voyc.map.mapcard</td><td>voyc.Mapcard</td><td>Implements the popup window that hovers over the map.</td></tr>
+<tr><td>voyc.voyc.map.level</td><td>voyc.MapLevel</td><td>Contains tables and computations for map level.</td></tr>
+<tr><td>voyc.voyc.timeline.level</td><td>voyc.TimeLevel</td><td>Contains tables and computations for timeline level.</td></tr>
+</table>
+
+<h4>Working Objects</h4>
+<table>
+<tr><th>Class</th><th>Description</th></tr>
+<tr><td>voyc.Bounds</td><td>Defines boundaries of a group of data records.  Managed by Dispatch, passed to UI objects.</td></tr>
+<tr><td>voyc.MapPolygon</td><td>Managed by Map.  One object for every polygon drawn on the map.</td></tr>
+<tr><td>voyc.MapDot</td><td>Managed by Map. One object for every dot drawn on the map.</td></tr>
+<tr><td>voyc.MapMarker</td><td>Managed by MapDot.  Mimics and replaces Google Marker class.</td></tr>
+<tr><td>voyc.MapShape</td><td>Obsolete.</td></tr>
+<tr><td>voyc.TimeBar</td><td>Managed by Timeline.  One object for every dot or bar on the timeline.</td></tr>
+<tr><td>voyc.When</td><td>Implements a decimal year object.</td></tr>
+</table>
+
+<h4>Other Globals</h4>
+<pre>
+JXmlHttp: function () {
+language: "en"
+<tr><td>voyc.datatype</td><td>voyc.Datatype</td><td>xxx</td></tr>
+<tr><td>voyc.MapShapeType</td><td>xxx</td></tr>
+<tr><td>voyc.string</td><td>xxx</td></tr>
+</pre>
+
+<h4>Global Utility Functions</h4>
+<table>
+<tr><th>Function</th><th>Description</th></tr>
+<tr><td>voyc.$</td><td>Calls document.getElementById().</td></tr>
+<tr><td>voyc.addClass</td><td>Add a CSS classname to an HTML element.</td></tr>
+<tr><td>voyc.removeClass</td><td>Remove a CSS classname from an HTML element.</td></tr>
+<tr><td>voyc.hasClass</td><td>Return true if an HTML element has the specified CSS classname.</td></tr>
+<tr><td>voyc.addEvent</td><td>Call either addEventListener() or attachEvent().</td></tr>
+<tr><td>voyc.appendScript</td><td>Append a script to the HEAD element.</td></tr>
+<tr><td>voyc.cloneArray</td><td>Make a copy of an array.</td></tr>
+<tr><td>voyc.getAbsolutePosition</td><td>Find the x,y position of a div on the browser window.</td></tr>
+<tr><td>voyc.getFileLine</td><td>For debugging, return the filename and line number of current position.</td></tr>
+<tr><td>voyc.mergeOptions</td><td>Merge the attributes of two objects.</td></tr>
+<tr><td>voyc.pad</td><td>Left-fill a number string with zeroes or spaces.</td></tr>
+<tr><td>voyc.subClass</td><td>Make one javascript class a subclass of another.</td></tr>
+</table>
+
+<h3>Conventions</h3>
+<ul>
+<li>Each js file contains one class.  The name of the class and its file are the same, except for capitalization.  Classnames use UpperCamelCase.  Filenames are all lower case.</li>
+<li>Each js file has a matching html file.  This is a test harness for the class.</li>
+<li>Each class is self sufficient.  The only global objects that are the data and the observer.  All communication among the objects is done via events.</li>
+<li>We write minimalist code.  (No jquery.)</li>
+<li>We write self-documenting code, commented in JSDoc style.</li>
+<li>We use popular coding conventions, including these documented by 
+	<a href='http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml'>Google</a> and 
+<a href='http://javascript.crockford.com/code.html'>Crockford</a></li>
+</ul>
+
+<p>Common method names:</p>
+<ul>
+<li>constructor()</li>
+<li>create()</li>
+<li>layout()</li>
+<li>draw()</li>
+</ul>
+
+<H3>Event Model</H3>
+
+The Voyc objects communicate with one another by passing "messages".
+
+<P>There are three kinds of events in Voyc.</P>
+<table>
+<tr><td>DOM Events</td><td>The Controller, Timeline, and Detail objects listen for 
+and handle clicks, mouseovers and similar DOM events that are triggered by user 
+actions on the UI.  The onload and onresize are handled within the Voyc object.</td></tr>
+<tr><td>GMapAPI</td><td>The Google Map API wraps DOM events into its own system of events 
+named bounds_changed, click, dragend, zoom_changed, etc.  This are all handled
+with Voyc's Map object.</td></tr>
+<tr><td>Observer</td><td>The list of Observer events is below.  
+Objects can subscribe to any event, and may publish any event.</td></tr>
+</table>
+
+Technically, the publish/subscriber model is "message" publishing.
+And the DOM Events and GMapAPI events are true event-driven designs.
+google.map.event.trigger()
+google.map.event.addListener()
+
+event-driven event trigger listen
+each software program adds a Listener and specifies a Handler 
+
+message-passing message published subscribed
+published to a subscriber
+
+event-driven and message-passing
+
+Observer Event
+
+voycEvent.trigger()
+voycEvent.addListener(event, publisher, subscriber )
+
+this.voycEvent.subscribe(eventName, handlerFunction)
+this.voycEvent.publish( eventName, publisherName, paramsObject) 
+
+this.voycEvent.addListener(eventName, handlerFunction)
+this.voycEvent.trigger( eventName, publisherName, paramsObject) 
+
+this.event.trigger('OnHover', me, 
+
+how can Event record the object that subscribed, and again that triggered, and match them up.
+
+
+<h4>Observer Events</h4>
+<table>
+	<tr><th>Event</th><th>Publishers</th><th>Subscribers</th></tr>
+	<tr><td>OnRead</td><td>vdata</td><td>controller</td></tr>
+	<tr><td>OnData</td><td>vdata</td><td>controller,dispatch,vdetail,vmap,vtimeline</td></tr>
+	<tr><td>OnDetail</td><td>vdata</td><td>vdetail</td></tr>
+	<tr><td>OnLogin</td><td>user</td><td>cookie</td></tr>
+	<tr><td>OnLogout</td><td>user</td><td>cookie,vdetail</td></tr>
+	<tr><td>OnTimeChange</td><td>coordinates</td><td>cookie,controller,dispatch,vmap</td></tr>
+	<tr><td>OnTimeZoom</td><td>coordinates</td><td>cookie,controller,dispatch,vmap,zoomer</td></tr>
+	<tr><td>OnMapMove</td><td>coordinates</td><td>cookie,dispatch,vmap</td></tr>
+	<tr><td>OnMapZoom</td><td>coordinates</td><td>cookie,dispatch,vmap</td></tr>
+	<tr><td>OnMapType</td><td>coordinates</td><td></td></tr>
+	<tr><td>OnHover</td><td>coordinates</td><td>vmap,vtimeline</td></tr>
+	<tr><td>OnSelect</td><td>coordinates</td><td>vmap,vtimeline</td></tr>
+	<tr><td>OnSearch</td><td>coordinates</td><td>cookie,controller,dispatch</td></tr>
+	<tr><td>OnZoom</td><td>Zoomer</td><td>coordinates</td></tr>
+	<tr><td>OnSlide</td><td>OnSlide</td><td>coordinates</td></tr>
+</table>
+
+<h3>Timeline Drawing Algorithms</h3>
+
+There are two layers:
+rows in the background
+streams in the foreground
+
+Background Rows
+Display all qualified records.
+Vary the height and number of the rows, so that all records can be displayed.
+
+Foreground Streams
+Constant height of stream.
+Vary the number of streams by the height of the container.
+Choose which records to display depending on magnitude.
+
+<H2>Data Model</H2>
+<P>Here is the data model.
+</P>
+<H3>Data Schema</H3>
+<H4>Table: fpd</H4>
+<p>The primary data table. Contains one record for each story.</p>
+<table>
+<tr><th>Field</th><th>Type</th><th>Description</th></tr>
+
+<tr><td>datatype</td><td>integer</td><td>Code for type of story.
+	<table class=codetable>
+	<th>Code</th><th>Count</th><th>Value</th></tr>
+	<tr><td> 2</td><td>522   </td><td>Historical political boundary</td></tr>
+	<tr><td> 3</td><td>216   </td><td>Contemporary national boundary</td></tr>
+	<tr><td> 5</td><td>      </td><td>Person</td></tr>
+	<tr><td> 6</td><td>      </td><td>Work</td></tr>
+	<tr><td> 7</td><td>      </td><td>Head of state</td></tr>
+	<tr><td> 8</td><td> 22   </td><td>Big Event</td></tr>
+	<tr><td>10</td><td>  2   </td><td>World War</td></tr>
+	<tr><td>11</td><td>276945</td><td>News Event</td></tr>
+	</table>
+</td></tr>
+<tr><td>headline</td><td>string</td><td>Title of story.</td></tr>
+<tr><td>abstract</td><td>string</td><td>The story.  (An abstract summary.)</td></tr>
+<tr><td>tags</td><td>string</td><td>Comma-separated tags.</td></tr>
+<tr><td>placename</td><td>string</td><td>Optional. Common place name.</td></tr>
+<tr><td>magnitude</td><td>integer</td><td>Indicator of importance.</td></tr>
+<tr><td>feeling</td><td>integer</td><td>Not in use. Good news vs bad news.</td></tr>
+<tr><td>imageurl</td><td>string</td><td>URL of picture file.</td></tr>
+<tr><td>storyurl</td><td>string</td><td>URL of original source article.</td></tr>
+
+<tr><td>maplvlhi</td><td>integer</td><td>Maximum map zoom level.</td></tr>
+<tr><td>maplvllo</td><td>integer</td><td>Minimum map zoom level.</td></tr>
+<tr><td>maptype</td><td>integer</td><td>Code for type of map object.
+	<table class=codetable>
+	<th>Code</th><th class=num>Count</th><th>Value</th></tr>
+	<tr><td> 0</td><td class=num>170805</td><td>None</td></tr>
+	<tr><td> 2</td><td class=num>820   </td><td>Polygon</td></tr>
+	<tr><td> 5</td><td class=num>107474</td><td>Point</td></tr>
+	</table>
+</td></tr>
+<tr><td>the_geom</td><td>geometry</td><td>Array of lat-long coordinates.</td></tr>
+
+<tr><td>timebegin</td><td>double float</td><td>Decimal year. Beginning</td></tr>
+<tr><td>timeend</td><td>double float</td><td>Decimal year. Ending</td></tr>
+<tr><td>timelvlhi</td><td>integer</td><td>Maximum timeline zoom level.</td></tr>
+<tr><td>timelvllo</td><td>integer</td><td>Minimum timeline zoom level.</td></tr>
+<tr><td>timetype</td><td>integer</td><td>Code for type of timeline object.
+	<table class=codetable>
+	<th>Code</th><th class=num>Count</th><th>Value</th></tr>
+	<tr><td> 0</td><td class=num>0     </td><td>None</td></tr>
+	<tr><td> 2</td><td class=num>278288</td><td>Dot</td></tr>
+	<tr><td> 3</td><td class=num>804   </td><td>Bar</td></tr>
+	</table>
+</td></tr>
+<tr><td>timeprecision</td><td>integer</td><td> Code.  For future use.  See when.js for values.</td></tr>
+
+<tr><td>parent</td><td>integer</td><td>Foreign key to this table.  Like forebear.</td></tr>
+<tr><td>forebear</td><td>integer</td><td>Foreign key to this table.</td></tr>
+<tr><td>author</td><td>string</td><td>Optional. Name of Author.</td></tr>
+<tr><td>color</td><td>integer</td><td>Code.  See color.js for values.</td></tr>
+<tr><td>service</td><td>string</td><td>Name of feed provider.
+	<table class=codetable>
+	<tr><th>Code</th><th class=column-right>Count</th><th>Description</th></tr>
+	<tr><td>NULL</td><td class=column-right>45</td><td>None</td></tr>
+	<tr><td>reuters</td><td class=column-right>18448</td><td></td></tr>
+	<tr><td>globalvoices</td><td class=column-right>9166</td><td></td></tr>
+	<tr><td>rss</td><td class=column-right>47           </td><td></td></tr>
+	<tr><td>moblog</td><td class=column-right>32533     </td><td></td></tr>
+	<tr><td>flickr</td><td class=column-right>108818    </td><td></td></tr>
+	<tr><td>email-upload</td><td class=column-right>1   </td><td></td></tr>
+	<tr><td>twitpic</td><td class=column-right>4        </td><td></td></tr>
+	<tr><td>DemocracyNow</td><td class=column-right>879 </td><td></td></tr>
+	<tr><td>csv-upload</td><td class=column-right>2     </td><td></td></tr>
+	</table>
+</td></tr>
+<tr><td>permalink</td><td>string</td><td>Unique id (within service) of story provided by feed.</td></tr>
+<tr><td>bibid</td><td>integer</td><td>Foreign key to bibliography table.</td></tr>
+<tr><td>editstatus</td><td>integer</td><td>Code for edit status.
+	<table class=codetable>
+	<tr><th>Code</th><th class=column-right>Count</th><th>Description</th></tr>
+	<tr><td>0</td><td class=column-right>107887</td><td>ok</td></tr>
+	<tr><td>1</td><td class=column-right>0</td><td>New</td></tr>
+	<tr><td>2</td><td class=column-right>6</td><td>New, no geom</td></tr>
+	<tr><td>3</td><td class=column-right>91</td><td>Historical boundaries</td></tr>
+	<tr><td>4</td><td class=column-right>190</td><td>Historical boundaries</td></tr>
+	<tr><td>5</td><td class=column-right>57</td><td>Points, datatype 2,7,8</td></tr>
+	<tr><td>10</td><td class=column-right>170799</td><td>No geom</td></tr>
+	<tr><td>13</td><td class=column-right>68</td><td>News events</td></tr>
+	<tr><td>20</td><td class=column-right>1</td><td>Swami's pumpkin</td></tr>
+	</table>
+</td></tr>
+
+<tr><td>id</td><td>integer</td><td>Unique ID.</td></tr>
+<tr><td>tm</td><td>timestamp</td><td>Time of original insert.</td></tr>
+<tr><td>fulltext</td><td>string</td><td>Concatenated fields: abstract, tags, author, placename.</td></tr>
+<tr><td>tsfulltext</td><td>string</td><td>Generated for full-text search.</td></tr>
+<tr><td>version</td><td>integer</td><td>Incremented at each write.</td></tr>
+</table>
+
+
+<H2>IO Model</H2>
+<P>Here is the IO Model
+</P>
+<P>Coordinates -&gt; Dispatch -&gt; Data</P>
+<P>Dispatch was added as an intermediary in front of data to reduce
+data calls by applying logic that would compare requests with what is already
+in the data array, and skip or limit the request in that case, and then
+when the response comes back, merge the newly received records into the
+existing array.</P>
+<P>I'm not sure if we're doing that now.  We might be just overlaying
+data with the most recent response.  If so, then we might eliminate the
+Dispatch object.</P>
+<P>In any case, let us profile the search svc and see what is taking
+so long.</P>
+
+
+<H3>Search Algorithm</H3>
+<h4>span multiplier = 2</h4>
+<p>We start with the timespan of the visible display in the Timeline. Then we extend the boundaries forward and backword in time so that we effectively multiply the span of time by the span multiplier.</p>
+<p>Chunks, MapMethod, and Stage are all obsolete concepts.</p>
+<H3>Search API</H3>
+<P><BR>
+</P>
+
+<h2>Community Model</h2>
+<h3>        User Authentication</h3>
+<h3>        Voting</h3>
+<h3>        Data Editing</h3>
+<h3><BR>
+</h3>
+<h2>AJAX SEO</h2>
+<h2><BR>
+  API Reference</h2>
+<h3>        JSDoc</h3>
+<P>&nbsp;</P>
+</BODY>
+</HTML>

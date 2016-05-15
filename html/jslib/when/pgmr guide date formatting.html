@@ -1,0 +1,183 @@
+﻿<style>
+	table#voyc-date-pattern-symbols {
+		font-family:courier;
+		border:thin solid #000;
+		border-spacing:0px;
+		border-collapse:collapse;
+	}
+	table#voyc-date-pattern-symbols td {
+		padding:2px 4px;
+		border:thin solid #000;
+	}
+	table#voyc-date-pattern-symbols th {
+		font-weight:bold;
+		padding:2px 4px;
+		border:thin solid #000;
+	}
+</style>
+
+<h1>Date Pattern Symbols</h1>
+<table id='voyc-date-pattern-symbols'>
+
+<tr><th>strftime</th><th>java</th><th>voyc</th><th>Description</th><th>Example/Range</th></tr>
+
+<tr><td>%a</td><td>EEE</td><td>-</td><td>Short day name</td><td>Sun - Sat</td></tr>
+<tr><td>%A</td><td>EEEE</td><td>-</td><td>Long day name</td><td>Sunday - Saturday</td></tr>
+<tr><td>%d</td><td>dd</td><td>dd</td><td>Day in month</td><td>01 to 31</td></tr>
+<tr><td>%e</td><td>d</td><td>-</td><td> Day in month</td><td> 1 to 31</td></tr>
+<tr><td>%j</td><td>DDD</td><td>-</td><td>Day in year</td><td>001 to 356</td></tr>
+<tr><td>%u</td><td>-</td><td>-</td><td>Day in week ISO-8601</td><td>1 - 7, for Mon-Sun</td></tr>
+<tr><td>%w</td><td>-</td><td>-</td><td>Day in week</td><td>0 - 6, for Sun-Sat</td></tr>
+
+<tr><td>%U</td><td>w</td><td>-</td><td>Week in year, start with Sunday</td><td>Example:13</td></tr>
+<tr><td>%V</td><td>w</td><td>-</td><td>Week in year ISO-8601:1988</td><td>01 - 53</td></tr>
+<tr><td>%W</td><td>w</td><td>-</td><td>Week in year, start with Monday</td><td>Example:46</td></tr>
+<tr><td>-</td><td>W</td><td>-</td><td>Week in Month</td><td>1 - 4</td></tr>
+
+<tr><td>%b</td><td>MMM</td><td>mmm</td><td>Short month name</td><td>Jan - Dec</td></tr>
+<tr><td>%B</td><td>MMMM</td><td>-</td><td>Long month name</td><td>January - December</td></tr>
+<tr><td>%h</td><td>MMM</td><td>-</td><td>Short month name per Locale</td><td>Jan - Dec</td></tr>
+<tr><td>%m</td><td>MM</td><td>-</td><td>Month</td><td>01 - 12</td></tr>
+<tr><td>-</td><td>M</td><td>-</td><td>Month</td><td>1 - 12</td></tr>
+
+<tr><td>%C</td><td>-</td><td>-</td><td>Century</td><td>19, 20, etc.</td></tr>
+<tr><td>%g</td><td>yy</td><td>-</td><td>Year per ISO-8601:1988</td><td>Example: 09</td></tr>
+<tr><td>%G</td><td>yyyy</td><td>-</td><td>Year per ISO-8601:1988</td><td>Example: 2009</td></tr>
+<tr><td>%y</td><td>yy</td><td>-</td><td>Year</td><td>Example: 09</td></tr>
+<tr><td>%Y</td><td>yyyy</td><td>-</td><td>Year</td><td>Example: 2009</td></tr>
+<tr><td>%Y</td><td>GG</td><td>-</td><td>Era</td><td>BC or AD</td></tr>
+<tr><td>-</td><td>-</td><td>yyyy</td><td>Year plus Era only for BC</td><td>1942, 5000 BC, etc.</td></tr>
+
+<tr><td>%k</td><td>H</td><td>-</td><td>Hour</td><td> 0 - 23</td></tr>
+<tr><td>%H</td><td>HH</td><td>HH</td><td>Hour</td><td>00 - 23</td></tr>
+<tr><td>%l</td><td>h</td><td>-</td><td>Hour</td><td> 1 - 12</td></tr>
+<tr><td>%I</td><td>hh</td><td>-</td><td>Hour</td><td>01 - 12</td></tr>
+<tr><td>-</td><td>K</td><td>-</td><td>Hour</td><td> 0 - 10</td></tr>
+<tr><td>-</td><td>KK</td><td>-</td><td>Hour</td><td>00 - 11</td></tr>
+<tr><td>-</td><td>k</td><td>-</td><td>Hour</td><td> 1 - 24</td></tr>
+<tr><td>-</td><td>kk</td><td>-</td><td>Hour</td><td>01 - 24</td></tr>
+
+<tr><td>%M</td><td>mm</td><td>MM</td><td>Minute</td><td>00 - 59</td></tr>
+<tr><td>%S</td><td>ss</td><td>SS</td><td>Second</td><td>00 - 59</td></tr>
+
+<tr><td>-</td><td>-</td><td>NNN</td><td>Milliseconds</td><td>000 - 999</td></tr>
+
+<tr><td>%p</td><td>aa</td><td>-</td><td>'AM' or 'PM'</td><td>AM or PM</td></tr>
+<tr><td>%P</td><td>-</td><td>-</td><td>'am' or 'pm'</td><td>am or pm</td></tr>
+
+<tr><td>%z</td><td>Z</td><td>Z</td><td>time zone offset</td><td>-0700, +0530, etc.</td></tr>
+<tr><td>%Z</td><td>z</td><td>-</td><td>time zone abbreviation</td><td>EST, PDT, etc.</td></tr>
+
+</table>
+
+Lower-case for date symbols; upper-case for time symbols.
+All numbers 
+Always use leading zero for units smaller than YEAR.
+All dates are stored internally in UTC.
+When we say "date", we usually mean "datetime".
+Our scale is infinite in both directions.
+
+The percent of seconds could be any number of N symbols.
+We are using three NNN as a fixed limit because that is the maximum precision of Javascript Date object.
+
+So why are we using discrete time-levels?  This is a temporary coding convenience only.
+Why are we building a general purpose system?  We're not.  We're preparing for Voyc's future.
+No, perhaps you're right.  Perhaps I should insist on years-per-inch as time level.
+Wait a minute.  If I abandon the decimal year concept, do I also abandon years per inch, and go instead with microseconds per inch?
+Microseconds per inch is not practical.  Numbers get too big.
+We're using decimal degrees for the map.
+So why not use decimal years for the timeline.
+It's ok to use decimal years for level, because that is arbitrary.
+It is NOT ok to use decimal years for a point
+	1. it's not accurate, especially at nanosecond levels
+	2. it varies from year to year.  Leap years have smaller values for each unit.
+
+Timeout.  
+Decimal years and H:M:S.N are equally accurate systems.  They just have different purposes.
+Like the geographic map.  Degrees, minutes and seconds, and percentage seconds are equ
+The difference is, on the geographic map, the number of minutes in a degree, and the number of degrees in a circle never change.
+On the time map, the year varies in length in terms of seconds.
+
+Storing data
+Search data
+Holding data internally in programs
+Display numbers on screen
+Drawing a timeline
+
+Internal dates
+SQL Postgres timestamp, 8 bytes, 4713 BC - 294276 AD, 1 microsecond / 14 digits
+PHP
+Javascript
+
+
+For drawing a timeline at precision year and above, either system works.
+For drawing a timeline at precision below year, because 1776 is a leap year, technically
+	at 1776 Jan 1 00:00:00, the seconds before that point are wider than the seconds after
+Technically, if we base the drawing on seconds, years would get longer or shorter.
+Minutes and seconds are the sticking point.  Milliseconds are ok.
+
+We can use either system for drawing the timeline.
+Both have sticking points when a year crosses playhead.
+Similarly, displaying on the map gets sticky when the IDL is on screen.
+
+
+Note degrees per inch and years per inch are mixing scales.
+degree, inch and year are all different.
+Inch could be cm maybe.
+a Year is a unit of 1 rotation around the sun.
+A second is not a division 
+
+Both the geographic map and the time map are based on a circle.
+The time map is based on three circles: the revolution around the sun, the rotation of the earth, and the clock face.
+On a geographic map a second is a division of the total circle, and varies in length depending on latitude.
+On a time map, the second retains a constant length, and the number of seconds in the circle vary as necessary.
+Another difference between geographic and time maps: the time map has a much longer scale.
+Earth geography is confined to 360 degrees in each dimension.
+
+
+
+Entering dates.
+
+For programmers:
+Dates entered with precision YEAR and lesser, are entered in Local.
+Dates entered with precision YEAR and greater, are entered in UTC.  Hours and minutes NOT added for locale.
+
+For Users:
+Dates are entered on calendar and clock, like Android.
+Or, large-scale dates are entered on a new control offering BC, AD, scales, etc.
+Or, by dragging dot or bar on timeline.
+
+Patterns
+yyyy mm dd HH:MM:SS.NNN Z
+
+N
+NN
+NNN	Milliseconds
+NNNN Microseconds
+NNNNN Nanoseconds
+
+http://en.wikipedia.org/wiki/Orders_of_magnitude_(time)
+http://en.wikipedia.org/wiki/Graphical_timeline_of_the_universe
+http://en.wikipedia.org/wiki/Graphical_timeline_from_Big_Bang_to_Heat_Death
+
+
+k
+m
+b
+
+usage of dates on the server
+read from database
+write to database
+parse strings from feeds
+parse dates from camera uploads
+create a default current date
+receive from voyc app
+send to voyc app
+
+usage of dates on the client
+accept input from user
+create a default current date
+read from server
+send to server
+format for display
+

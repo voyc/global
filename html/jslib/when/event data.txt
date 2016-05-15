@@ -1,0 +1,24 @@
+﻿
+begin	end	unit	event
+	1E1000		Heat Death
+
+200		kya	Appearance of Homo sapiens
+60		kya	Out-of-Africa migration
+20		kya	Last Glacial Maximum
+10		kya	Neolithic Revolution
+
+5.3	2.6	mya	Pliocene
+.78		mya	The last geomagnetic reversal
+.13		mya	The (Eemian Stage) Ice Age started
+.01		mya	The Holocene 
+
+2		bya	Oldest Eukaryotes
+4.5		bya	Age of the Earth
+4.6		bya Birth of Solar System
+13.8		bya	Big Bang
+
+
+k Main articles: 1 E10 s, 1 E11 s, and 1 E12 s
+m Main articles: 1 E13 s, 1 E14 s, and 1 E15 s
+b Main articles: 1 E16 s, 1 E17 s, and 1 E18 s
+

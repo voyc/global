@@ -1,0 +1,94 @@
+<!-- (c) Copyright 2006 voyc.com  -->
+<html>
+	<head>
+		<title>update test</title>
+		
+		<script src="../jslib/debug.js" type="text/javascript"></script>
+		<script src="../jslib/xhr.js" type="text/javascript"></script>
+		
+		<script>
+			var g = {};
+			g.debug = new Debug(false);
+	
+			// one-time initialize static xhr base url		
+			Xhr.base = "";
+	
+			testUpdate = '<request>\n'+
+						'<token>417e40d7513aa9de842fcde05cadc9ab</token>\n'+
+						'<action>update</action>\n'+
+						'<id>28452</id>\n'+
+						'<version>0</version>\n'+
+						'<headline>swami\'s 3</headline>\n'+
+						'<abstract>Tags Halloween pumkin art</abstract>\n'+
+						'<tags></tags>\n'+
+						'<storyurl>http://moblog.net/view/912679/</storyurl>\n'+
+						'<imageurl>http://moblog.net/media/j/h/a/jhagstrand/moblog_912679.jpg</imageurl>\n'+
+						'<thumburl>http://moblog.net/media/j/h/a/jhagstrand/moblog_912679.jpg</thumburl>\n'+
+						'<placename></placename>\n'+
+						'<geometry>33.036833, -117.2925</geometry>\n'+
+						'<when>31 Oct 2009, 05:22:36 PM</when>\n'+
+						'<datatype>11</datatype>\n'+
+					'</request>\n';
+
+			testInsert = '<request>\n'+
+						'<token>417e40d7513aa9de842fcde05cadc9ab</token>\n'+
+						'<action>insert</action>\n'+
+						'<id>0</id>\n'+
+						'<version>0</version>\n'+
+						'<headline>Sunset</headline>\n'+
+						'<abstract>over the water in encinitas</abstract>\n'+
+						'<tags>sunset water encinitas</tags>\n'+
+						'<storyurl>www.google.com</storyurl>\n'+
+						'<imageurl>www.yahoo.com</imageurl>\n'+
+						'<thumburl>www.yahoo.com</thumburl>\n'+
+						'<placename><![CDATA[Summit & Santa Fe]]></placename>\n'+
+						'<geometry>17.651012838745096, 37.688598632812756</geometry>\n'+
+						'<when>13 Dec 2009, 03:27:40 PM GMT -0800</when>\n'+
+						'<datatype>11</datatype>\n'+
+					'</request>\n';
+
+			// test object
+			function MyObj() {
+			}
+			
+			MyObj.prototype = {
+				callServer : function() {
+					var xhr = new Xhr();
+					var self = this;
+					xhr.callback = function(response) {self.onCallReturn(response);};
+					xhr.data = document.getElementById("xinput").value;
+					xhr.program = "update";
+					xhr.callServer();
+				},
+			
+				onCallReturn : function(response) {
+					document.getElementById("xoutput").value = response;
+				}
+			}
+			
+			g.myObj = new MyObj();
+			
+			set = function(v) {
+				document.getElementById("xinput").value = v;
+			};
+			xclear = function() {
+				document.getElementById("xinput").value = '';
+				document.getElementById("xoutput").value = '';
+			};
+
+			//onload = set(testUpdate);
+		</script>
+	</head>
+
+	<body>
+		<input type="button" value="testUpdate" onclick="set(testUpdate);"/>
+		<input type="button" value="testInsert" onclick="set(testInsert);"/>
+		<input type="button" value="clear" onclick="xclear();"/>
+		<br/>
+		<textarea id="xinput" cols="100" rows="16"></textarea><br/>
+		<input type="button" value="update" onclick="g.myObj.callServer();"><br/>
+		<textarea id="xoutput" cols="100" rows="16"></textarea><br/>
+	</body>
+</html>
+<!-- (c) Copyright 2006 voyc.com  -->
+

@@ -1,0 +1,97 @@
+<!-- (c) Copyright 2006,2014 Voyc.com  -->
+<!doctype html>
+<html>
+	<head>
+	<title>Card Test</title>
+	<script>var voyc = {};</script>
+	<script src="card.js" type="text/javascript"></script>
+	<script src="dragger.js" type="text/javascript"></script>
+	<script src="utils.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="../css/card.css" type="text/css" />
+
+	<style>	
+		/* menu, additional classes to override 'voyc-card' */
+		.menu {
+			width:110px; 
+			height:64px; 
+			resize:none;
+		}
+		.menu-content {
+			top:0px;
+			width:100%; 
+			height:100%;
+		} 
+		
+		.menuitem {
+			cursor:pointer;
+			line-height:1.5em;
+		}
+		.menuitem:hover {
+			background-color:#eee;
+		}
+	</style>	
+	<script>
+		window.onload = function() {
+			voyc.card = new voyc.Card();
+			voyc.dragger = new voyc.Dragger();
+		}
+		var p1 = null;
+		popup1 = function(e) {
+			if (p1) {
+				p1.style.display = 'block';
+			}
+			else {
+				p1 = voyc.card.create({
+					top:'100px',
+					left:'100px',
+					content:'It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way – in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only.',
+					id:'cardtest',
+					title:'Handle'
+				});
+			}
+		}
+		var p2 = null;
+		popup2 = function(e) {
+			if (p2) {
+				p2.style.display = 'block';
+			}
+			else {
+				p2 = voyc.card.create({
+					top:'150px',
+					left:'150px',
+					content:'It is a far, far better thing that I do, than I have ever done; it is a far, far better rest that I go to than I have ever known.',
+					id:'cardtest2',
+					title:'Cardtest2'
+				});
+			}
+		}
+		var p3 = null;
+		popup3 = function(e) {
+			if (p3) {
+				p3.style.display = 'block';
+			}
+			else {
+				p3 = voyc.card.create({
+					top:'200px',
+					left:'200px',
+					content:'<div class="menuitem">Google</div><div class="menuitem">Facebook</div><div class="menuitem">Wikipedia</div><div class="menuitem">Amazon</div>',
+					id:'cardtest3',
+					closeOnBlur:true,
+					hasHandle:false,
+					hasCloseButton:false,
+					draggable:false,
+					resizeable:false,
+					className:'menu'
+				});
+			}
+		}
+	</script>
+	</head>
+	<body>
+		<h1>Card game</h1>
+		<button onclick='popup1()'>Card 1</button>
+		<button onclick='popup2()'>Card 2</button>
+		<h1>Popup</h1>
+		<button onclick='popup3()'>Popup 3</button>
+	</body>
+</html>

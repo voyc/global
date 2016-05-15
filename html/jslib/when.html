@@ -1,0 +1,1038 @@
+<!-- (c) Copyright 2006, 2014 Voyc.com  -->
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>When Test</title>
+<style>
+#printarea {
+	font-family:courier;
+}
+.buttongroup {
+	xdisplay:inline-block;
+	float:left;
+	border:thin solid #000;
+	margin:.3em;
+	padding:.3em;
+}
+h1 {
+	font-family:helvetica;
+	font-size:1.5em;
+	font-weight:bold;
+	margin:.3em 0px;
+}
+h2 {
+	font-family:helvetica;
+	font-size:1em;
+	font-weight:bold;
+	margin:.3em 0px;
+}
+hr {
+	clear:both;
+}
+strong {
+	background-color:yellow;
+}
+</style>
+<script>var voyc = {};</script>
+<script src="when.js" type="text/javascript"></script>
+<script src="tester.js" type="text/javascript"></script>
+<script src="utils.js" type="text/javascript"></script>
+<script>
+	function clearScreen() {
+		document.getElementById('printarea').innerHTML = '';
+	}
+	function printline(s) {
+		document.getElementById('printarea').innerHTML += s + "<br/>";
+	}
+	function printh1(s) {
+		document.getElementById('printarea').innerHTML += '<h1>'+s+'</h1>';
+	}
+	function printh2(s) {
+		document.getElementById('printarea').innerHTML += '<h2>'+s+'</h2>';
+	}
+	function printfoot() {
+		document.getElementById('printarea').innerHTML += '<br/><br/><br/>';
+	}
+	function testdate(s) {
+		var d = new Date(s);    // js Date object
+		var x = new voyc.When( voyc.When.fromJSDate(d)); // convert to voyc.When object
+		var y = voyc.When.toJSDate(x);     // convert back to Date object
+		printline(s);
+		printline(d.toString());
+		printline(y.toString());
+		printline(x.valueOf());
+		printline(" ");
+	}
+	function testwhen(s) {
+		var x = new voyc.When( s);
+		printline(s);
+		printline(x.decidate);
+		printline(x.format());
+		printline(" ");
+	}
+	
+	function example(s) {
+		var t = '<b>'+s+':</b><strong>'+eval(s)+'</strong>';
+		return t;
+	}
+
+	function printexample(s) {
+		var t = s+': <strong>'+eval(s)+'</strong>';
+		document.getElementById('printarea').innerHTML += t + "<br/>";
+	}
+
+	// javascript Date object
+	seriesDate = function() {
+		clearScreen();
+		printh1('Javascript Date object');
+		printh2('Notes');
+		printline('1. UTC == GMT');
+		printline('2. The Date object stores its internal "value" as UTC.');
+		printline('3. The "value" is the number of milliseconds since 1970 Jan 1.  Use methods getValue() and setValue().');
+		printh2('Constructor');
+		printline('The Constructor is overloaded four times.')
+		printline('1. No parameter, defaults to current datetime. '+example('new Date()'));
+		printline('2. Numeric parameter, assumes parameter is "value" in milliseconds UTC. '+example('new Date(5000)'));
+		printline('3. String parameter, date string defaulting to local timezone. '+example('new Date("2014 Feb 14 1:15 AM")'));
+		printline('4. Multiple parameters, parts in local timezone. '+example('new Date(2014,2,14,1,15)'));
+		printh2('Abstract Methods');
+		printline('Three abstract methods, all return milliseconds UTC.');
+	    printline('1. Current time. '+example('Date.now()'));
+	    printline('2. String, defaulting to local timezone. '+example('Date.parse("2014 Feb 14 1:15 AM")'));
+	    printline('3. Parts in UTC. '+example('Date.UTC(2014,2,14,1,15)'));
+		printh2('Range');
+		printline('The oldest possible date is near 271,800 BC.  The latest is near AD 275,700.');
+		printline(example('oldestdate = new Date(-271800,0,1)'));
+		printline(example('oldestdate = new Date(-271900,0,1)'));
+		printline(example('latestdate = new Date(275700,0,1)'));
+		printline(example('latestdate = new Date(275800,0,1)'));
+		printh2('Y2K Bug');
+		printline('To set dates between AD 0 and 99, use setUTCFullYear().');
+		printline(example('twodigitdate = new Date(Date.UTC(15,0,1))'));
+		printline(example('twodigitdate.setUTCFullYear(15)'));
+		printline(example('twodigitdate.toUTCString()'));
+		printh1('Time Zones');
+		printh2('String Input');
+		printline('With an input string, you can specify timezone with the offset in hours, or with a handful of American timezone names.');
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00")'));
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00 GMT+0530")'));
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00 GMT+1100")'));
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00 GMT-0800")'));
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00 PST")'));
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00 CST")'));
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00 Asia/Kolkata")'));
+		printline(example('Date.parse("Fri Feb 14 2014 01:15:00 India Standard Time")'));
+		printh2('Getters and Setters');
+		printline('The complete set of getters and setters is provided for both UTC and Locale.  No other timezones.');
+		printline(example("dateobj = new Date()"));
+		printline(example("dateobj.getMilliseconds()"));
+		printline(example("dateobj.setMilliseconds(100)"));
+		printline(example("dateobj.getUTCMilliseconds()"));
+		printline(example("dateobj.setUTCMilliseconds(100)"));
+		printline(example("dateobj.getHours()"));
+		printline(example("dateobj.setHours(2)"));
+		printline(example("dateobj.getUTCHours()"));
+		printline(example("dateobj.setUTCHours(2)"));
+		printh2('Timezone Offset');
+		printline('You can get the timezone offset in minutes, not hours.  There is no setter for timezone offset.');
+		printline(example('dateobj.getTimezoneOffset()'));
+		printh2('Using UTC');
+		printline('To print a date in UTC, use method toUTCString()');
+		printline(example('historicaldate = new Date(1565,0,1)'));
+		printline(example('historicaldate.toUTCString()'));
+		printline('');
+		printline('To set a date in UTC using a string, specify timezone UTC or GMT in the date string.');
+		printline(example('historicaldate = new Date("1 Jan 1565 4:59 UTC")'));
+		printline(example('historicaldate.toUTCString()'));
+		printline(example('historicaldate = new Date("1 Jan 1565 4:59 GMT")'));
+		printline(example('historicaldate.toUTCString()'));
+		printline('');
+		printline('To set a date in UTC using parts, nest the abstract UTC method in the constructor parameter.');
+		printline(example('historicaldate = new Date(Date.UTC(1565,0,1,4,59))'));
+		printline(example('historicaldate.toUTCString()'));
+		printh2('Using an Arbitrary Timezone');
+		printline('To format or set a date with a requested timezone offset, use a function to create a temporary Date object with a fake timezone offset.');
+		createDateWithTimeZone = function(date,offsetRequestedHours) {
+			// timeUTC + offsetLocalMS + offsetRequestedMS
+			return new Date(date.getTime() + (date.getTimezoneOffset()*60000) + (3600000*offsetRequestedHours));
+		}
+		printline(example('currentDate = new Date()'));
+		printline(example('dateCalifornia = createDateWithTimeZone(currentDate, -7.0)'));
+		printline(example('dateIndia = createDateWithTimeZone(currentDate, +5.5)'));
+		printfoot();
+	}
+
+	seriesNumber = function() {
+		clearScreen();
+		printh1('Javascript Number');
+		printh2('Properties');
+		printexample('Number.MAX_VALUE');
+		printexample('Number.MIN_VALUE');
+		printexample('Number.NEGATIVE_INFINITY');
+		printexample('Number.POSITIVE_INFINITY');
+		printexample('Number.NaN');
+		printh2('Methods');
+		printexample('Number(142).toExponential()');
+		printexample('Number(14200000000000).toExponential()');
+		printexample('Number(12.34).toFixed()');
+		printexample('Number(21.123456).toPrecision(4)');
+		printexample('Number(2.123456).toPrecision(4)');
+		printexample('Number(20.123456).toPrecision(4)');
+		printexample('Number(20.123456).toString()');
+		printexample('Number(14200000000000).toString()');
+		printexample('Number(20.123456).valueOf()');
+		printexample('Number(14200000000000).valueOf()');
+		printfoot();
+	}
+
+	seriesMath = function() {
+		clearScreen();
+		printh1('Javascript Math');
+		printexample('x = 100');
+		printexample('y = 4');
+		printh2('Trigonometry');
+		printline('Ratio of the circumference of a circle to its diameter, approximately 3.14159. '+example('Math.PI'));
+		printline('Note that the trigonometric functions (sin, cos, tan, asin, acos, atan, atan2) expect or return angles in radians. To convert radians to degrees, divide by (Math.PI / 180), and multiply by this to convert the other way.');
+		printline('Returns the sine of a number. '+example('Math.sin(x)'));
+		printline('Returns the cosine of a number. '+example('Math.cos(x)'));
+		printline('Returns the tangent of a number. '+example('Math.tan(x)'));
+		printline('Returns the arcsine of a number. '+example('Math.asin(x)'));
+		printline('Returns the arccosine of a number. '+example('Math.acos(x)'));
+		printline('Returns the arctangent of a number. '+example('Math.atan(x)'));
+		//printline('Returns the hyperbolic cosine of a number. '+example('Math.cosh(x)'));
+		//printline('Returns the hyperbolic sine of a number. '+example('Math.sinh(x)'));
+		//printline('Returns the hyperbolic tangent of a number. '+example('Math.tanh(x)'));
+		//printline('Returns the hyperbolic arcsine of a number. '+example('Math.asinh(x)'));
+		//printline('Returns the hyperbolic arccosine of a number. '+example('Math.acosh(x)'));
+		//printline('Returns the hyperbolic arctangent of a number. '+example('Math.atanh(x)'));
+		printline('Returns the arctangent of the quotient of its arguments. '+example('Math.atan2(y, x)'));
+		printh2('Square Root');
+		printline('Square root of 1/2; equivalently, 1 over the square root of 2, approximately 0.707. '+example('Math.SQRT1_2'));
+		printline('Square root of 2, approximately 1.414. '+example('Math.SQRT2'));
+		printline('Returns the positive square root of a number. '+example('Math.sqrt(x)'));
+		//printline('Returns the cube root of a number. '+example('Math.cbrt(x)'));
+		//printline('Returns the square root of the sum of squares of its arguments. '+example('Math.hypot([x[,y[,…]]])'));
+		printh2('Exponent');
+		printline('Returns base to the exponent power, that is, baseexponent. '+example('Math.pow(x,y)'));
+		printh2('Logarithms');
+		printline('Euler\'s constant and the base of natural logarithms, approximately 2.718. '+example('Math.E'));
+		printline('Natural logarithm of 2, approximately 0.693. '+example('Math.LN2'));
+		printline('Natural logarithm of 10, approximately 2.303. '+example('Math.LN10'));
+		printline('Base 2 logarithm of E, approximately 1.443. '+example('Math.LOG2E'));
+		printline('Base 10 logarithm of E, approximately 0.434. '+example('Math.LOG10E'));
+		printline('Returns Ex, where x is the argument, and E is Euler\'s constant (2.718...), the base of the natural logarithm. '+example('Math.exp(x)'));
+		printline('Returns the natural logarithm (loge, also ln) of a number. '+example('Math.log(x)'));
+		//printline('Returns subtracting 1 from exp(x). '+example('Math.expm1(x)'));
+		//printline('Returns the natural logarithm of 1 + x (loge, also ln) of a number. '+example('Math.log1p(x)'));
+		//printline('Returns the base 10 logarithm of x. '+example('Math.log10(x)'));
+		//printline('Returns the base 2 logarithm of x. '+example('Math.log2(x)'));
+		printh2('Other');
+		printline('Returns the absolute value of a number. '+example('Math.abs(x)'));
+		printline('Returns the smallest integer greater than or equal to a number. '+example('Math.ceil(x)'));
+		printline('Returns the largest integer less than or equal to a number. '+example('Math.floor(x)'));
+		printline('Returns the result of a 32-bit integer multiplication. '+example('Math.imul(x)'));
+		printline('Returns the largest of zero or more numbers. '+example('Math.max(x,y)'));
+		printline('Returns the smallest of zero or more numbers. '+example('Math.min(x,y)'));
+		printline('Returns a pseudo-random number between 0 and 1. '+example('Math.random()'));
+		printline('Returns the value of a number rounded to the nearest integer. '+example('Math.round(x)'));
+		//printline('Returns the nearest single precision float representation of a number. '+example('Math.fround(x)'));
+		//printline('Returns the sign of the x, indicating whether x is positive, negative or zero. '+example('Math.sign(x)'));
+		//printline('Returns the integral part of the number x, removing any fractional digits. '+example('Math.trunc(x)'));
+		printfoot();
+	}
+
+	seriesConcepts = function() {
+		clearScreen();
+		daysPerYear = 365;
+		var dd = {
+			y: 1,
+			d: 1/daysPerYear,
+			h: 1/daysPerYear/24,
+			m: 1/daysPerYear/24/60,
+			s: 1/daysPerYear/24/60/60,
+			n: 1/daysPerYear/24/60/60/1000
+		}
+		var ms = {
+			y: daysPerYear*24*60*60*1000,
+			d: 24*60*60*1000,
+			h: 60*60*1000,
+			m: 60*1000,
+			s: 1000,
+			n: 1
+		}
+		var msleap = {
+			y: daysPerYear*24*60*60*1000,
+			d: 24*60*60*1000,
+			h: 60*60*1000,
+			m: 60*1000,
+			s: 1000,
+			n: 1
+		}
+
+		for (var i in dd) {
+			printline(dd[i]);
+		}
+		for (var i in ms) {
+			printline(dd[i]);
+		}
+		for (var i in msleap) {
+			printline(dd[i]);
+		}
+		
+		printline( 4.2e+11);
+		printline( 1e+10);
+
+		printline('Javascript Date object gives us two critical pieces of information.');		
+		printline('1.  The current datetime - from the system clock.');
+		printline('2.  The timezone offset - from the Locale setting.');
+
+
+/**
+growth rates
+
+linear:  f(x) = 50x
+exponential == geometric: f(x) = 2powX
+logarithmic
+cubic: f(x) = Xpow3
+*/
+
+		printfoot();
+	}
+
+	// When constructors
+	seriesConstructor = function() {	
+		clearScreen();
+		printh1('voyc.When Constructor');
+		printh2('Three parameters.  All have defaults.');
+		printexample("new voyc.When()");
+		printexample("new voyc.When(1492.523)");
+		printexample("new voyc.When(500.5)");
+		printexample("new voyc.When(2014.0,voyc.When.precision.DAY)");
+		printexample("new voyc.When(2014.0,voyc.When.precision.HOUR)");
+		printexample("new voyc.When(2014.0,voyc.When.precision.MINUTE)");
+		printexample("new voyc.When(2014.0,voyc.When.precision.SECOND)");
+		printexample("new voyc.When(2014.0,voyc.When.precision.MILLISECOND)");
+		printexample("new voyc.When(-500.0,voyc.When.precision.YEAR)");
+		printexample("new voyc.When(-5000000000000.0,voyc.When.precision.MILLENIUM)");
+		printexample("new voyc.When(-5.7e+24,voyc.When.precision.MILLENIUM)");
+		printexample("new voyc.When(-5.23e+300,voyc.When.precision.MILLENIUM)");
+		printh2('Using fromJSDate()');
+		printexample("new voyc.When(voyc.When.fromJSDate(new Date()))");
+		printexample("new voyc.When(voyc.When.fromJSDate(new Date('2014 Mar 3 3:14:49')))");
+		printexample("new voyc.When(voyc.When.fromJSDate(new Date('2014 Mar 3 3:14:49 GMT')))");
+		printexample("new voyc.When(voyc.When.fromJSDate(new Date(1776,6,4,8,56,14)))");
+		printfoot();
+	}
+		
+	// test conversions between voyc.When and javascript Date
+	seriesConversions = function() {	
+		clearScreen();
+
+		testdate("31 Dec 1775 23:59:57");
+		testdate("31 Dec 1775 23:59:58");
+		testdate("31 Dec 1775 23:59:59");
+		testdate("1 jan 1776 00:00:00");
+		testdate("1 jan 1776 00:00:01");
+		testdate("1 jan 1776 00:00:02");
+
+
+		// recent dates
+		testdate("1 sep 1952 4:00 GMT");
+		testdate("6 Jun 1903 1:15 GMT");
+
+		testdate("31 dec 2006 23:59:59 UTC");
+		testdate("jan 1 2007 00:00:00 UTC");
+		testdate("31 dec 2006 23:59:59 PST");
+		testdate("jan 1 2007 00:00:00 PST");
+		testdate("31 dec 2006 23:59:59 PDT");
+		testdate("jan 1 2007 00:00:00 PDT");
+
+		// earlier dates
+		testdate("4 jul 1776 8:23:06 AM");
+		testdate("4 jul 1776");
+		testdate("30 jan 201");
+		testdate("1568");
+		testdate("1568 1 1");
+		testdate("1556 01 23");
+		testdate("1290 09 27");
+		testdate("1268 1 1");
+		testdate("1138 08 09");
+		testdate("0893 03 23");
+		testdate("0856 12 22");
+		
+		testdate("1 sep 1901");
+		testdate("4 jul 1776");
+		testdate("30 jan 201");
+
+		testwhen("3000 BC");
+		testwhen("3000000 BC");
+		testwhen("3,000,000 BC");
+		testwhen("30 BC");
+		testwhen("30 AD");
+		testwhen("500 AD");
+		
+		// future dates
+		testdate("2 Jan 2038");
+		testdate("3 Apr 2515");
+		testdate("4 Jun 6429");
+		testdate("31 dec 25025");
+	}
+	
+	// test period calculations
+	seriesPeriods = function() {	
+		clearScreen();
+		printh1('Periods');
+		printh2('Decades Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(10);
+		for (var i=0; i<3; i++) {
+			pdate.prevPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Five Decades Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(10);
+		for (var i=0; i<3; i++) {
+			pdate.prevPeriod(5);
+			printline(pdate.format('default'));
+		}
+		printh2('Five Decades Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(10);
+		for (var i=0; i<3; i++) {
+			pdate.nextPeriod(5);
+			printline(pdate.format('default'));
+		}
+		printh2('Years Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(1);
+		for (var i=0; i<3; i++) {
+			pdate.prevPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Years Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(1);
+		for (var i=0; i<3; i++) {
+			pdate.nextPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Five Years Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(1);
+		for (var i=0; i<3; i++) {
+			pdate.prevPeriod(5);
+			printline(pdate.format('default'));
+		}
+		printh2('Decades Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(10);
+		for (var i=0; i<3; i++) {
+			pdate.nextPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Million Years Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(1e+6);
+		for (var i=0; i<3; i++) {
+			pdate.nextPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Milleseconds Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(0.001);
+		for (var i=0; i<6; i++) {
+			pdate.nextPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Centiseconds Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(0.01);
+		for (var i=0; i<6; i++) {
+			pdate.nextPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Deciseconds Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Dec 31 23:59:59.997')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(0.1);
+		for (var i=0; i<8; i++) {
+			pdate.nextPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Milleseconds Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Jan 1 00:00:00.003')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(0.001);
+		for (var i=0; i<6; i++) {
+			pdate.prevPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Centiseconds Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Jan 1 00:00:00.003')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(0.01);
+		for (var i=0; i<6; i++) {
+			pdate.prevPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Deciseconds Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Jan 1 00:00:00.003')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(0.1);
+		for (var i=0; i<8; i++) {
+			pdate.prevPeriod(1);
+			printline(pdate.format('default'));
+		}
+		printh2('Six Hours Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('2013 Nov 25 17:31:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.HOUR);
+		for (var i=0; i<8; i++) {
+			pdate.nextPeriod(6);
+			printline(pdate.format('default'));
+		}
+		printh2('Days Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Jan 2 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		for (var i=0; i<4; i++) {
+			pdate.prevPeriod(3);
+			printline(pdate.format('default'));
+		}
+		printh2('15 Days Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Feb 2 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		for (var i=0; i<14; i++) {
+			pdate.prevPeriod(14);
+			printline(pdate.format('default'));
+		}
+		printh2('7 Days Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Feb 2 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		for (var i=0; i<14; i++) {
+			pdate.prevPeriod(7);
+			printline(pdate.format('default'));
+		}
+		printh2('15 Days Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Feb 2 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		for (var i=0; i<14; i++) {
+			pdate.nextPeriod(14);
+			printline(pdate.format('default'));
+		}
+		printh2('7 Days Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Feb 2 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		for (var i=0; i<14; i++) {
+			pdate.nextPeriod(7);
+			printline(pdate.format('default'));
+		}
+		printh2('Days Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Mar 2 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		printh2('Days Back Leap');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Mar 2 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		printh2('Days Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Feb 27 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		printh2('Days Forward Leap');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Feb 27 23:56:57.898')));
+		printline(pdate.format('default'));
+		pdate.setPrecision(voyc.When.precision.DAY);
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		printh2('Months Back');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1921 Feb 25 23:56:57.898')));
+		pdate.setPrecision(voyc.When.precision.MONTH);
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		pdate.prevPeriod();
+		printline(pdate.format('default'));
+		printh2('Months Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1933 Nov 25 23:56:57.898')));
+		pdate.setPrecision(voyc.When.precision.MONTH);
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		printh2('Hours Forward');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1775 Feb 28 22:56:57.898')));
+		pdate.setPrecision(voyc.When.precision.HOUR);
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		printh2('Hours Forward Leap');
+		pdate = new voyc.When( voyc.When.fromJSDate( new Date('1776 Feb 28 22:56:57.898')));
+		pdate.setPrecision(voyc.When.precision.HOUR);
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		pdate.nextPeriod();
+		printline(pdate.format('default'));
+		printfoot();
+	}
+	
+	// test formating
+	seriesFormatting = function() {
+		clearScreen();
+		printh1('Formatting');
+		printh2('toString()');
+		printexample('new voyc.When()');
+		printh2('default pattern');
+		printexample('new voyc.When().format()');
+		printexample('new voyc.When(0).format()');
+		printexample('new voyc.When(1).format()');
+		printexample('new voyc.When(50).format()');
+		printexample('new voyc.When(2000).format()');
+		printexample('new voyc.When(200000).format()');
+		printexample('new voyc.When(-1).format()');
+		printexample('new voyc.When(-50).format()');
+		printexample('new voyc.When(-200000).format()');
+		printh2('precision century, rounding');
+		printexample('new voyc.When(-3000.2, voyc.When.precision.CENTURY).format()');
+		printexample('new voyc.When(-2999.8, voyc.When.precision.CENTURY).format()');
+		printexample('new voyc.When(2000.2, voyc.When.precision.CENTURY).format()');
+		printexample('new voyc.When(1999.8, voyc.When.precision.CENTURY).format()');
+		printh2('large scale precision');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.YEAR).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.YEAR).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.DECADE).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.CENTURY).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.MILLENIUM).format()');
+		printh2('small scale precision');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.MONTH).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.DAY).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.HOUR).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.MINUTE).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06")), voyc.When.precision.SECOND).format()');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06.946")), voyc.When.precision.MILLISECOND).format()');
+		printh2('lcd patterns');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("lcd-minute")');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("lcd-day")');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("lcd-year")');
+		printh2('ruler patterns');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("ruler-minute")');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("ruler-hour")');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("ruler-month")');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("ruler-day")');
+		printexample('new voyc.When(voyc.When.fromJSDate(new Date("4 jul 1776 14:23:06"))).format("ruler-year")');
+		printexample('new voyc.When(-3000).format("ruler-year")');
+		printh2('Ruler Date Change');
+		printexample('dateobj = new voyc.When(voyc.When.fromJSDate(new Date("31 Dec 1775 23:59:57")))');
+		printexample('dateobj.format("default")');
+		printexample('dateobj.format("ruler-year")');
+		printexample('dateobj.format("ruler-month")');
+		printexample('dateobj.format("ruler-day")');
+		printexample('dateobj.format("ruler-hour")');
+		printexample('dateobj.format("ruler-minute")');
+		printexample('dateobj = new voyc.When(voyc.When.fromJSDate(new Date("31 Dec 1775 23:59:58")))');
+		printexample('dateobj.format("default")');
+		printexample('dateobj.format("ruler-year")');
+		printexample('dateobj.format("ruler-month")');
+		printexample('dateobj.format("ruler-day")');
+		printexample('dateobj.format("ruler-hour")');
+		printexample('dateobj.format("ruler-minute")');
+		printexample('dateobj = new voyc.When(voyc.When.fromJSDate(new Date("31 Dec 1775 23:59:59")))');
+		printexample('dateobj.format("default")');
+		printexample('dateobj.format("ruler-year")');
+		printexample('dateobj.format("ruler-month")');
+		printexample('dateobj.format("ruler-day")');
+		printexample('dateobj.format("ruler-hour")');
+		printexample('dateobj.format("ruler-minute")');
+		printexample('dateobj = new voyc.When(voyc.When.fromJSDate(new Date("1 jan 1776 00:00:00")))');
+		printexample('dateobj.format("default")');
+		printexample('dateobj.format("ruler-year")');
+		printexample('dateobj.format("ruler-month")');
+		printexample('dateobj.format("ruler-day")');
+		printexample('dateobj.format("ruler-hour")');
+		printexample('dateobj.format("ruler-minute")');
+		printexample('dateobj = new voyc.When(voyc.When.fromJSDate(new Date("1 jan 1776 00:00:01")))');
+		printexample('dateobj.format("default")');
+		printexample('dateobj.format("ruler-year")');
+		printexample('dateobj.format("ruler-month")');
+		printexample('dateobj.format("ruler-day")');
+		printexample('dateobj.format("ruler-hour")');
+		printexample('dateobj.format("ruler-minute")');
+		printexample('dateobj = new voyc.When(voyc.When.fromJSDate(new Date("1 jan 1776 00:00:02")))');
+		printexample('dateobj.format("default")');
+		printexample('dateobj.format("ruler-year")');
+		printexample('dateobj.format("ruler-month")');
+		printexample('dateobj.format("ruler-day")');
+		printexample('dateobj.format("ruler-hour")');
+		printexample('dateobj.format("ruler-minute")');
+		printh2('Big Numbers');
+		printexample('new voyc.When(-9.6e+3,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+4,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+5,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+6,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+7,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+8,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+9,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+10,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+11,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+12,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+13,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+14,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+15,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+16,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+17,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+18,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+19,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+20,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+30,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+40,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+50,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+100,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+200,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(-9.6e+300,voyc.When.precision.MILLENIUM).format()');
+		printline('');
+		printexample('new voyc.When(+9.6e+3,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+4,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+5,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+6,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+7,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+8,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+9,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+10,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+11,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+12,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+13,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+14,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+15,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+16,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+17,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+18,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+19,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+20,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+30,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+40,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+50,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+100,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+200,voyc.When.precision.MILLENIUM).format()');
+		printexample('new voyc.When(+9.6e+300,voyc.When.precision.MILLENIUM).format()');
+		printh2('Big Numbers - LCD');
+		printexample('new voyc.When(-9.6e+3,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+4,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+5,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+6,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+7,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+8,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+9,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+10,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+11,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+12,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+13,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+14,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+15,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+16,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+17,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+18,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+19,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+20,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+30,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+40,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+50,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+100,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+200,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(-9.6e+300,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printline('');
+		printexample('new voyc.When(+9.6e+3,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+4,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+5,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+6,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+7,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+8,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+9,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+10,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+11,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+12,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+13,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+14,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+15,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+16,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+17,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+18,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+19,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+20,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+30,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+40,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+50,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+100,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+200,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printexample('new voyc.When(+9.6e+300,voyc.When.precision.MILLENIUM).format("lcd-year")');
+		printh2('Big Numbers - Ruler');
+		printexample('new voyc.When(-9.6e+3,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+4,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+5,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+6,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+7,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+8,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+9,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+10,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+11,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+12,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+13,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+14,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+15,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+16,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+17,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+18,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+19,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+20,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+30,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+40,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+50,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+100,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+200,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(-9.6e+300,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printline('');
+		printexample('new voyc.When(+9.6e+3,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+4,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+5,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+6,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+7,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+8,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+9,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+10,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+11,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+12,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+13,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+14,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+15,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+16,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+17,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+18,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+19,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+20,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+30,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+40,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+50,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+100,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+200,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printexample('new voyc.When(+9.6e+300,voyc.When.precision.MILLENIUM).format("ruler-year")');
+		printfoot();
+	}
+	
+	// automated 
+	seriesConversionsAutomated = function() {
+		clearScreen();
+		printline( "testing conversions...");
+		var tester = new voyc.Tester();
+
+		// test recent dates
+		tester.assert( "when 1 Sep 1952 4:00 GMT", new voyc.When( "1 Sep 1952 4:00 GMT") == 1952.6671220400729);
+		tester.assert( "when 6 Jun 1903 1:15 GMT", new voyc.When( "6 Jun 1903 1:15 GMT") == 1903.4275399543378);
+		tester.assert( "when 31 dec 2006 23:59:59 UTC", new voyc.When( "31 dec 2006 23:59:59 UTC") == 2006.9999999682902);
+		tester.assert( "when jan 1 2007 00:00:00 UTC", new voyc.When( "jan 1 2007 00:00:00 UTC") == 2007);
+		tester.assert( "when 31 dec 2006 23:59:59 PST", new voyc.When( "31 dec 2006 23:59:59 PST") == 2007.0009132102994);
+		tester.assert( "when jan 1 2007 00:00:00 PST", new voyc.When( "jan 1 2007 00:00:00 PST") == 2007.0009132420091);
+		tester.assert( "when 31 dec 2006 23:59:59 PDT", new voyc.When( "31 dec 2006 23:59:59 PDT") == 2007.0007990550482);
+		tester.assert( "when jan 1 2007 00:00:00 PDT", new voyc.When( "jan 1 2007 00:00:00 PDT") == 2007.000799086758);
+	
+		// test early dates
+		tester.assert( "when 4 jul 1776 8:23:06 AM", new voyc.When( "4 jul 1776 8:23:06 AM") == 1776.5072159608378);
+		tester.assert( "when 1 jan 1568", new voyc.When( "1 jan 1568") == 1568.0009107468125);
+	
+		// these work in FF, not in IE - a comment on the php manual page for strtotime says Windows does not support datestamps prior to 1970
+		//tester.assert( "when 1568 1 1", new voyc.When( "1568 1 1") == 1568.0009107468125);
+		//tester.assert( "when 1556 01 23", new voyc.When( "1556 01 23") == 1556.06102003643);
+		//tester.assert( "when 1290 09 27", new voyc.When( "1290 09 27") == 1290.7377853881278);
+		//tester.assert( "when 1268 1 1", new voyc.When( "1268 1 1") == 1268.0009107468125);
+		//tester.assert( "when 1138 08 09", new voyc.When( "1138 08 09") == 1138.6035388127855);
+		//tester.assert( "when 0893 03 23", new voyc.When( "0893 03 23") == 893.2227168949772);
+		//tester.assert( "when 0856 12 22", new voyc.When( "0856 12 22") == 856.9735883424408);
+	
+		tester.assert( "when 09 Aug 1138", new voyc.When( "09 Aug 1138") == 1138.6035388127855);
+		tester.assert( "when 23 Mar 0893", new voyc.When( "23 Mar 0893") == 893.2227168949772);
+	
+		tester.assert( "when 1 sep 1901", new voyc.When( "1 sep 1901") == 1901.6665525114156);
+		tester.assert( "when 4 jul 1776", new voyc.When( "4 jul 1776") == 1776.5062613843352);
+		tester.assert( "when 30 jan 201", new voyc.When( "30 jan 201") == 201.08036529680365);
+		tester.assert( "when 3000 BC", new voyc.When( "3000 BC") == -3000);
+		tester.assert( "when 3000000", new voyc.When( "3000000 BC") == -3000000);
+		//tester.assert( "when ", new voyc.When( "3,000,000 BC") == -3000000);
+		tester.assert( "when 30 BC", new voyc.When( "30 BC") == -30);
+		//tester.assert( "when AD 30", new voyc.When( "AD 30") == 30);
+		//tester.assert( "when AD 500", new voyc.When( "AD 500") == 500);
+	
+		// test future dates
+		tester.assert( "when 31 dec 25025", new voyc.When( "31 dec 25025") == 25025.99817351598);
+	
+		// test formatting
+		tester.assert( "when 3000 BC", new voyc.When("3000 BC").format() == "3000 BC");
+		tester.assert( "when 50", new voyc.When(50).format() == "AD 50");
+		tester.assert( "when -3000", new voyc.When(-3000).format() == "3000 BC");
+		tester.assert( "when 2000", new voyc.When(2000).format() == "AD 2000");
+	
+		tester.assert( "when format -3000.2", new voyc.When(-3000.2, voyc.When.CENTURY).format() == "3000 BC");
+		tester.assert( "when format -2999.8", new voyc.When(-2999.8, voyc.When.CENTURY).format() == "3000 BC");
+		tester.assert( "when format 2000.2", new voyc.When(2000.2, voyc.When.CENTURY).format() == "AD 2000");
+		tester.assert( "when format ", new voyc.When(1999.8, voyc.When.CENTURY).format() == "AD 2000");
+	
+		tester.assert( "when format year", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.YEAR).format() == "AD 1777");
+		tester.assert( "when format decade", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.DECADE).format() == "AD 1780");
+		tester.assert( "when format century", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.CENTURY).format() == "AD 1800");
+		tester.assert( "when format millenium", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.MILLENIUM).format() == "AD 2000");
+		tester.assert( "when format month", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.MONTH).format() == "Jul 1776");
+		tester.assert( "when format day", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.DAY).format() == "4 Jul 1776");
+		tester.assert( "when format hour", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.HOUR).format() == "8:00 AM");
+		tester.assert( "when format minute", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.MINUTE).format() == "8:23 AM");
+		tester.assert( "when format second", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.SECOND).format() == "08:23:06 AM");
+		tester.assert( "when format millisecond", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.MILLISECOND).format() == "08:23:06.0 AM");
+	
+		tester.assert( "when format default", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.MILLISECOND).format("default") == "1776 Jul 04 08:23:06.0  -0700");
+		tester.assert( "when format lcd-minute", new voyc.When("4 jul 1776 8:23:06 PM", voyc.When.SECOND).format("lcd-minute") == "Jul 4, 1776, 8:23 PM");
+		tester.assert( "when format lcd-day", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.SECOND).format("lcd-day") == "Jul 4, 1776");
+		tester.assert( "when format lcd-year", new voyc.When("4 jul 1776 8:23:06 AM", voyc.When.SECOND).format("lcd-year") == "AD 1776");
+
+		printline(tester.displayResults());
+	}
+	
+	seriesEvenYears = function() {
+		clearScreen();
+		test5 = function(yr) {
+			var when = new voyc.When(yr);
+			var dtout = when.toDate();
+			tester.assert(yr == dtout.getFullYear());
+		}
+	
+		var tester = new voyc.Tester();
+		printline( "testing even years...");
+		test5(-3);
+		test5(-2);
+		test5(-1);
+		test5( 0);
+		test5( 1);
+		test5( 2);
+		test5( 3);
+		test5( 10);
+		test5( 20);
+		test5( 30);
+		test5( 40);
+		test5( 50);
+		test5( 60);
+		test5( 70);
+		test5( 80);
+		test5( 90);
+		test5( 99);
+		test5( 100);
+		test5( 200);
+		test5( 300);
+		test5( 400);
+		test5( 500);
+		test5( 600);
+		test5( 700);
+		test5( 800);
+		test5( 900);
+		test5( 1000);
+		test5( 1100);
+		test5( 1200);
+		test5( 1300);
+		test5( 1400);
+		test5( 1500);
+		test5( 1600);
+		test5( 1700);
+		test5( 1800);
+		test5( 1900);
+		test5( 1970);
+		test5( 2000);
+		printline(tester.displayResults());
+	}
+</script>
+</head>
+
+<body>
+	<div class='buttongroup'>
+		<h1>Notes and Docs</h1>
+		<button onclick='seriesDate()'>Javascript Date</button><br/> 
+		<button onclick='seriesNumber()'>Javascript Number</button><br/>
+		<button onclick='seriesMath()'>Javascript Math</button><br/>
+		<button onclick='seriesConcepts()'>Concepts</button><br/>
+	</div>
+	<div class='buttongroup'>
+		<h1>Visual Tests</h1>
+		<button onclick='seriesConstructor()'>When constructor</button><br/>
+		<button onclick='seriesFormatting()'>Formatting</button><br/> 
+		<button onclick='seriesConversions()'>Conversions</button><br/> 
+		<button onclick='seriesPeriods()'>Periods</button><br/> 
+	</div>
+	<div class='buttongroup'>
+		<h1>Automated Tests</h1>
+		<button onclick='seriesConversionsAutomated()'>Conversions</button><br/> 
+		<button onclick='seriesEvenYears()'>Even Years</button><br/> 
+	</div>
+	<hr>
+	<div id="printarea"></div>
+</body>
+</html>

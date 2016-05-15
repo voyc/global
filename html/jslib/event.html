@@ -1,0 +1,43 @@
+<!-- (c) Copyright 2005,2014 Voyc.com  -->
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Event Test</title>
+<script>var voyc = {};</script>
+<script src='utils.js'></script>
+<script src='debug.js'></script>
+<script src='event.js'></script>
+<script>
+onload = function() {
+	voyc.debug = new voyc.Debug({div:document.getElementById('output')});
+	voyc.event = new voyc.Event();
+	voyc.event.subscribe('Eat', 'A', function() {
+		voyc.debug.alert('A handling eat');
+	});
+	voyc.event.subscribe('Eat','B', function() {
+		voyc.debug.alert('B should not be received because sub == pub');
+	});
+	voyc.event.subscribe('Eat', 'C', function() {
+		voyc.debug.alert('C handling eat');
+	});
+	voyc.event.publish('Eat', 'B', 'param');
+
+	// test alert param
+	voyc.event.subscribe('Alert Me', 'A', function() {
+		voyc.debug.alert('Alert Me handled');
+	}, true);
+	voyc.event.subscribe('Quiet', 'A', function() {
+		voyc.debug.alert('Quietly please');
+	}, false);
+	voyc.event.publish('Alert Me', 'Z', 'param');
+	voyc.event.publish('Quiet', 'Z', 'param');
+}
+</script>
+</head>
+<body>
+<div id='output' style='border:thin solid black'></div>
+</body>
+</html>
+

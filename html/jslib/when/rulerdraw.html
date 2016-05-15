@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<title>canvas draw</title>
+<style>
+#container {
+	position:relative;
+	margin-top:1cm;
+	height:4cm;
+}
+#xcanvas {
+}
+.component {
+	position:absolute;
+	top:0;
+	width:100%;
+	height:100%;
+}
+#undervalue {
+	position:absolute;
+	top:85px;
+	left:100px;
+	padding:2px;
+	background-color:white;
+}
+#overvalue {
+	position:absolute;
+	top:85px;
+	left:400px;
+	padding:2px;
+	background-color:white;
+}
+</style>
+<script>
+voyc = {};
+onload = function() {
+	document.getElementById('ranget').addEventListener('change',function(event) {
+		draw();
+	});
+	document.getElementById('rangen').addEventListener('change',function(event) {
+		draw();
+	});
+	draw();
+}
+getDrawTools = function() {
+	if (!voyc.drawTools) {
+		dt = {};
+		dt.cmPerBar = 3;
+		dt.div = document.createElement('div');
+		dt.div.id = 'drawtools';
+		document.getElementsByTagName('body')[0].appendChild(dt.div);
+		dt.div.style.position = 'absolute';
+		dt.div.style.top = 0-2*dt.cmPerBar+'cm';
+		dt.div.style.left = 0-2*dt.cmPerBar+'cm';
+		dt.div.style.width = dt.cmPerBar+'cm';
+	}
+	dt.pixelsPerBar = dt.div.offsetWidth;
+	dt.pixelsPerCM = Math.floor(dt.pixelsPerBar / dt.cmPerBar);
+	voyc.drawTools = dt;
+	return voyc.drawTools;
+}
+/**
+	@param c Canvas element
+	@param ctx Canvas drawing context
+	@param dt DrawTools object
+	@param s Start position in pixels
+	@param t Width of tickmark in pixels
+	@param n Count of tickmarks within major tick
+ */
+drawRuler = function(c,ctx,dt,s,t,n,interval) {
+	var w = c.width;
+	var h = c.height;
+	for (var i=s; i<w; i+=t) {
+		ctx.beginPath();
+		ctx.moveTo(i, 97);
+		ctx.lineTo(i, 100);
+		ctx.stroke();
+	}
+	for (var i=s+(t*n); i<w; i+=t*n) {
+		ctx.beginPath();
+		ctx.lineWidth = 1;
+		ctx.moveTo(i, 88);
+		ctx.lineTo(i, 100);
+		ctx.stroke();
+	}
+	for (var i=s+(t*n*interval); i<w; i+=t*n*interval) {
+		ctx.font = '12pt sans-serif';
+		ctx.textBaseline = 'top';
+		ctx.textAlign = 'center';
+		ctx.fillText(String(i), i, 68);
+	}
+}
+draw = function() {
+	// set pixel accurate drawing surface
+	var w = document.getElementById("drawinglayer").offsetWidth;
+	var h = document.getElementById("drawinglayer").offsetHeight;
+	var c = document.getElementById("xcanvas");
+	c.width = w;
+	c.height = h;
+	c.style.width = w + 'px';
+	c.style.height = h + 'px';
+	var ctx = c.getContext("2d");
+	ctx.translate(0.5,0.5);  // makes thin clear lines
+	ctx.lineWidth = 1;
+
+	var t = parseInt(document.getElementById("ranget").value);
+	var n = parseInt(document.getElementById("rangen").value);
+	var s = -142;
+	var interval = 5;
+
+	var dt = getDrawTools();
+	drawRuler(c,ctx,dt,s,t,n,interval);
+}
+</script>
+</head>
+<body>
+	</div>
+	<div id='container'>
+		<div class='component' id='underlayer'>this is the under layer
+			<div id='undervalue'>2936 BC</div>
+		</div>
+		<div class='component' id='drawinglayer'>
+			<canvas id='xcanvas'></canvas>
+		</div>
+		<div class='component' id='overlayer'>this is the over layer
+			<div id='overvalue'>1776</div>
+		</div>
+	</div>
+	<div>
+		<input id='ranget' type='range' min='2' max='10'/>
+		<input id='rangen' type='range' min='2' max='10'/>
+	</div>
+</body>
+</html>

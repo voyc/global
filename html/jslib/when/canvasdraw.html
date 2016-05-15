@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<title>canvas draw</title>
+<style>
+#hahs {
+}
+.hah {
+	float:left;
+	border:thin solid #111;
+	width:1cm;
+	height:1cm;
+}
+.hahlast {
+	clear:both;
+}
+#container {
+	clear:both;
+	position:relative;
+	margin-top:1cm;
+	height:4cm;;
+}
+#xcanvas {
+	border:thin solid #111;
+}
+.component {
+	position:absolute;
+	top:0;
+	width:100%;
+	height:100%;
+}
+#value {
+	position:absolute;
+	top:85px;
+	left:100px;
+	padding:2px;
+	background-color:white;
+}
+</style>
+<script>
+onload = function() {
+	draw();
+}
+draw = function() {
+	// set pixel accurate drawing surface
+	var w = document.getElementById("drawinglayer").offsetWidth;
+	var h = document.getElementById("drawinglayer").offsetHeight;
+	var c = document.getElementById("xcanvas");
+	c.width = w;
+	c.height = h;
+	c.style.width = w + 'px';
+	c.style.height = h + 'px';
+
+	// get drawing context
+	var ctx = c.getContext("2d");
+	ctx.translate(0.5,0.5);  // makes thin clear lines
+
+	// practice 
+	ctx.fillStyle = "#FF0000";
+	ctx.fillRect(0,0,150,75);
+	ctx.moveTo(0,0);
+	ctx.lineTo(150,75);
+	ctx.stroke();
+
+	//draw line
+	ctx.beginPath();
+	ctx.lineWidth = 1;
+	ctx.moveTo(30, 30);
+	ctx.lineTo(30, 150);
+	ctx.stroke();
+
+	// draw many lines
+	var t = 2;
+	var n = 4;
+
+	for (var i=t; i<w; i+=t) {
+		ctx.beginPath();
+		ctx.lineWidth = 1;
+		ctx.moveTo(i, 95);
+		ctx.lineTo(i, 100);
+		ctx.stroke();
+	}
+	// draw many lines
+	for (var i=t*n; i<w; i+=t*n) {
+		ctx.beginPath();
+		ctx.lineWidth = 1;
+		ctx.moveTo(i, 90);
+		ctx.lineTo(i, 100);
+		ctx.stroke();
+	}
+}
+</script>
+</head>
+<body>
+	<div id='hahs'>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hah'></div>
+		<div class='hahlast'></div>
+	</div>
+	<div id='container'>
+		<div class='component' id='underlayer'>this is the under layer</div>
+		<div class='component' id='drawinglayer'>
+			<canvas id='xcanvas'></canvas>
+		</div>
+		<div class='component' id='overlayer'>this is the over layer
+			<div id='value'>1776</div>
+		</div>
+	</div>
+</body>
+</html>

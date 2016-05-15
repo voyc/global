@@ -1,0 +1,65 @@
+<!-- (c) Copyright 2006 voyc.com  -->
+<html>
+	<head>
+		<title>login test</title>
+		
+		<script src="../jslib/debug.js" type="text/javascript"></script>
+		<script src="../jslib/xhr.js" type="text/javascript"></script>
+		
+		<script>
+			var g = {};
+			g.debug = new Debug(false);
+	
+			// one-time initialize static xhr base url		
+			Xhr.base = "http://www.dev.mapteam.com/~jhagstrand/voyc/svc/";
+	
+			test1 = '<request>\n'+
+						'<action>login</action>\n'+
+						'<username>jdog</username>\n'+
+						'<password>hoohah</password>\n'+
+					'</request>\n';
+
+			// test object
+			function MyObj() {
+			}
+			
+			MyObj.prototype = {
+				callServer : function() {
+					var xhr = new Xhr();
+					var self = this;
+					xhr.callback = function(response) {self.onCallReturn(response);};
+					xhr.data = document.getElementById("xinput").value;
+					xhr.program = "login";
+					xhr.callServer();
+				},
+			
+				onCallReturn : function(response) {
+					document.getElementById("xoutput").value = response;
+				}
+			}
+			
+			g.myObj = new MyObj();
+			
+			set = function(v) {
+				document.getElementById("xinput").value = v;
+			};
+			xclear = function() {
+				document.getElementById("xinput").value = '';
+				document.getElementById("xoutput").value = '';
+			};
+
+			//onload = set(test1);
+		</script>
+	</head>
+
+	<body>
+		<input type="button" value="test1" onclick="set(test1);"/>
+		<input type="button" value="clear" onclick="xclear();"/>
+		<br/>
+		<textarea id="xinput" cols="100" rows="7"></textarea><br/>
+		<input type="button" value="update" onclick="g.myObj.callServer();"><br/>
+		<textarea id="xoutput" cols="100" rows="7"></textarea><br/>
+	</body>
+</html>
+<!-- (c) Copyright 2006 voyc.com  -->
+

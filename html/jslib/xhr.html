@@ -1,0 +1,53 @@
+<!-- (c) Copyright 2006,2014 Voyc.com  -->
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>Xhr Test</title>
+		<script>var voyc = {};</script>
+		<script src="debug.js" type="text/javascript"></script>
+		<script src="xhr.js" type="text/javascript"></script>
+		<script src="utils.js" type="text/javascript"></script>
+		
+		<script>
+			voyc.debug = new voyc.Debug();
+	
+			// one-time initialize static xhr base url		
+			voyc.Xhr.base = "http://www.voyc.com/html/svc/";
+	
+			// test object
+			function MyObj() {
+			}
+			
+			MyObj.prototype = {
+				callServer : function() {
+					var xhr = new voyc.Xhr();
+					var self = this;
+					xhr.callback = function(response) {self.onCallReturn(response);};
+					this.params = {};
+					xhr.data = document.getElementById("xinput").value;
+					xhr.method = "POST";
+					xhr.program = "echo";
+					xhr.callServer();
+				},
+			
+				onCallReturn : function(response) {
+					document.getElementById("xoutput").value = response;
+				}
+			}
+			
+			voyc.myObj = new MyObj();
+			
+			onload = function() {
+				document.getElementById("xinput").value = "<xml string>";
+			};
+		</script>
+	</head>
+
+	<body>
+		<textarea id="xinput" cols="60" rows="4"></textarea><br/>
+		<input type="button" value="echo" onclick="voyc.myObj.callServer();"><br/>
+		<textarea id="xoutput" cols="60" rows="4"></textarea><br/>
+	</body>
+</html>

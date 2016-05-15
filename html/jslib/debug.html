@@ -1,0 +1,63 @@
+<!-- (c) Copyright 2005,2014 Voyc.com  -->
+<!html doctype>
+<html>
+<head>
+<title>Debug Test</title>
+<script>var voyc = {};</script>
+<script src='debug.js' language='javascript'></script>
+<script src='utils.js' language='javascript'></script>
+<script>
+
+window.onload = function() {
+	voyc.debug = new voyc.Debug({div:document.getElementById('output')});
+	voyc.debug.alert('first message');
+
+	var o = {
+		a: 1,
+		b: 'x',
+		c: {
+			x:'aaaa',
+			y:'11111',
+			o:{
+				o2: {
+					x:'bbbb',
+					y:'22222',
+					o3: {
+						x:'ccccc',
+						y:'33333'
+					}
+				}
+			}
+		},
+		d: ['a1','a2','a3']
+	}
+	
+	voyc.debug.dumpObject(o);
+
+	voyc.debug.alert('---again, limiting depth to 2');
+	voyc.debug.dumpObject(o,2);
+
+	voyc.debug.alert('---again, limiting depth to 1');
+	voyc.debug.dumpObject(o,1);
+	
+	voyc.debug.alert('typeof o='+typeof(o));
+	voyc.debug.alert('typeof o.d='+typeof(o.d));
+	voyc.debug.alert('typeof o.b='+typeof(o.b));
+
+	var elem = document.getElementById('mybox');
+	voyc.debug.dumpElement(elem);
+
+	voyc.debug.alert('end of test');
+}
+</script>
+</head>
+
+<body>
+Hello
+<div id='mybox' style='width:20; height:30; background-color:#ffff00;'>
+	<div id='hoo'>x</div>
+	<div id='hah'>y</div>
+</div>
+<div id='output' style='border:thin solid black'></div>
+</body>
+</html>

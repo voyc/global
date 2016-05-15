@@ -1,0 +1,28 @@
+html, body {
+}
+
+* {
+	font-family: arial;
+	font-size: 10pt;
+}
+
+textarea {
+	width:500px;
+	height:60px;
+}
+
+input {
+	width:500px;
+}
+
+input#inupload {
+	width:100px;
+}
+
+input#inclear {
+	width:100px;
+}
+
+td {
+	valign:top;
+}

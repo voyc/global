@@ -1,0 +1,24 @@
+#mapcard {
+	position: absolute;
+	border: 1px solid black;
+	background-color: white;
+	display: none;
+	overflow: hidden;
+	font-family: helvetica;
+	width:175px;
+	box-shadow:3px 3px 3px 0px rgba(0,0,0,0.50);
+}
+
+#mapcard #imgcontainer {
+	font-size:1px;
+	padding:0px;
+}
+
+#mapcard img {
+	width:175px;
+}
+
+#mapcard div {
+	width:100%;
+	padding:3px;
+}

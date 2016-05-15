@@ -1,0 +1,7 @@
+MAILTO=john@voyc.com
+*/5 * * * * /home/jhagstrand/webapps/voyc/cli/scripts/cron.five >& /dev/null
+01 * * * * /home/jhagstrand/webapps/voyc/cli/scripts/cron.hourly >& /dev/null
+02 3 * * * /home/jhagstrand/webapps/voyc/cli/scripts/cron.backup
+02 7 * * * /home/jhagstrand/webapps/voyc/cli/scripts/cron.dawn
+12 7 * * * /home/jhagstrand/webapps/voyc/cli/scripts/cron.report
+*/5 * * * * /home/jhagstrand/webapps/voyc/cli/scripts/cron.guru

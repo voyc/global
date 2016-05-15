@@ -1,0 +1,229 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	-webkit-text-size-adjust:none;  /* for iphone */
+}
+#controllerInterior {
+	position:absolute;
+	top:0;
+	display:none;  /* for startup */
+}
+.controller_bar_texts {
+	position: absolute;
+	height:31px;
+}
+.controller_bar_texts td {
+	font-family: arial;
+	font-size: 10pt;
+}
+.aboutlink {
+	color: white;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.copyright {
+	color: white;
+	white-space:nowrap;
+	font-size:8pt;
+}
+#controller_bar_lcd {
+	font-family: arial;
+	font-size: 12pt;
+	font-weight: bold;
+	text-align: center;
+
+}
+#controller_bar_loader {
+ 	white-space:nowrap;
+ 	font-family:arial;
+ 	font-size:10pt;
+ 	color:white;
+	white-space:nowrap;
+}
+#controller_bar_logo {
+}
+.winborder {
+	background-color: #3369C1;
+	z-index: 11;
+}
+.winmargin {background-color: #ffffff;}
+.wintitlebar {background-color: #3369C1;}
+.wincontent {background-color: #ffffff;}
+.windialogclose {
+	background-image: url(../images/dialogclosewhite.png);
+}
+
+/* popup infowindow over map */
+.pp {
+	font-family:arial;
+}
+.ppHeadline {
+	font-weight: bold;
+}
+.ppTime,.ppTags {
+	margin: 4px 0px 4px 0px;
+}
+
+#timeline {
+	font-family:arial; 
+	font-size:10pt;
+}
+
+#map {
+	width:280px;    /* for startup */
+	height:440px;  /* for startup */
+	background-color:#253769; /* for startup */
+}
+
+#searchform {
+	margin-left:30px;
+	margin-top:13px;
+}
+#searchbox {
+	width:200px;
+}
+
+div#detail {
+	background-color:#dddddd;
+	overflow-x:hidden;
+	overflow-y:auto;
+	height:440;   /* for startup */
+	width:404;    /* for startup */
+}
+div#detail div.detailComponent{
+	padding:2%;
+	font-family:arial;
+	font-size:12pt;
+	display:none;
+}
+div#detail div#edit td {
+	font-size:10pt;
+}
+div.detailComponent h1 {
+	font-family:arial;
+	font-size:14pt;
+	font-weight:bold;
+	margin:0;
+	padding:0;
+}
+div.detailComponent h2 {
+	font-family:arial;
+	font-size:12pt;
+	font-weight:bold;
+	margin:3% 0 0 0;
+	padding:0;
+}
+div.detailComponent p {
+	margin:1% 0 2% 0;
+	padding:0;
+}
+div#detail img.photo {
+	width:100%;
+}
+div#detail div#vote {
+	float:right;
+	text-align:center;
+	margin-top:5px;
+	border:1px solid #D70238;
+}
+div#votescore {
+	color:#D70238;
+	font-family:arial;
+	font-size:14pt;
+	font-weight:bold;
+	margin:0px 3px;
+}
+div#detail div#voteup, div#votedown {
+	background-image: url(../images/vote.png);
+	background-repeat:norepeat;
+	margin-top:3px;
+	height:15px;
+	width:15px;
+	left:-7px;
+	margin-left:50%;
+	position:relative;
+	cursor:pointer;
+}
+div#detail div#voteup.out {
+	background-position:0 0;
+}
+div#detail div#voteup.over {
+	background-position:15 0;
+}
+div#detail div#votedown.out {
+	background-position:0 15;
+}
+div#detail div#votedown.over {
+	background-position:15 15;
+}
+a#author, span#colon {
+	color:blue;
+	font-weight:bold;
+}
+span.headline {
+	font-weight:bold;
+}
+div#detail div#tags,div#dateline {
+	margin-top:8px;
+	font-size:10pt;
+}
+span#recordid {
+	font-size:8pt;
+}
+.fine {
+	font-size:10pt;
+}
+div#editlink {
+	float:right;
+}
+div#comments {
+	margin-top:8px;
+	border-top:1px solid black;
+}
+
+div#divider {
+	width:7px;
+	background-image:url(../images/vertical-divider.png);
+}
+td.hdivider {
+	height:7px;
+	line-height:1px;
+	background-image:url(../images/horizontal-divider.png);
+}
+
+div#edit input, div#edit textarea {
+	width:100%;
+}
+div#edit input#inlat {
+	width:48%;
+	float:left;
+}
+div#edit input#inlon {
+	width:48%;
+	float:right;
+}
+#edittableboundary {
+	width:100%;
+}
+#edittable {
+	width:100%;
+	table-layout:fixed;
+}
+
+#loggedin {
+	display:none;
+}
+#loggedout {
+}
+#knob {
+	position:absolute;
+	background-image: url(../images/knob.png);
+	height:17px;
+	width:17px;
+	line-height:1px;
+	font-size:1px;
+	display:none; /* at startup */
+}

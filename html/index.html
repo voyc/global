@@ -1,0 +1,141 @@
+﻿<!-- (c) Copyright 2014 Voyc.com -->
+<!doctype html>
+<html>
+<head>
+<?php 
+// what is this?  SEO?
+//	require_once(dirname(__FILE__).'/../phplib/getStartupPanel.php'); 
+//	readStartup($_REQUEST);
+//	writeStartupCookies();
+?>
+<meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
+<title>voyc</title>
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<meta equiv='X-UA-Compatible' content='IE=8'> <!-- for ie8 drag-n-drop bug -->
+<script>var voyc = {};</script>
+
+<?php if (false) { ?>
+<script src='jslib/debug.js'></script>
+<script src='jslib/card.js'></script>
+<script src='jslib/event.js'></script>
+<script src='jslib/when.js'></script>
+<script src='jslib/dragger.js'></script>
+<script src='jslib/animator.js'></script>
+<script src='jslib/xhr.js'></script>
+<script src='jslib/color.js'></script>
+<script src='jslib/cookie.js'></script>
+<script src='jslib/utils.js'></script>
+<script src='js/voyc.js' language='javascript'></script>
+<script src='js/options.js' language='javascript'></script>
+<script src='js/map.js' language='javascript'></script>
+<script src='js/mapcard.js' language='javascript'></script>
+<script src='js/mapmarker.js' language='javascript'></script>
+<script src='js/mapdot.js' language='javascript'></script>
+<script src='js/mappolygon.js' language='javascript'></script>
+<script src='js/mapshape.js' language='javascript'></script>
+<script src='js/maplevel.js' language='javascript'></script>
+<script src='js/timeline.js' language='javascript'></script>
+<script src='js/timelevel.js' language='javascript'></script>
+<script src='js/timebar.js' language='javascript'></script>
+<script src='js/dispatch.js' language='javascript'></script>
+<script src='js/bounds.js' language='javascript'></script>
+<script src='js/dashboard.js' language='javascript'></script>
+<script src='js/detail.js' language='javascript'></script>
+<script src='js/layout.js' language='javascript'></script>
+<link rel='stylesheet' href='css/typography.css' type='text/css' />
+<link rel='stylesheet' href='css/layout.css' type='text/css' />
+<link rel='stylesheet' href='css/card.css' type='text/css' />
+<link rel='stylesheet' href='css/dashboard.css' type='text/css' />
+<link rel='stylesheet' href='css/mapcard.css' type='text/css' />
+<link rel='stylesheet' href='css/timeline.css' type='text/css' />
+<link rel='stylesheet' href='css/detail.css' type='text/css' />
+<?php } else { ?>
+<!--<remove>
+<script src="vc.js"></script>
+<script src="vlc.js"></script>
+<link rel='stylesheet' href='vc.css' type='text/css' />
+<remove>-->
+<?php } ?>
+
+<script language='javascript'>
+	voyc.addEvent(window, 'load', function() {
+		voyc.debug = new voyc.Debug({div:voyc.$('internals-debug')});
+		voyc.debug.alert('window.onload');
+		voyc.voyc = new voyc.Voyc();
+		voyc.voyc.create();
+	});
+	voyc.addEvent(window, 'resize', function() {
+		//voyc.debug.alert('window.onresize');
+		voyc.voyc.layout.resize();
+
+	});
+</script>
+</head>
+
+<body>
+	<!-- A table is used here because float and inline-block are designed to wrap. -->
+	<!-- The 'welcome' and 'dashboard' contents are included here so they appear even in the absence of javascript. -->
+	<table id='tlayout' class='startup'><tr>
+	<td id='tmap' class='startup'><div id='map'></div></td>
+	<td id='tdivider' class='startup'><div id='divider'></td>
+	<td id='tdetail' class='startup'><div id='detail'>
+		<div id='welcome'>
+			<h1>Welcome to voyc.com</h1>
+			<p>Voyc.com is a cooperative media site for professional and enthusiast historians. It's 100% free, no registration required.</p>
+			<p>Where news becomes history.</p>
+			<p>Watch a two-minute <a href='http://youtu.be/NSGML_eNLOM' target='new'>demo&nbsp;video</a>.</p>
+			<h2>Contact Us</h2>
+			<p>We appreciate your feedback and questions.<br/>
+			feedback@voyc.com</p>
+			<div id='welcomelinks'>
+				<!-- <p><a href='tags.php'>Tags</a></p> -->
+			</div>
+		</div>
+	</div></td>
+	</tr></table>
+	</div>
+	<div id='dashboard'>
+		<table id='bg'><tr>
+			<td class='end'><img src='images/bar_left_end.jpg'/></td>
+			<td class='vtext' ><img class='vimg' src='images/bar_left.jpg'/></td>
+			<td class='center'><img src='images/bar_center.jpg'/></td>
+			<td class='vtext'><img class='vimg' id='dboard_bar_right' src='images/bar_right.jpg'/></td>
+			<td class='end'><img src='images/bar_right_end.jpg'/></td>
+		</tr></table>
+		<table id='fg'><tr>
+			<td id='fg-left'>
+				<table id='left'><tr>
+					<td><img id='db-logo' src='images/voyclogo3.png'/></td>
+					<td><div id='db-copyright'>&copy; voyc.com</div></td>
+					<td class='aright tdbtn'><div id='db-menu' class='btn' title='Menu'></div></td>
+				</table>
+			</td>
+			<td id='fg-center'>
+				<div id='db-lcd'>00 000 0000 00:00</div>
+			</td>
+			<td id='fg-right'>
+				<table id='searcher'><tr>
+					<td>
+						<div id='db-searchbox'>
+							<input id='db-searchinput' value='Search...' />
+						</div>
+					</td>
+					<td class='tdbtn'>
+						<div id='db-searchcancel' title='Cancel search'></div>
+					</td>
+					<td class='tdbtn'>
+						<div id='db-searchoptbtn' class='btn' title='More search options'></div>
+					</td>
+					<td class='tdbtn'>
+						<div id='db-searchbtn' class='btn' title='Search all time and space'></div>
+					</td>
+				</tr></table>
+			</td>
+		</tr></table> 
+		<div id='db-loader'><img id='loader_image' src='images/ajaxloader.gif'/><span id='loader_text'>Loading...</span></div>
+	</div>
+	<div id='timeline'></div>
+	<div id='knob'></div>
+	<div id='meta'></div>
+</body>
+</html>

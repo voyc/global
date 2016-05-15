@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<style>
+#cont {
+}
+#bkd {
+	background-color:#ff8888;
+	height:400px;
+	width:400px;
+	position:relative;
+}
+#fgd {
+	background-color:#8888ff;
+	height:0px;
+	width:400px;
+	position:relative;
+	top:-380px;
+	left:20px;
+}
+.bkd {
+	position:absolute;
+	background-color:#000000;
+	height:40px; width:40px;
+}
+.bkd:hover {
+	background-color:#ffffff;
+}
+.fgd {
+	position:absolute;
+	background-color:#00ff00;
+	height:30px; width:60px;
+}
+.fgd:hover {
+	background-color:#ffffff;
+}
+#bkd-1 {
+	left:50px; top:50px;
+	z-index:108;
+}
+#bkd-2 {
+	left:200px; top:200px;
+	z-index:103;
+}
+#bkd-3 {
+	left:220px; top:220px;
+	z-index:109;
+}
+#fgd-1 {
+	left:50px; top:50px;
+	z-index:105;
+}
+#fgd-2 {
+	left:200px; top:200px;
+	z-index:106;
+}
+#fgd-3 {
+	left:220px; top:220px;
+	z-index:107;
+}
+</style>
+</head>
+<body>
+<div id=cont>
+	<div id=bkd>
+		<div id=bkd-1 class=bkd></div>
+		<div id=bkd-2 class=bkd></div>
+		<div id=bkd-3 class=bkd></div>
+	</div>
+	<div id=fgd>
+		<div id=fgd-1 class=fgd></div>
+		<div id=fgd-2 class=fgd></div>
+		<div id=fgd-3 class=fgd></div>
+	</div>
+</div>
+</body>
+</html>

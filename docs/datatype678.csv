@@ -1,0 +1,35 @@
+datatype,new datatype,id,headline,big event,person,work,magnitude
+,,,,,,,
+ ,8,14784,Peloponnesian War,Peloponnesian War,Thucydides,Peloponnesian War,
+8,8,14788,Trojan War ,Trojan War ,Homer,The Illiad,
+8,8,14782,Greco Persion War,Thucydides,Herodotus,Histories,
+,,,,,,,
+6,5,14679,Homer,person,,,1000
+6,5,14691,Herodotus,person,,,1000
+6,5,14690,Thucydides,person,,,1000
+6,5,14678,Plato,person,,,1000
+6,5,14681,Socrates,person,,,900
+,,,,,,,
+6,5,14685,Hippocrates,person,,,500
+6,5,14693,Pythagorus,person,,,500
+6,5,14692,Sophocles,person,,,500
+6,5,14694,Hesiod,person,,,500
+6,5,14683,Asclepiades,person,,,500
+6,5,14682,Aeschylus,person,,,500
+6,5,14686,Archimedes,person,,,500
+6,5,14689,Aristophanes,person,,,500
+6,5,14684,Hipparchus,person,,,500
+6,5,14695,Terpander,person,,,500
+6,5,14688,Euclid,person,,,500
+6,5,14680,Aristotle,person,,,500
+6,5,14783,Pericles,person,,,500
+6,5,14696,Sappho,person,,,500
+6,5,14687,Eratosthenes,person,,,500
+,,,,,,,
+,,,,,,,
+6,6,970015,Bell Idol,work,,,
+6,6,969021,Greco-Buddhist frieze,work,,,
+6,6,970016,Bronze Sculpture,work,,,
+6,6,970014,Hellenistic relief bowl,work,,,
+6,6,970011,Corinthian orientalising jug,work,,,
+6,6,970012,olpe by Amasis Painter,work,,,

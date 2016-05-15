@@ -1,0 +1,103 @@
+	datatype2 map-points			id=forebear			has forebear		
+	id	headline		id	headline		id	headline	count
+x	3	Egypt		3	Egypt		3	Ahmed Fuad I	35
+							4	British Raj	10
+	5	China		5	China		5	China	13
+				6	Greece		6	Acheans	45
+x	10248	Canada		10248	Canada		10248	Canada	3
+x	10298	Estonia		10298	Estonia		10298	Estonia	3
+				10364	France		10364	Carolingian Empire	12
+				10377	Italy		10377	Italians	4
+				10379	Yugoslavia		10379	Serbia	3
+							10385	Bulgaria	2
+	10389	New Spain		10389	New Spain		10389	New Spain	4
+	10394	Turkey		10394	Turkey		10394	Turkey	3
+				10404	Iran		10404	Ahmadinejad	8
+				10416	Iraq		10416	Ahmad Hasan	8
+				10421	Pakistan		10421	Pakistan	2
+				10435	Israel		10435	Barak	10
+				10438	Saudi Arabia		10438	Abdul Aziz	7
+x	10439	Egypt							
+				10441	Nepal		10441	Nepal	2
+				10464	Oman		10464	Oman	2
+				10506	Benin		10506	Benin	4
+				10540	Kongo		10540	Kongo	3
+x	10572	Indonesia		10572	Indonesia		10572	Indonesia	5
+				10630	Zimbabwe		10630	Zimbabwe	3
+x	10646	Chiloe (Chile)		10646	Chiloe (Chile)		10646	Chiloe (Chile)	3
+x	11344	Austrailia		11344	Austrailia		11344	Austrailia	3
+x	11346	Japan		11346	Japan		11346	Japan	6
+x	11368	Cape Colony		11368	Cape Colony		11368	British colonies	5
+x	11378	Russia		11378	Russia		11378	Kievan Rus	12
+				13283	West Germany		13283	Germany	2
+				13285	Czech Republic		13285	Chechoslovakia	2
+				13300	Denmark		13300	Denmark	2
+	13332	Sumer		13332	Sumer		13332	Sumer	3
+	13335	Kassites		13335	Kassites		13335	Kassites	13
+	13336	Elamites		13336	Elamites		13336	Elamites	9
+				13346	Sargon		13346	Sargon	9
+				13361	Aryans		13361	Aryans	5
+				13375	Babylonia		13375	Babylonia	4
+	13416	Hittites		13416	Hittites		13416	Hittites	17
+	13502	Hyksos		13502	Hyksos		13502	Hyksos	5
+	13550	Mitanni		13550	Mitanni		13550	Mitanni	3
+	13576	Assyria		13576	Assyria		13576	Assyria	20
+				13665	Phrygia		13665	Phrygia	9
+				13781	Scyths		13781	Scyths	20
+				13824	Medes		13824	Medes	4
+	13904	Parthia		13904	Parthia		13904	Parthia	4
+	13908	Ptolemy		13908	Ptolemy		13908	Ptolemy	5
+				13919	Pergamum		13919	Armenia	2
+	13964	Rome		13964	Rome		13964	Rome	17
+				14007	Huns		14007	Huns	11
+	14010	Eastern Roman Empire		14010	Eastern Roman Empire		14010	Eastern Roman Empire	6
+	14011	Byzantine Empire		14011	Byzantine Empire		14011	Byzantine Empire	9
+	14088	Fatimids and Mamelukes		14088	Fatimids and Mamelukes		14088	Fatimids and Mamelukes	4
+				14111	Crusaders		14111	Crusaders	9
+	14129	Mongols		14129	Mongols		14129	Mongols	4
+	14145	Ottoman Empire		14145	Ottoman Empire		14145	Ottoman Empire	23
+				14191	Safavid Persia		14191	Safavid Persia	2
+				14315	British		14315	British	25
+x	14421	King Menes							
+x	14422	Middle Kingdom							
+x	14423	New Empire							
+	14428	Persia		14428	Persia		14428	Achaemenid Dynasty	14
+	14432	Arab Caliphates		14432	Arab Caliphates		14432	Abbassid Dynasty	31
+	14433	Umayyad Dynasty							
+	14435	Fatimids							
+	14440	Guti		14440	Guti		14440	Guti	4
+x	14444	Old Kingdom					14479	Etruscans	2
+				14513	Henry		14513	Henry	4
+				14536	Collier		14536	Collier	3
+				14537	Dade		14537	Dade	2
+				14538	De Soto		14538	De Soto	2
+				14539	Glades		14539	Glades	5
+				14540	Highlands		14540	Highlands	4
+				14541	Lee		14541	Lee	2
+				14542	Manatee		14542	Manatee	2
+				14543	Monroe		14543	Monroe	2
+				14544	Palm Beach		14544	Palm Beach	2
+				14545	Sarasota		14545	Sarasota	3
+	14645	Selucid Dynasty							
+	14646	Sassanid Dynasty							
+	14647	Mamelukes							
+	14652	Achaemenid Dynasty							
+							14681	Bell Idol	6
+x	14697	Ancient Egypt							
+	14699	Abbassid Dynasty							
+				14776	Mayas		14776	Mayas	3
+				14811	Khazar		14811	Khazar	2
+x	14816	Srivijaya Empire		14816	Srivijaya Empire		14816	Srivijaya Empire	3
+				14835	Holy Roman Empire		14835	Holy Roman Empire	3
+				14839	Ghana		14839	Ghana	2
+				14843	Kanem		14843	Kanem	4
+				14845	Incas		14845	Incas	2
+				14856	Ethiopia		14856	Ethiopia	3
+x	14879	Denmark		14879	Denmark		14879	Denmark	3
+				14880	Morocco		14880	Morocco	3
+				14882	Tunisia		14882	Tunis	3
+				14883	Libya		14883	Libya	3
+				14894	Uganda		14894	Uganda	2
+				14898	Portugal		14898	Portugal	5
+x	14903	The Netherlands		14903	The Netherlands		14903	Batavian Republic	6
+x	14909	USA		14909	USA		14909	Alaska	6

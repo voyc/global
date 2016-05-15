@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# Append .php to each service request
+RewriteCond %{REQUEST_URI} !\.php$
+RewriteRule ^(.*)$ $1.php

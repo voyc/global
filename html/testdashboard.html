@@ -1,0 +1,92 @@
+﻿<!-- (c) Copyright 2014 Voyc.com  -->
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Dashboard Test</title>
+<link rel='stylesheet' href='css/card.css' type='text/css' />
+<script>var voyc = {};</script>
+<script src='js/dashboard.js'></script>
+<script src='jslib/utils.js'></script>
+<script src='jslib/debug.js'></script>
+<script src='jslib/event.js'></script>
+<script src='jslib/dragger.js'></script>
+<script src='jslib/when.js'></script>
+<script src='jslib/card.js'></script>
+<style>
+body {
+	margin:0;
+}
+#dashboard {
+	height:50px;
+	width:100%;
+}
+</style>
+<link rel='stylesheet' href='css/typography.css'/>
+<link rel='stylesheet' href='css/dashboard.css'/>
+<script>
+var dashboard;	
+onload = function() {
+	voyc.debug = new voyc.Debug();
+	voyc.event = new voyc.Event();
+	voyc.dragger = new voyc.Dragger();
+	voyc.card = new voyc.Card();
+	dashboard = new voyc.Dashboard();
+}
+oncreateclicked = function() {
+	dashboard.create(document.getElementById('dashboard'));
+}
+onresize = function() {
+	dashboard.resize();
+}
+</script>
+</head>
+
+<body>
+	<div id='dashboard'>
+		<table id='bg'><tr>
+			<td class='end'><img src='images/bar_left_end.jpg'/></td>
+			<td class='vtext' ><img class='vimg' src='images/bar_left.jpg'/></td>
+			<td class='center'><img src='images/bar_center.jpg'/></td>
+			<td class='vtext'><img class='vimg' id='dboard_bar_right' src='images/bar_right.jpg'/></td>
+			<td class='end'><img src='images/bar_right_end.jpg'/></td>
+		</tr></table>
+		<table id='fg'><tr>
+			<td id='fg-left'>
+				<table id='left'><tr>
+					<td><img id='db-logo' src='images/voyclogo3.png'/></td>
+					<td><div id='db-copyright'>&copy; voyc.com</div></td>
+					<td class='aright tdbtn'><div id='db-menu' class='btn' title='Menu'></div></td>
+				</table>
+			</td>
+			<td id='fg-center'>
+				<div id='db-lcd'>00 000 0000 00:00</div>
+			</td>
+			<td id='fg-right'>
+				<table id='searcher'><tr>
+					<td>
+						<div id='db-searchbox'>
+							<input id='db-searchinput' value='Search...' />
+						</div>
+					</td>
+					<td class='tdbtn'>
+						<div id='db-searchcancel' title='Cancel search'></div>
+					</td>
+					<td class='tdbtn'>
+						<div id='db-searchoptbtn' class='btn' title='More search options'></div>
+					</td>
+					<td class='tdbtn'>
+						<div id='db-searchbtn' class='btn' title='Search all time and space'></div>
+					</td>
+				</tr></table>
+			</td>
+		</tr></table> 
+		<div id='db-loader'><img id='loader_image' src='images/ajaxloader.gif'/><span id='loader_text'>Loading...</span></div>
+	</div>
+<br/>
+<br/>
+<button onclick='oncreateclicked()'>Create</button>
+<div id='meta'></div>
+</body>
+</html>

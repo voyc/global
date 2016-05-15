@@ -1,0 +1,163 @@
+#tline {
+	background-color:#ffe;
+	font-family:arial;
+	font-size:12pt;
+	overflow:hidden;
+    user-select: none;
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+}
+#tline-ruler {
+	background-color:#ffc;
+}
+#playhead {
+	height:100%;
+	background-color:#f00;
+	position:absolute;
+	top:0px;
+	width:1px;
+	z-index:500;
+}
+.verticalrule {
+	background-color:#088;
+	width:1px;
+	position:absolute;
+	height:inherit;
+	top:0px;
+}
+.rulertime {
+	color:#00f;
+	font-size:80%;
+	white-space:nowrap;
+	height:17px;
+	top:0px;
+	position:absolute;
+	background-color:transparent;
+	cursor:default;
+}
+/******************************/
+.timebar {
+	background-color:transparent;
+	height:inherit;
+	position:absolute;
+	overflow:hidden;
+	white-space:nowrap;
+	top:0px;
+	cursor:pointer;
+}
+.timebar.bar {
+	opacity:0.75;
+	padding-left:3px;
+}
+.timebar.bkd {
+	border-radius: 3px 0px 0px 3px;
+}
+.timebar.fgd {
+	border: 1px solid black;
+	box-shadow:3px 3px 3px 0px rgba(0,0,0,0.50);
+}
+.timebar.hovered {
+	background-color:white;
+}
+div.timebar img {
+	vertical-align:middle;
+	margin-right:-2px;
+}
+div.timebarhovered img {
+	margin-right:0px;
+}
+/******************************/
+
+#tline-widget-container {
+	position: absolute;
+	top:15px;
+	left:15px;
+}
+div.tline-control {
+	position: absolute;
+	width:13px;
+	height:13px;
+	border:thin solid black;
+	background-repeat:no-repeat;
+	background-origin:content-box;
+	padding:3px;
+	cursor:pointer;
+	background-color:white;
+	background-position:0px 0px;
+}
+div#panback {
+	top:0px;
+	left:0px;
+	background-image:url(../images/tline-panback.gif);
+}
+div#panforward {
+	top:0px;
+	left:46px;
+	background-image:url(../images/tline-panforward.gif);
+}
+div#zoomin {
+	top:23px;
+	left:23px;
+	background-image:url(../images/tline-zoomin.gif);
+}
+div#zoomout {
+	top:46px;
+	left:23px;
+	background-image:url(../images/tline-zoomout.gif);
+}
+div#playpause {
+	top:0px;
+	left:23px;
+	background-image:url(../images/tline-playpause.gif);
+}
+div.playing {
+	background-position-x:-13px;
+}
+
+#tline-zoombar {
+	background-color:#ccc;
+}
+#tline-zoombar-thumb {
+	background-color:#aaa;
+	cursor:default;
+}
+#tline-zoombar-thumb.over {
+	background-color:#444;
+	cursor:pointer;
+}
+#tline-zoombar-thumb.dragging {
+	background-color:#448;
+	cursor:ew-resize;
+}
+#tline-zoombar-left {
+	background-color:#888;
+	border-radius: 3px 0px 0px 3px;
+	cursor:default;
+}
+#tline-zoombar-left.over {
+	background-color:#444;
+	cursor:pointer;
+}
+#tline-zoombar-left.dragging {
+	background-color:#448;
+	cursor:ew-resize;
+}
+#tline-zoombar-right {
+	background-color:#888;
+	border-radius: 0px 3px 3px 0px;
+	cursor:default;
+}
+#tline-zoombar-right.over {
+	background-color:#444;
+	cursor:pointer;
+}
+#tline-zoombar-right.dragging {
+	background-color:#448;
+	cursor:ew-resize;
+}
+
+table#tline-internals td {
+	vertical-align:top;
+}

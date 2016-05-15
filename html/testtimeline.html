@@ -1,0 +1,98 @@
+<!-- (c) Copyright 2014 Voyc.com -->
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>TimelineTest</title>
+<script>var voyc = {};</script>
+<script src='js/testdata.js'></script>
+<script src='js/testdataeons.js'></script>
+<script src='js/timeline.js'></script>
+<script src='js/timelevel.js'></script>
+<script src='js/timebar.js'></script>
+<script src='jslib/utils.js'></script>
+<script src='jslib/when.js'></script>
+<script src='jslib/event.js'></script>
+<script src='jslib/debug.js'></script>
+<script src='jslib/dragger.js'></script>
+<script src='jslib/animator.js'></script>
+<script src='jslib/color.js'></script>
+<link rel="stylesheet" href="css/timeline.css" type="text/css" />
+<style>
+	#timeline {
+		height:200px;
+		border:thin solid black;
+	}
+	#internals, #list, #mouser {
+		margin:.3em;
+		border:thin solid black;
+		overflow:hidden;
+	}
+	#internals {
+		float:left;
+		width:calc(66% - .6em);
+	}
+	#mouser {
+		float:left;
+		width:calc(33% - .6em);
+	}
+	#list {
+		clear:both;
+	}
+	.stream {
+			background-color:pink;
+	}
+	td {
+		vertical-align:top;
+	}
+	#zoomslider {
+		width:300px;
+	}
+</style>
+<script>
+	onZoomSlid = function() {
+		var level = parseInt(voyc.$('zoomslider').value) - 30;
+		console.log( 'level:'+level);
+		if (voyc.timeline) {
+			voyc.timeline.setLevel(level);
+		}	
+	}
+	onload = function() {
+		voyc.debug = new voyc.Debug();
+		voyc.event = new voyc.Event();
+		voyc.color = new voyc.Color();
+		voyc.animator = new voyc.Animator();
+		voyc.dragger = new voyc.Dragger();
+		voyc.dragger.setInternals(document.getElementById('mouser'));
+
+		//voyc.Timeline.imgBase = 'html/images/jdots/';
+
+		voyc.timeline = new voyc.Timeline(voyc.$('timeline'));
+
+		voyc.timeline.create({timecenter:2013.9050257348023985693698, timelevel:0});
+		voyc.timeline.setInternals(document.getElementById('internals'));
+	}
+	onresize = function() {
+		var x = 0;
+	}
+</script>
+</head>
+<body>
+<div id='header'>
+	<input id='zoomslider' type='range' min='0' max='60' onchange='onZoomSlid()' />
+	<button onclick="voyc.timeline.onDataReady('data_ready','dispatch',obj)">SendData</button>
+	<button onclick="voyc.timeline.onDataReady('data_ready','dispatch',objeons)">SendDataEons</button>
+	<button onclick="voyc.timeline.setTime(voyc.When.fromJSDate(new Date('1776 jan 1')))">1776 Jan 1</button>
+	<button onclick="voyc.timeline.setTime(voyc.When.fromJSDate(new Date('1776 mar 1')))">1776 Mar 1</button>
+	<button onclick="voyc.timeline.setTime(voyc.When.fromJSDate(new Date('1775 jan 1')))">1775 Jan 1</button>
+	<button onclick="voyc.timeline.animateTo(voyc.When.fromJSDate(new Date('1775 mar 1')), 0)">1775 Mar 1</button>
+	<button onclick="voyc.timeline.animateTo(voyc.When.fromJSDate(new Date()), 0)">Now</button>
+	<button onclick="voyc.timeline.animateTo(-1600, 12)">1600</button>
+</div>
+<div id='timeline'></div>
+<div id='internals'></div>
+<div id='mouser'>mouser</div>
+<div id='list'></div>
+</body>
+</html>

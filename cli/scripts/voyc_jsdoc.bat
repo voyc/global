@@ -1,0 +1,2 @@
+cd "C:\Documents and Settings\John\My Documents\jwork\software_development\jsdoc\jsdoc-toolkit
+java -jar jsrun.jar app\run.js -a -p -v -t=templates\jsdoc -d="C:\Documents and Settings\John\My Documents\jwork\software_development\jsdoc\voyc" "C:\Documents and Settings\John\My Documents\jwork\software_development\voyc\jslib/" "C:\Documents and Settings\John\My Documents\jwork\software_development\voyc\js/" "C:\Documents and Settings\John\My Documents\jwork\software_development\voyc/"
