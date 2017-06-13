@@ -7,7 +7,6 @@ cd /home/jhagstrand/webapps/voyc/scripts
 
 chmod a+x *.sh 
 ls -al
-
 cd code_backups
 
 mv /home/jhagstrand/webapps/voyc/tbackup/* /home/jhagstrand/code_backups/
@@ -31,3 +30,11 @@ mv out.txt /home/jhagstrand/webapps/voyc
 mkdir /home/jhagstrand/webapps/voyc/_previous
 mv /home/jhagstrand/webapps/voyc/* /home/jhagstrand/webapps/voyc/_previous/
 
+
+
+ls -lrt code_backups | grep `date +%Y'-'%m'-'%d`
+ls -lrt db_backups | grep `date +%Y'-'%m'-'%d`
+
+find code_backups -maxdepth 1 -mtime -1
+find db_backups -maxdepth 1 -mtime -1
+find . -maxdepth 2 -mtime -1

@@ -1,0 +1,42 @@
+--2016-05-15 12:15:43--  https://globalvoices.org/feed/
+Resolving globalvoices.org... 213.108.110.5
+Connecting to globalvoices.org|213.108.110.5|:443... connected.
+WARNING: certificate common name `*.globalvoices.org' doesn't match requested host name `globalvoices.org'.
+HTTP request sent, awaiting response... 200 OK
+Length: 181390 (177K) [application/rss+xml]
+Saving to: `/home/jhagstrand/work/gv.html'
+
+     0K .......... .......... .......... .......... .......... 28%  566K 0s
+    50K .......... .......... .......... .......... .......... 56%  578K 0s
+   100K .......... .......... .......... .......... .......... 84% 11.6M 0s
+   150K .......... .......... .......                         100%  336K=0.3s
+
+2016-05-15 12:15:44 (682 KB/s) - `/home/jhagstrand/work/gv.html' saved [181390/181390]
+
+﻿begin readFeed: reuters, reuters, 1
+1 update skipped 0
+2 update skipped 10
+3 update skipped 0
+4 update skipped 0
+5 update skipped 0
+6 update skipped 0
+7 update skipped 10
+8 update skipped 0
+9 update skipped 10
+10 update skipped 10
+begin readFeed: globalvoices, globalvoices, 1
+1 update skipped 0
+2 update skipped 0
+3 update skipped 10
+4 update skipped 0
+5 update skipped 10
+6 update skipped 10
+7 update skipped 0
+8 update skipped 10
+9 update skipped 0
+10 update skipped 10
+11 update skipped 10
+12 update skipped 10
+13 update skipped 0
+14 update skipped 0
+15 update skipped 10
