@@ -167,13 +167,13 @@ function tagRecord($aRecord) {
 				$a['the_geom'] = 'POINT('.$aPlace['lng'].' '.$aPlace['lat'].')';
 			}
 		}
-		if (!isset($a['the_geom']) && isset($a['abstract'])) {
-			$aPlace = parseForPlace($a['headline'], $a['abstract']);
-			if ($aPlace && $aPlace['rc'] > 0) {
-				$a['the_geom'] = 'POINT('.$aPlace['lng'].' '.$aPlace['lat'].')';
-				$a['placename'] = $aPlace['name'];
-			}
-		}
+		//if (!isset($a['the_geom']) && isset($a['abstract'])) {
+		//	$aPlace = parseForPlace($a['headline'], $a['abstract']);
+		//	if ($aPlace && $aPlace['rc'] > 0) {
+		//		$a['the_geom'] = 'POINT('.$aPlace['lng'].' '.$aPlace['lat'].')';
+		//		$a['placename'] = $aPlace['name'];
+		//	}
+		//}
 	}
 	if (!isset($a['the_geom'])) {
 		$a['editstatus'] = EDITSTATUS_NOGEO;

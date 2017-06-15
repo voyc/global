@@ -1,3 +1,3 @@
-﻿/usr/local/bin/php /home/jhagstrand/webapps/voyc/cli/dailyReport.php
+/usr/local/bin/php /home/jhagstrand/webapps/voyc/voyc/cli/dailyReport.php
 find /home/jhagstrand -maxdepth 2 -mtime -1
 

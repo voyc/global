@@ -56,7 +56,7 @@ function search() {
 	$token = validateToken($taint_token);
 	
 	// build the sql
-	$columnList = "id, timebegin, timeend, forebear, translate(headline,chr(10),';') as headline, abstract, xmin(the_geom), xmax(the_geom), ymin(the_geom), ymax(the_geom), maptype, maplvlhi, maplvllo, timetype, timelvlhi, timelvllo, color, imageurl, thumburl, magnitude, datatype, bibid, AsText(the_geom)";
+	$columnList = "id, timebegin, timeend, forebear, translate(headline,chr(10),';') as headline, abstract, st_xmin(the_geom), st_xmax(the_geom), st_ymin(the_geom), st_ymax(the_geom), maptype, maplvlhi, maplvllo, timetype, timelvlhi, timelvllo, color, imageurl, thumburl, magnitude, datatype, bibid, st_astext(the_geom)";
 	$whereClause = '';
 	
 	// start with search keywords, if any
@@ -91,11 +91,11 @@ function search() {
 		$longitudeClause = "";
 		if ($w && $e) {
 			if ($w < $e) {
-				$longitudeClause = "xmin(the_geom) <= ".nextParam($e)." and xmax(the_geom) > ".nextParam($w);
+				$longitudeClause = "st_xmin(the_geom) <= ".nextParam($e)." and st_xmax(the_geom) > ".nextParam($w);
 			}
 			else {
-				$longitudeClause = "((xmin(the_geom) <= 180 and xmax(the_geom) > ".nextParam($w).")".
-			       				   " or (xmin(the_geom) <= ".nextParam($e)." and xmax(the_geom) > -180))";
+				$longitudeClause = "((st_xmin(the_geom) <= 180 and st_xmax(the_geom) > ".nextParam($w).")".
+			       				   " or (st_xmin(the_geom) <= ".nextParam($e)." and st_xmax(the_geom) > -180))";
 			}
 		}
 	
@@ -105,7 +105,7 @@ function search() {
 		}
 		if ($n && $s) {
 			if ($whereClause) { $whereClause .= " and "; };
-			$whereClause .= "ymin(the_geom) <= ".nextParam($n)." and ymax(the_geom) > ".nextParam($s);
+			$whereClause .= "st_ymin(the_geom) <= ".nextParam($n)." and st_ymax(the_geom) > ".nextParam($s);
 		}
 
 		// leveling criteria (make the timeline look good at each level)
@@ -186,10 +186,10 @@ function search() {
 		$b = $row['timebegin'];
 		$e = $row['timeend'];
 		$f = $row['forebear'];
-		$gn = $row['ymax'];
-		$gs = $row['ymin'];
-		$ge = $row['xmax'];
-		$gw = $row['xmin'];
+		$gn = $row['st_ymax'];
+		$gs = $row['st_ymin'];
+		$ge = $row['st_xmax'];
+		$gw = $row['st_xmin'];
 		$mlh = $row['maplvlhi'];
 		$mll = $row['maplvllo'];
 		$tlh = $row['timelvlhi'];
@@ -259,13 +259,13 @@ function search() {
 	
 		switch ($mt) {
 			case MAPTYPE_DOT:
-				echo "[".round($row['ymin'],6).",".round($row['xmin'],6)."],";  // sw
-				echo "[".round($row['ymax'],6).",".round($row['xmax'],6)."]";  // ne
+				echo "[".round($row['st_ymin'],6).",".round($row['st_xmin'],6)."],";  // sw
+				echo "[".round($row['st_ymax'],6).",".round($row['st_xmax'],6)."]";  // ne
 				break;			
 			case MAPTYPE_POLYGON:
 				$pattern = "/POLYGON\(\((.*?)\)\)/";
 				$items;
-				$matchcount = preg_match( $pattern, $row['astext'], $items);
+				$matchcount = preg_match( $pattern, $row['st_astext'], $items);
 	
 				// $matchcount will always be one
 				if ($matchcount) {
@@ -289,7 +289,7 @@ function search() {
 			case MAPTYPE_MULTIPOLYGON:
 				$pattern = "/MULTIPOLYGON\(\(\((.*?)\)\)\)/";
 				$items;
-				$matchcount = preg_match( $pattern, $row['astext'], $items);
+				$matchcount = preg_match( $pattern, $row['st_astext'], $items);
 	
 				// $matchcount will always be one
 				if ($matchcount) {

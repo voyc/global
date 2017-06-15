@@ -1,2 +1,2 @@
-wget -O /home/jhagstrand/work/gv.html http://globalvoicesonline.org/feed/
-/usr/local/bin/php /home/jhagstrand/webapps/voyc/cli/readFeedLoop.php 3
+wget --no-check-certificate -O /home/jhagstrand/work/gv.html https://globalvoices.org/feed/ 2>&1
+/usr/local/bin/php /home/jhagstrand/webapps/voyc/voyc/cli/readFeedLoop.php 3
