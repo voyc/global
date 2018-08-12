@@ -39,7 +39,10 @@ voyc.Map.prototype.create = function(bounds) {
 	this.startingBounds = bounds;
 	
 	// load the google maps api javscript file
-	voyc.appendScript('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=voyc.voyc.map.onGMapAPILoaded');
+	var gmapapikey = 'AIzaSyDEaOtyOoFPn8XFhJNWA2-UwiBMfjTuPiw';  // todo: hide this
+	var gmapapiurl = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=voyc.voyc.map.onGMapAPILoaded';
+	var url = gmapapiurl + '&key=' + gmapapikey;
+	voyc.appendScript(url);
 
 	// instantiate embedded helper objects
 	this.mapcard = new voyc.MapCard(this);
