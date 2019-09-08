@@ -60,6 +60,8 @@ voyc.Voyc.prototype = {
 			voyc.Xhr.svcBase = 'http://www.voyc.com/html/svc/';
 		}
 
+		voyc.appendScript("svc/startup");
+	
 		// map.create() will trigger these events
 		var self = this;
 		voyc.event.subscribe('gmap_api_ready', 'voyc', function(evt,pub,o) {
