@@ -19,8 +19,8 @@ define("JLOG_DEBUG", 1);
 define("JLOG_NOTICE", 2);
 define("JLOG_WARN", 3);
 
-$jlog_debug_logfile = '/home/jhagstrand/logs/user/voyc_php.log';
-$jlog_notice_logfile = '/home/jhagstrand/logs/user/voyc_notice.log';
+$jlog_debug_logfile = '/home/voyccom/logs/user/voyc_php.log';
+$jlog_notice_logfile = '/home/voyccom/logs/user/voyc_notice.log';
 $jlog_email = 'john@voyc.com';
 $jlog_sourcefile = 'testfile.php';
 
