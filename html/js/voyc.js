@@ -56,8 +56,8 @@ voyc.Voyc.prototype = {
 
 		// for local testing
 		if (window.location.protocol == 'file:') {
-			voyc.Dispatch.svcBase = 'http://www.voyc.com/html/svc/';
-			voyc.Xhr.svcBase = 'http://www.voyc.com/html/svc/';
+			voyc.Dispatch.svcBase = 'https://www.voyc.com/html/svc/';
+			voyc.Xhr.svcBase = 'https://www.voyc.com/html/svc/';
 		}
 
 		voyc.appendScript("svc/startup");

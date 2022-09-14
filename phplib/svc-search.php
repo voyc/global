@@ -269,18 +269,18 @@ function search() {
 	
 				// $matchcount will always be one
 				if ($matchcount) {
-					$polygons = split("\)\),\(\(", $items[1]);
+					$polygons = explode("\)\),\(\(", $items[1]);
 					$polygonCount = count($polygons);
 					for ($p=0; $p<$polygonCount; $p++) {
 				
 						// draw the coordinates
-						$coords = split(",", $polygons[$p]);
+						$coords = explode(",", $polygons[$p]);
 						$coordCount = count($coords);
 						for ($j=0; $j<$coordCount; $j++) {
 							if ($j > 0) {
 								echo ",";
 							}
-							$co = split(" ",$coords[$j]);
+							$co = explode(" ",$coords[$j]);
 							echo "[".round($co[1],6).",".round($co[0],6)."]";
 						}
 					}
@@ -293,7 +293,7 @@ function search() {
 	
 				// $matchcount will always be one
 				if ($matchcount) {
-					$polygons = split("\)\),\(\(", $items[1]);
+					$polygons = explode("\)\),\(\(", $items[1]);
 					$polygonCount = count($polygons);
 					for ($p=0; $p<$polygonCount; $p++) {
 				
@@ -303,13 +303,13 @@ function search() {
 						echo "[";
 
 						// draw the coordinates
-						$coords = split(",", $polygons[$p]);
+						$coords = explode(",", $polygons[$p]);
 						$coordCount = count($coords);
 						for ($j=0; $j<$coordCount; $j++) {
 							if ($j > 0) {
 								echo ",";
 							}
-							$co = split(" ",$coords[$j]);
+							$co = explode(" ",$coords[$j]);
 							echo "[".round($co[1],6).",".round($co[0],6)."]";
 						}
 						echo "]";

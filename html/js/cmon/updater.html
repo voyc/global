@@ -12,7 +12,7 @@
 			g.debug = new Debug();
 
 			var sample ="<?xml version=\"1.0\"?>\n"+
-						"<entry xmlns=\"http://www.voyc.com/api/\">\n"+
+						"<entry xmlns=\"https://www.voyc.com/api/\">\n"+
 						"	<storyUrl>http://www.democracynow.org/2008/2/11/report_us_funding_opposition_groups_in</storyUrl>\n"+
 						"	<headline>US funding Evo Morales opponents</headline>\n"+
 						"	<story>Benjamin Dangl:  The Bush administration uses USAID to funnel money to opponents of Bolivian president Evo Morales.</story>	\n"+
@@ -28,7 +28,7 @@
 			var xmlGet ="<?xml version=\"1.0\"?><request>@id@</request></xml>";
 
 			// one-time initialize static xhr base url		
-			Xhr.base = "http://www.dev.mapteam.com/~jhagstrand/voyc/svc/";
+			Xhr.base = "https://www.voyc.com/svc/";
 	
 			g.updater = new Updater();
 

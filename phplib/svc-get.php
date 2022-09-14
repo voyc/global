@@ -40,18 +40,25 @@ function get() {
 	$maxcolor = 6;
 	
 	// the query
-	$columnList = "s.id, s.timebegin, s.timeend, s.forebear, translate(s.headline,chr(10),';') as headline, s.abstract, xmin(s.the_geom), xmax(s.the_geom), ymin(s.the_geom), ymax(s.the_geom), s.maptype, s.maplvlhi, s.maplvllo, s.timetype, s.timelvlhi, s.timelvllo, s.color, s.imageurl, s.thumburl, s.magnitude, s.datatype";
-	$columnList .= ", s.abstract, s.storyurl, s.tags, s.timeprecision, s.datatype, s.bibid, s.placename, s.author, s.imageurl, s.version, tv.vote";
+	$columnList = "s.id, s.timebegin, s.timeend, s.forebear, translate(s.headline,chr(10),';') as headline, s.abstract, st_xmin(s.the_geom), st_xmax(s.the_geom), st_ymin(s.the_geom), st_ymax(s.the_geom), s.maptype, s.maplvlhi, s.maplvllo, s.timetype, s.timelvlhi, s.timelvllo, s.color, s.imageurl, s.thumburl, s.magnitude, s.datatype";
+
+	#$columnList .= ", s.abstract, s.storyurl, s.tags, s.timeprecision, s.datatype, s.bibid, s.placename, s.author, s.imageurl, s.version, tv.vote";
+	$columnList .= ", s.abstract, s.storyurl, s.tags, s.timeprecision, s.datatype, s.bibid, s.placename, s.author, s.imageurl, s.version";
 	
 	// a three-file join to get the vote column
+	#$sql = ' select '.$columnList.
+	#	' from fpd.fpd s'.
+	#	' left join'.
+	#	' (select *'.
+	#	' from voyc.token t, voyc.vote v'.
+	#	" where t.token = ".nextParam($token).
+	#	' and v.userid = t.userid) as tv'.
+	#	' on tv.storyid = s.id'.
+	#	" where s.id = ".nextParam($id);
+
+	// skip vote for now
 	$sql = ' select '.$columnList.
 		' from fpd.fpd s'.
-		' left join'.
-		' (select *'.
-		' from voyc.token t, voyc.vote v'.
-		" where t.token = ".nextParam($token).
-		' and v.userid = t.userid) as tv'.
-		' on tv.storyid = s.id'.
 		" where s.id = ".nextParam($id);
 
 	// for debugging only
@@ -88,7 +95,7 @@ function get() {
 	$abstract = str_replace("\r", '', $abstract);
 	$abstract = strip_tags($abstract);
 	
-	$vote = (pg_field_is_null($result, 0, 'vote')) ? 0 : $row['vote'];
+	$vote = 0; #(pg_field_is_null($result, 0, 'vote')) ? 0 : $row['vote'];
 	
 	// begin the output
 	echo $callback.'({record:{';
@@ -100,10 +107,10 @@ function get() {
 	echo 'h:"'.addslashes($row['headline']).'",';
 	echo 'c:'.$row['color'].',';
 	echo 'f:'.$row['forebear'].',';
-	echo 'gn:'.$row['ymax'].',';
-	echo 'gs:'.$row['ymin'].',';
-	echo 'ge:'.$row['xmax'].',';
-	echo 'gw:'.$row['xmin'].',';
+	echo 'gn:'.$row['st_ymax'].',';
+	echo 'gs:'.$row['st_ymin'].',';
+	echo 'ge:'.$row['st_xmax'].',';
+	echo 'gw:'.$row['st_xmin'].',';
 	echo 'mlh:'.$row['maplvlhi'].',';
 	echo 'mll:'.$row['maplvllo'].',';
 	echo 'tlh:'.$row['timelvlhi'].',';
@@ -114,8 +121,8 @@ function get() {
 	echo 'mag:'.$row['magnitude'].',';
 	
 	echo 'p:[';
-	echo "[".round($row['ymin'],6).",".round($row['xmin'],6)."],";  // sw
-	echo "[".round($row['ymax'],6).",".round($row['xmax'],6)."]";  // ne
+	echo "[".round($row['st_ymin'],6).",".round($row['st_xmin'],6)."],";  // sw
+	echo "[".round($row['st_ymax'],6).",".round($row['st_xmax'],6)."]";  // ne
 	echo '],';
 	
 	echo 'v:'.$row['version'].',';

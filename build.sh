@@ -11,9 +11,9 @@ cat html/jslib/animator.js html/jslib/card.js html/jslib/color.js html/jslib/coo
 cat html/css/card.css html/css/dashboard.css html/css/detail.css html/css/layout.css html/css/mapcard.css html/css/timeline.css html/css/typography.css html/css/voyc.css >html/vc.css
 
 # compress the concatenated js and css files
-java -jar /home/jhagstrand/bin/yuicompressor/yuicompressor-2.4.2.jar html/vc.js -o html/vc.js --charset utf-8
-java -jar /home/jhagstrand/bin/yuicompressor/yuicompressor-2.4.2.jar html/vlc.js -o html/vlc.js --charset utf-8
-java -jar /home/jhagstrand/bin/yuicompressor/yuicompressor-2.4.2.jar html/vc.css -o html/vc.css --charset utf-8
+#java -jar /home/jhagstrand/bin/yuicompressor/yuicompressor-2.4.2.jar html/vc.js -o html/vc.js --charset utf-8
+#java -jar /home/jhagstrand/bin/yuicompressor/yuicompressor-2.4.2.jar html/vlc.js -o html/vlc.js --charset utf-8
+#java -jar /home/jhagstrand/bin/yuicompressor/yuicompressor-2.4.2.jar html/vc.css -o html/vc.css --charset utf-8
 
 # prepare index.php for production use
 cp html/index.html html/index.php
