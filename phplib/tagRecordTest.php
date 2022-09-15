@@ -12,7 +12,7 @@ require_once(dirname(__FILE__).'/tagRecord.php');
 openjlog(basename(__FILE__));
 
 $test1 = array();
-$test1['email'] = 'john@hagstrand.com';
+$test1['email'] = 'john@voyc.com';
 $test1['imageurl'] = 'http://i823.photobucket.com/albums/zz157/jhagstrand/Copyof2010-01-16171100.jpg?t=1263769206';
 $test1['headline'] = 'Cabin';
 $test1['abstract'] = "This is a picture of new year's eve at the cabin at Kanopolis";
