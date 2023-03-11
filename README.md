@@ -1,4 +1,4 @@
-#voyc
+#global
 Time and space navigator.
 
-http://voyc.com
+https://global.voyc.com
